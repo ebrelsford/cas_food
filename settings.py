@@ -133,6 +133,7 @@ INSTALLED_APPS = (
 
     'cas_food.accounts',
     'cas_food.content',
+    'cas_food.food',
     'cas_food.schools',
 )
 

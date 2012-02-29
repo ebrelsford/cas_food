@@ -60,3 +60,24 @@ h3 {
 .content .meta .added-on {
     font-weight: bold;
 }
+
+.section {
+    margin-top: 25px;
+}
+
+.nutrition table {
+    background-color: white;
+    border: 2px solid black;
+    width: 200px;
+}
+.nutrition table th,
+.nutrition table td {
+    padding: 5px;
+    text-align: left;
+}
+.nutrition table tr {
+    border-top: 1px solid black;
+}
+.nutrition table th {
+    font-weight: bold;
+}

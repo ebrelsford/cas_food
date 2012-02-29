@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     url(r'^schools/(?P<id>\d+)/pictures/add/$', 'content.views.add_picture'),
     url(r'^schools/(?P<id>\d+)/videos/add/$', 'content.views.add_video'),
 
+    url(r'^menu/$', 'food.views.menu'),
+    url(r'^menu/dish/(?P<id>\d+)/$', 'food.views.details'),
+
     url(r'^admin/', include(admin.site.urls)),
 
     # auth

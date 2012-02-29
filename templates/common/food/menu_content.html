@@ -1,0 +1,6 @@
+<h1>Menu</h1>
+<ul class="dishes">
+    {% for dish in dishes %}
+    <li class="dish"><a href="{% url food.views.details id=dish.id %}">{{ dish.name }}</a></li>
+    {% endfor %}
+</ul>
