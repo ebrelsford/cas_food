@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, Helvetica;
+    background-color: #AABEF1;
+}
+
+.wrapper {
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.logo {
+    float: left;
+    font-size: 40px;
+}
+.account {
+    float: right;
+}
+
+.nav {
+    margin: 10px 0;
+    padding: 5px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.nav li {
+    float: left;
+    margin: 0 10px;
+}
+.nav li.first {
+    margin-left: 0;
+}
+
+.middle {
+    min-height: 600px;
+}
+
+.left {
+    float: left;
+    width: 70%;
+    padding-right: 1%;
+}
+.right {
+    float: left;
+    width: 29%;
+}
+
+.bottom {
+    border-top: 1px solid black;
+    padding-top: 5px;
+}

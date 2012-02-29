@@ -1,0 +1,34 @@
+{% extends "screen/base.html" %}
+
+{% block head_includes %}
+{{ block.super }}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.ie.css" /><![endif]-->
+
+<!-- Leaflet JavaScript -->
+<script src="{{ MEDIA_URL }}lib/leaflet/leaflet.js"></script>
+<script src="{{ MEDIA_URL }}js/common/map.js"></script>
+{% endblock %}
+
+{% block head_scripts %}
+{{ block.super }}
+<script>
+    $(document).ready(function() {
+        $('#map').schoolmap({
+            id: {{ school.id }},
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="left">
+    {% block left %}{% endblock %}
+</div>
+<div class="right">
+    {% block right %}
+    <div id="map" style="height: 200px;"></div>
+    {% endblock %}
+</div>
+{% endblock %}

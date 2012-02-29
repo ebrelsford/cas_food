@@ -1,0 +1,17 @@
+{% block head_includes %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.css" />
+<!--[if lte IE 8]><link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.ie.css" /><![endif]-->
+
+<!-- Leaflet JavaScript -->
+<script src="{{ MEDIA_URL }}lib/leaflet/leaflet.js"></script>
+<script src="{{ MEDIA_URL }}js/common/map.js"></script>
+{% endblock %}
+
+{% block head_scripts %}
+<script>
+    $(document).ready(function() {
+        $('#map').schoolmap();
+    });
+</script>
+{% endblock %}

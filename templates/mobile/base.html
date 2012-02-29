@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- jQuery [Mobile] -->
+        {% if debug %}
+        <script src="{{ MEDIA_URL }}lib/jquery-1.7.1.min.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/jquery.mobile-1.0.1.min.css" />
+        <script src="{{ MEDIA_URL }}lib/jquery.mobile/jquery.mobile-1.0.1.min.js"></script>
+        {% else %}
+        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        {% endif %}
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/themes/default.min.css" />
+
+        <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
+
+        <!-- Leaflet -->
+        <script src="{{ MEDIA_URL }}lib/leaflet/leaflet.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.css" />
+
+        <!--<script src="{{ MEDIA_URL }}js/common/map.js"></script>-->
+        <script src="{{ MEDIA_URL }}js/common/map.js"></script>
+        <script src="{{ MEDIA_URL }}js/mobile/init.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/common.css" />
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/mobile.css" />
+
+        <meta name="viewport" content="width=device-width, height=device-height, maximum-scale=1, initial-scale=1, user-scalable=no"> 
+
+        {% block head_includes %}{% endblock %}
+        {% block head_scripts %}{% endblock %}
+        <title>{% block title %}default title{% endblock %}</title>
+    </head>
+    <body>
+        <div id="{% block page_id %}{% endblock %}" data-role="page" data-add-back-btn="true">
+            {% block header %}
+            <div data-role="header">
+                <h1>{% block header_title %}default title{% endblock %}</h1>
+            </div>
+            {% endblock %}
+
+            <div data-role="content">
+            {% block content %}
+            {% endblock %}
+            </div>
+
+            {% block footer %}
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="{% url schools.views.map %}" data-icon="casfood-map">Map</a></li>
+                        <li><a href="#" data-icon="info">Menus</a></li>
+                        <!--
+                        <li><a href="#">Distribution</a></li>
+                        <li><a href="#">Nutrition</a></li>
+                        -->
+                        <li><a href="#" data-icon="casfood-organize">Organize</a></li>
+                        <li><a href="#" data-icon="plus">More</a></li>
+                    </ul>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>
+

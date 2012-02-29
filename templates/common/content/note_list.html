@@ -1,0 +1,23 @@
+<div class="content notes">
+    <h2>Notes
+        {% if perms.content.add_note %}
+        <a href="{% url content.views.add_note id=school.id %}">
+            <img src="{{ MEDIA_URL }}images/round_plus.png" />
+        </a>
+        {% endif %}
+    </h2>
+    <ul>
+        {% for note in notes %}
+        <li class="note {% cycle odd,even %}">
+            <h3 class="title">{{ note.title }}</h3>
+            <div class="text">{{ note.text }}</div>
+            <div class="meta">
+                Posted by <span class="added-by">{{ note.added_by }}</span> on <span class="added-on">{{ note.added|date:"N j, Y \a\t P" }}</span>.
+            </div>
+        </li>
+        {% empty %}
+        <li>none, yet</li>
+        {% endfor %}
+    </ul>
+    <div class="clear"></div>
+</div>

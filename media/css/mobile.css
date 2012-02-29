@@ -1,0 +1,17 @@
+.video .embed iframe {
+    max-width: 250px;
+}
+
+#map-page .ui-content {
+    padding: 0;
+}
+
+.ui-icon-casfood-map {
+    background-image: url(../images/mobile/glyphish-71-compass.png);
+    background-size: 18px 18px;
+}
+
+.ui-icon-casfood-organize {
+    background-image: url(../images/mobile/glyphish-112-group.png);
+    background-size: 20px 16px;
+}

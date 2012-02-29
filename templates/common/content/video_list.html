@@ -1,0 +1,25 @@
+<div class="content videos">
+    <h2>Videos
+        {% if perms.content.add_video %}
+        <a href="{% url content.views.add_video id=school.id %}">
+            <img src="{{ MEDIA_URL }}images/round_plus.png" />
+        </a>
+        {% endif %}
+    </h2>
+    <ul>
+        {% for video in videos %}
+        <li class="video {% cycle odd,even %}">
+            <h3 class="title">{{ video.title }}</h3>
+            <div class="embed">{{ video.url|safe }}</div>
+            <div class="text">{{ video.description }}</div>
+            <div class="meta">
+                Posted by <span class="added-by">{{ video.added_by }}</span> on <span class="added-on">{{ video.added|date:"N j, Y \a\t P" }}</span>.
+            </div>
+        </li>
+        {% empty %}
+        <li>none, yet</li>
+        {% endfor %}
+    </ul>
+    <div class="clear"></div>
+</div>
+

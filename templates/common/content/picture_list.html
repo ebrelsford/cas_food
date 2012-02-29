@@ -1,0 +1,26 @@
+{% load thumbnail %}
+<div class="content pictures">
+    <h2>Pictures
+        {% if perms.content.add_picture %}
+        <a href="{% url content.views.add_picture id=school.id %}">
+            <img src="{{ MEDIA_URL }}images/round_plus.png" />
+        </a>
+        {% endif %}
+    </h2>
+    <ul>
+        {% for picture in pictures %}
+        <li class="picture">
+            {% thumbnail picture.picture "600x600" as full %}
+            <a title="{{ picture.title }}" href="{{ full.url }}" rel="external">
+                {% thumbnail picture.picture "200x200" as thumb %}
+                <img src="{{ thumb.url }}" />
+                {% endthumbnail %}
+            </a>           
+            {% endthumbnail %}
+        </li>
+        {% empty %}
+        <li>none, yet</li>
+        {% endfor %}
+    </ul>
+    <div class="clear"></div>
+</div>
