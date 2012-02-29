@@ -13,7 +13,6 @@ class School(models.Model):
     grades = models.CharField(max_length=128, null=True, blank=True)
 
     admin_district = models.DecimalField(max_digits=8, decimal_places=3, null=True, blank=True)
-    ats_code = models.CharField(max_length=32, null=True, blank=True)
     geo_district = models.IntegerField(null=True, blank=True)
 
     has_content = models.BooleanField(default=False)

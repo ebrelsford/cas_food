@@ -10,7 +10,6 @@ from models import School
 
 
 school_mapping = {
-    'ats_code': 'ATS_CODE',
     'borough': 'BORO',
     'name': 'SCHOOLNAME',
     'type': 'SCH_TYPE',
