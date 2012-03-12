@@ -1,0 +1,10 @@
+{% extends "mobile/base.html" %}
+{% load menu_calendar %}
+
+{% block title %}Menu for {{ month|date:"N Y" }}{% endblock %}
+{% block header_title %}{{ month|date:"N Y" }}{% endblock %}
+{% block page_id %}menu-page{% endblock %}
+
+{% block content %}
+{% include "common/food/meal_archive_month_content.html" %}
+{% endblock %}

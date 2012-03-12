@@ -56,3 +56,11 @@ body {
     margin-top: 25px;
     padding-top: 5px;
 }
+
+table.month td {
+    width: 75px;
+    height: 100px;
+}
+table.month .day-number {
+    text-align: right;
+}

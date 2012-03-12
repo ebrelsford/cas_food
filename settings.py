@@ -146,6 +146,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+
+    'context_processors.mobile',
 )
 
 # A sample logging configuration. The only tangible logging

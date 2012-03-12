@@ -15,3 +15,8 @@
     background-image: url(../images/mobile/glyphish-112-group.png);
     background-size: 20px 16px;
 }
+
+table.month .day-number {
+    font-size: 36px;
+    text-align: center;
+}

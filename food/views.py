@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.views.generic.date_based import archive_day, archive_month
 
-from cas_food.shortcuts import render_to_response
+from cas_food.shortcuts import get_template, render_to_response
 from models import Dish, Meal
 
 def menu_month(request, school_type=None, year=None, month=None):
@@ -35,7 +35,8 @@ def menu_month(request, school_type=None, year=None, month=None):
         month=month,
         month_format='%m',
         queryset=Meal.objects.filter(school_type=school_type),
-        year=year
+        template_name=get_template('food/meal_archive_month.html', request),
+        year=year,
     )
     return archive_month(request, **kwargs)
 
@@ -48,6 +49,7 @@ def menu_day(request, school_type=None, year=None, month=None, day=None):
         month=month,
         month_format='%m',
         queryset=Meal.objects.filter(school_type=school_type),
+        template_name=get_template('food/meal_archive_day.html', request),
         year=year
     )
     return archive_day(request, **kwargs)

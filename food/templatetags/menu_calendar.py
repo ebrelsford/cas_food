@@ -19,6 +19,7 @@ def do_menu_calendar(parser, token):
         show_details = (tokens[4] == 'True')
     except:
         show_details = True
+    print 'show_details', show_details
     return MenuCalendarNode(year, month, meal_list, show_details=show_details)
 
 
@@ -79,7 +80,9 @@ class MenuCalendar(calendar.HTMLCalendar):
             body = []
             if self.show_details:
                 body = self.day_details_body(self.meals[day])
-            return self.day_cell(cssclass, '<span class="day-number">%d</span> %s' % (day, ''.join(body)))
+                return self.day_cell(cssclass, '<span class="day-number">%d</span> %s' % (day, ''.join(body)))
+            else:
+                return self.day_cell(cssclass, '<span class="day-number"><a href="%s">%d</a></span>' % (self.meals[day][0].get_absolute_url(), day))
         else:
             return self.day_cell(cssclass, '<span class="day-number no-meals">%d</span>' % (day))
 
