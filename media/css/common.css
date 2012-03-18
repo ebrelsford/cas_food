@@ -115,3 +115,9 @@ table.month .day-number {
     top: 10px !important;
     left: 10px !important;
 }
+.olControlAttribution {
+    bottom: 2px !important;
+    left: 2px !important;
+    padding: 3px;
+    background: lightGray;
+}

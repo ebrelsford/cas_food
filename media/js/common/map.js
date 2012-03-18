@@ -8,6 +8,8 @@ var SchoolMap = {
         cloudmadeStyle: '16915',
         schoolsUrl: '/schools/geojson',
 
+        detailView: false,
+        hover: true,
         mobile: false,
         popups: true,
         select: true,
@@ -82,13 +84,16 @@ var SchoolMap = {
 
         // create map
         var t = this;
+        var controls = [ 
+            new OpenLayers.Control.Navigation(),
+            new OpenLayers.Control.Attribution(),
+            new OpenLayers.Control.LoadingPanel(),
+        ];
+        if (!t.options.detailView) {
+            controls.push(new OpenLayers.Control.ZoomPanel());
+        }
         this.olMap = new OpenLayers.Map(this.$elem.attr('id'), {
-            controls: [        
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.Attribution(),
-                new OpenLayers.Control.LoadingPanel(),
-                new OpenLayers.Control.ZoomPanel(), 
-            ],
+            controls: controls,
             restrictedExtent: this.createBBox(-74.319, 40.948, -73.584, 40.476), 
             zoomToMaxExtent: function() {   
                 this.setCenter(t.options.center, t.options.initialZoom);
@@ -156,7 +161,9 @@ var SchoolMap = {
 
     addControls: function(layers) {
         var t = this;
-        this.hoverControl = this.getControlHoverFeature(layers);
+        if (t.options.hover) {
+            this.hoverControl = this.getControlHoverFeature(layers);
+        }
         if (t.options.select) {
             this.selectControl = this.getControlSelectFeature(layers);
         }
@@ -316,7 +323,15 @@ var SchoolMap = {
         }));
 
         style.addRules(rules);
-    }
+    },
+
+    centerOnFeature: function(layer, fid) {
+        var feature = layer.getFeatureByFid(fid);
+        if (!feature) return;
+
+        var l = new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y);
+        this.olMap.setCenter(l, 15);
+    },
 
 
 };

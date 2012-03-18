@@ -4,6 +4,7 @@
 {{ block.super }}
 <script src="{{ MEDIA_URL }}lib/OpenLayers/OpenLayers.js"></script>
 <script src="{{ MEDIA_URL }}lib/cloudmade.js"></script>
+<script src="{{ MEDIA_URL }}js/common/map.js"></script>
 <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
 {% endblock %}
 
@@ -13,6 +14,11 @@
     $(document).ready(function() {
         $('#map').schoolmap({
             id: {{ school.id }},
+            detailFid: {{ school.id }},
+            detailView: true,
+            popups: false,
+            hover: false,
+            select: false,
         });
     });
 </script>
