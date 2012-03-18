@@ -70,6 +70,6 @@ def _filter_schools(request):
 
     if 'boroughs' in request.GET:
         boroughs = request.GET['boroughs'].split(',')
-        schools = schools.filter(city__in=boroughs)
+        schools = schools.filter(borough__in=boroughs)
 
     return schools
