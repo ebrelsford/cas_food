@@ -104,3 +104,14 @@ table.month .day-number {
 .calendar-head .previous {
     float: left;
 }
+
+.olPopupContent h2 {
+    font-size: 18px;
+}
+.olPopupContent .participation {
+    font-size: 10px;
+}
+.olControlZoomPanel {
+    top: 10px !important;
+    left: 10px !important;
+}

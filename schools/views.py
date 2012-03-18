@@ -52,8 +52,10 @@ def _school_feature(school):
         school.id,
         geometry=geojson.Point(coordinates=(school.point.x, school.point.y)),
         properties={
-            'name': school.name.title(),
-            'address': school.address.title(),
+            'name': school.name,
+            'address': school.address,
+            'participates_in_wellness_in_the_schools': school.participates_in_wellness_in_the_schools,
+            'participates_in_garden_to_cafe': school.participates_in_garden_to_cafe,
         },
     )
 

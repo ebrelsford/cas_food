@@ -1,64 +1,145 @@
 var SchoolMap = {
+
+    // projections
+    epsg4326: new OpenLayers.Projection("EPSG:4326"),
+    epsg900913: new OpenLayers.Projection("EPSG:900913"),
+        
     options: {
         cloudmadeStyle: '16915',
         schoolsUrl: '/schools/geojson',
+
+        mobile: false,
+        popups: true,
+        select: true,
+
+        addContentToPopup: function(popup, feature) { ; },
+        onLoad: function() {},
+        onFeatureSelect: function(feature) {},
+        onFeatureUnselect: function(feature) {},
+        onFeatureHighlight: function(feature) {},
+        onFeatureUnhighlight: function(feature) {},
 
         id: null,
         boroughs: null,
         types: null,
 
-        defaultCenter: new L.LatLng(40.712, -73.9515),
         defaultZoom: 10,
         idZoom: 14,
+        center: new OpenLayers.LonLat(-8234025.992578148, 4971255.355311619),
+        initialZoom: 11,
     },
 
-    schoolStyle: {
-        radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8,
+    defaultStyle: new OpenLayers.StyleMap({
+        'default': new OpenLayers.Style({
+            pointRadius: 4,
+            fillColor: "#ff7800",
+            fillOpacity: 0.8,
+            strokeWidth: 0,
+        }),
+        'select': {
+            pointRadius: 15,
+        },
+        'temporary': {
+            pointRadius: 15,
+        },
+    }),
+
+    mobileStyle: new OpenLayers.StyleMap({
+        'default': new OpenLayers.Style({
+             pointRadius: 10,
+             fillColor: '#ff7800',
+             fillOpacity: 0.8,
+             strokeWidth: 0,
+        }),
+        'select': {
+            pointRadius: 20,
+        },
+        'temporary': {
+            pointRadius: 20,
+        },
+    }),
+
+    gardenToCafeStyle: {
+        fillColor: '#0F0',
     },
+
+    wellnessInTheSchoolsStyle: {
+        fillColor: '#F00',
+    },
+
 
     init: function(options, elem) {
+              console.log(this.getTransformedLonLat(-73.967514, 40.72086));
         this.options = $.extend({}, this.options, options);
         this.elem = elem;
         this.$elem = $(elem);
 
+        this.style = this.defaultStyle;
+        if (this.options.mobile) {
+            this.style = this.mobileStyle;
+        }
+        this.addRulesToStyle(this.style.styles['default']);
+
         // create map
-        this.map = new L.Map('map');
-        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/781b27aa166a49e1a398cd9b38a81cdf/' + this.options.cloudmadeStyle + '/256/{z}/{x}/{y}.png',
-            cloudmadeAttrib = 'Map data &copy; 2012 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
-            cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
+        var t = this;
+        this.olMap = new OpenLayers.Map(this.$elem.attr('id'), {
+            controls: [        
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.Attribution(),
+                new OpenLayers.Control.LoadingPanel(),
+                new OpenLayers.Control.ZoomPanel(), 
+            ],
+            restrictedExtent: this.createBBox(-74.319, 40.948, -73.584, 40.476), 
+            zoomToMaxExtent: function() {   
+                this.setCenter(t.options.center, t.options.initialZoom);
+            },
+            isValidZoomLevel: function(zoomLevel) {
+                return (zoomLevel > 9 && zoomLevel < this.getNumZoomLevels());
+            }                  
+        });
 
-        // set view
-        this.map.setView(this.options.defaultCenter, this.options.defaultZoom).addLayer(cloudmade);
-
-        // add schools
-        this.schoolsLayer = this.loadSchools();
-
+        var cloudmade = new OpenLayers.Layer.CloudMade("CloudMade", {
+            key: '781b27aa166a49e1a398cd9b38a81cdf',
+            styleId: this.options.cloudmadeStyle,  
+            transitionEffect: 'resize',     
+        });
+        this.olMap.addLayer(cloudmade); 
+        this.olMap.zoomToMaxExtent();   
+                                
+        this.school_layer = this.getLayer('schools', this.buildUrl());
+        this.school_layer.events.on({
+            'loadend': function() {
+                t.options.onLoad();
+                if (t.options.detailView) {
+                    t.centerOnFeature(t.school_layer, t.options.detailFid);
+                }
+                else {
+                    t.addControls([t.school_layer]);
+                }
+            },
+        });
         return this;
     },
 
-    loadSchools: function() {
-        var t = this;
 
-        // initialize layer
-        var layer = new L.GeoJSON(null, {
-            pointToLayer: function(latLng) {
-                return new L.CircleMarker(latLng, t.schoolStyle);
-            },   
+    getLayer: function(name, url) {
+        var layer = new OpenLayers.Layer.Vector(name, {
+            projection: this.olMap.displayProjection,
+            strategies: [
+                new OpenLayers.Strategy.Fixed(),
+            ],
+            styleMap: this.style,
+            protocol: new OpenLayers.Protocol.HTTP({
+                url: url,
+                format: new OpenLayers.Format.GeoJSON()
+            })
         });
-        layer.on('featureparse', function(f) {
-            if (t.options.id !== null) {
-                t.map.setView(f.layer._latlng, t.options.idZoom);
-            }
-            var content = f.properties.name + ' <a href="/schools/' + f.id + '/"><img src="/media/images/info.png" /></a>';
-            f.layer.bindPopup(content);
-        });
+        this.olMap.addLayer(layer);
+        return layer;
+    },
 
-        // build url
+
+    buildUrl: function() {
         var url = this.options.schoolsUrl + '?';
         if (this.options.id !== null) {
             url += 'id=' + this.options.id;
@@ -69,14 +150,175 @@ var SchoolMap = {
         if (this.options.types !== null) {
             url += 'types=' + this.options.types + '&';
         }
+        return url;
+    },
 
-        // load GeoJSON from url, add to map
-        $.getJSON(url, function(data) {
-            layer.addGeoJSON(data);
+
+    addControls: function(layers) {
+        var t = this;
+        this.hoverControl = this.getControlHoverFeature(layers);
+        if (t.options.select) {
+            this.selectControl = this.getControlSelectFeature(layers);
+        }
+    },
+
+
+    getControlHoverFeature: function(layers) {
+        var selectControl = new OpenLayers.Control.SelectFeature(layers, {
+            hover: true,
+            highlightOnly: true,
+            renderIntent: 'temporary',
         });
-        this.map.addLayer(layer);
-        return layer;
+        selectControl.events.on({
+            'featurehighlighted': this.options.onFeatureHighlight,
+            'featureunhighlighted': this.options.onFeatureUnhighlight,
+        });
+        this.olMap.addControl(selectControl);
+        selectControl.activate();
+        return selectControl;
+    },
+
+    getControlSelectFeature: function(layers) {
+        console.log('adding select feature control');
+        var selectControl = new OpenLayers.Control.SelectFeature(layers);
+        var t = this;
+
+        $.each(layers, function(i, layer) {
+            console.log(layer);
+            layer.events.on({
+                "featureselected": function(event) {
+                    console.log('featureselected');
+                    if (t.options.popups) {
+                        var feature = event.feature;
+                        var popup = t.createAndOpenPopup(feature);
+                        t.addContentToPopup(popup, feature);
+                    }
+                    t.options.onFeatureSelect(feature);
+                },
+                "featureunselected": function(event) {
+                    var feature = event.feature;
+                    if(t.options.popups && feature.popup) {
+                        t.olMap.removePopup(feature.popup);
+                        t.options.onFeatureUnselect(feature);
+                        feature.popup.destroy();
+                        delete feature.popup;
+                    }
+                },
+            });
+        });
+        this.olMap.addControl(selectControl);
+        selectControl.activate();
+        return selectControl;
+    },
+
+    addContentToPopup: function(popup, feature) {
+                           console.log(feature);
+        $content = $(popup).find('div');
+        $content
+            .append('<h2><a href="/schools/' + feature.fid + '/">' + feature.data.name + '</a></h2>')
+            .append('<div class="address">' + feature.data.address + '</div>');
+        if (feature.data.participates_in_wellness_in_the_schools) {
+            $content.append('<div class="participation">Participates in <a href="http://www.wellnessintheschools.org/" target="_blank">Wellness in the Schools</a></div>');
+        }
+        if (feature.data.participates_in_garden_to_cafe) {
+            $content.append('<div class="participation">Participates in <a href="http://growtolearn.org/view/DP5619" target="_blank">Garden to Cafe</a></div>');
+        }
+    },
+
+    createAndOpenPopup: function(feature) {
+        var t = this;
+
+        var popup_width = 250;
+        var map_width = t.$elem.innerWidth();
+        var max_width = map_width - 65;
+        if (popup_width > max_width) popup_width = max_width;
+        var content_div_width = popup_width;
+
+        var popup_height = 100;
+        var map_height = t.$elem.innerHeight();
+        var max_height = map_height - 65;
+        if (popup_height > max_height) popup_height = max_height;
+        var content_div_height = popup_height - 50;
+
+        var content = "<div style=\"width: " + content_div_width + "px !important; min-height: " + content_div_height + "px;\"></div>";
+        var popup = new OpenLayers.Popup.Anchored("chicken",
+            feature.geometry.getBounds().getCenterLonLat(),
+            new OpenLayers.Size(popup_width, popup_height),
+            content,
+            null,
+            true,
+            function(event) { t.selectControl.unselectAll(); }
+        );
+        popup.panMapIfOutOfView = true;
+        feature.popup = popup;
+        this.olMap.addPopup(popup);
+
+        // don't let the close box add whitespace to the popup
+        $('.olPopupContent').width($('.olPopupContent').width() + 20);
+        return $('#chicken_contentDiv');
+    },
+
+    createBBox: function(lon1, lat1, lon2, lat2) {
+        var b = new OpenLayers.Bounds();
+        b.extend(this.getTransformedLonLat(lon1, lat1));
+        b.extend(this.getTransformedLonLat(lon2, lat2));
+        return b;
+    },
+
+    getTransformedLonLat: function(longitude, latitude) {
+        return new OpenLayers.LonLat(longitude, latitude).transform(this.epsg4326, this.epsg900913);
+    },
+
+    // Add style rule to check for gardens and style them differently
+    addRulesToStyle: function(style) {
+        var rules = [];
+
+        rules.push(new OpenLayers.Rule({
+            filter: new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                property: 'participates_in_garden_to_cafe',
+                value: true,
+            }),
+            symbolizer: this.gardenToCafeStyle,
+        }));
+
+        rules.push(new OpenLayers.Rule({
+            filter: new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                property: 'participates_in_wellness_in_the_schools',
+                value: true,
+            }),
+            symbolizer: this.wellnessInTheSchoolsStyle,
+        }));
+
+        /*
+        rules.push(new OpenLayers.Rule({
+            filter: new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
+                property: 'recent_change',
+                value: null,
+            }),
+            symbolizer: this.recentChangesStyle,
+        }));
+        */
+
+        if (this.options.mobile) {
+            rules.push(new OpenLayers.Rule({
+                minScaleDenominator: 100000,
+                symbolizer: {
+                    pointRadius: 3,
+                },
+            }));
+        }
+
+        rules.push(new OpenLayers.Rule({
+            elseFilter: true,
+        }));
+
+        style.addRules(rules);
     }
+
+
 };
 
 $.plugin('schoolmap', SchoolMap);
