@@ -16,6 +16,7 @@ class School(models.Model):
     geo_district = models.IntegerField(null=True, blank=True)
 
     has_content = models.BooleanField(default=False)
+    participates_in_wellness_in_the_schools = models.BooleanField(default=False)
 
     point = models.PointField()
     objects = models.GeoManager()
