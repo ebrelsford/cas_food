@@ -17,6 +17,7 @@ class School(models.Model):
 
     has_content = models.BooleanField(default=False)
     participates_in_wellness_in_the_schools = models.BooleanField(default=False)
+    participates_in_garden_to_cafe = models.BooleanField(default=False)
 
     point = models.PointField()
     objects = models.GeoManager()
