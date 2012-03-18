@@ -1,0 +1,16 @@
+<h1>{{ school_type }} school menu for {{ day }}</h1>
+<div>
+    <ul>
+        {% for meal in object_list %}
+        <li>
+            <ul>
+                {% for dish in meal.dishes.all %}
+                <li>
+                    <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

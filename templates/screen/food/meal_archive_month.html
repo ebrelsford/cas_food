@@ -1,0 +1,8 @@
+{% extends "screen/food/base.html" %}
+{% load menu_calendar %}
+
+{% block title %}{{ school_type }} school menu for {{ month|date:"F Y" }} | School Food App{% endblock %}
+
+{% block left %}
+{% include "common/food/meal_archive_month_content.html" %}
+{% endblock %}

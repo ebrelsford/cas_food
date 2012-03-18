@@ -11,7 +11,9 @@
 {% block head_scripts %}
 <script>
     $(document).ready(function() {
-        $('#map').schoolmap();
+        $('#map').schoolmap({
+            boroughs: 'BROOKLYN,MANHATTAN',   
+        });
     });
 </script>
 {% endblock %}

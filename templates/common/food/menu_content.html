@@ -1,6 +1,5 @@
 <h1>Menu</h1>
-<ul class="dishes">
-    {% for dish in dishes %}
-    <li class="dish"><a href="{% url food.views.details id=dish.id %}">{{ dish.name }}</a></li>
-    {% endfor %}
-</ul>
+{% with month=today|date:"m" year=today|date:"Y" %}
+<h2><a href="{% url food.views.menu_month school_type="primary" year=2012 month=month %}">primary school menu</a></h2>
+<h2><a href="{% url food.views.menu_month school_type="secondary" year=2012 month=month %}">secondary school menu</a></h2>
+{% endwith %}

@@ -133,7 +133,8 @@ INSTALLED_APPS = (
 
     'cas_food.accounts',
     'cas_food.content',
-    'cas_food.food',
+    'cas_food.distributors',
+    'food',
     'cas_food.schools',
 )
 
@@ -145,6 +146,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
+
+    'context_processors.mobile',
 )
 
 # A sample logging configuration. The only tangible logging
