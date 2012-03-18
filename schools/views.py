@@ -58,14 +58,18 @@ def _school_feature(school):
     )
 
 def _filter_schools(request):
-    mapped_schools = School.objects.filter(point__isnull=False, has_content=True)
+    mapped_schools = School.objects.filter(point__isnull=False)
     schools = mapped_schools
 
     if 'id' in request.GET:
-        return School.objects.filter(id=request.GET['id'], point__isnull=False)
+        return schools.filter(id=request.GET['id'], point__isnull=False)
 
     if 'types' in request.GET:
         school_types = request.GET['school_type'].split(',')
         schools = schools.filter(type__in=school_types)
-    return schools
 
+    if 'boroughs' in request.GET:
+        boroughs = request.GET['boroughs'].split(',')
+        schools = schools.filter(city__in=boroughs)
+
+    return schools
