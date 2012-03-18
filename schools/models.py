@@ -24,3 +24,11 @@ class School(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
+
+class GardenToCafe(models.Model):
+    school = models.ForeignKey(School)
+    garden_coordinators = models.CharField(max_length=256)
+    organization = models.CharField(max_length=256)
+
+    def __unicode__(self):
+        return str(self.school)
