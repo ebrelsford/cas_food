@@ -1,5 +1,0 @@
-<h1>Menu</h1>
-{% with month=today|date:"m" year=today|date:"Y" %}
-<h2><a href="{% url food.views.menu_month school_type="primary" year=2012 month=month %}">primary school menu</a></h2>
-<h2><a href="{% url food.views.menu_month school_type="secondary" year=2012 month=month %}">secondary school menu</a></h2>
-{% endwith %}

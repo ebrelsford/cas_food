@@ -6,10 +6,6 @@ admin.autodiscover()
 import settings
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'cas_food.views.home', name='home'),
-    # url(r'^cas_food/', include('cas_food.foo.urls')),
-
     url(r'^$', 'schools.views.index'),
     url(r'^map/$', 'schools.views.map'),
     url(r'^schools/add/$', 'schools.views.add'),
@@ -22,7 +18,6 @@ urlpatterns = patterns('',
 
     url(r'^menu/$', 'food.views.menu'),
     url(r'^menu/(?P<school_type>\w+)/$', 'food.views.menu'),
-    #url(r'^menu/(?P<school_type>\w+)/(?P<year>\d+)/$', 'django.views.generic.date_based.archive_year'),
     url(r'^menu/(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$', 'food.views.menu_month'),
     url(r'^menu/(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'food.views.menu_day'),
     url(r'^menu/dish/(?P<id>\d+)/$', 'food.views.details'),
