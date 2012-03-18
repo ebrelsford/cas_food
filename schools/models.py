@@ -20,3 +20,6 @@ class School(models.Model):
 
     point = models.PointField()
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return '%s %s' % (self.name, self.city,)
