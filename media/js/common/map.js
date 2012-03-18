@@ -5,6 +5,7 @@ var SchoolMap = {
 
         id: null,
         boroughs: null,
+        types: null,
 
         defaultCenter: new L.LatLng(40.712, -73.9515),
         defaultZoom: 10,
@@ -64,6 +65,9 @@ var SchoolMap = {
         }
         if (this.options.boroughs !== null) {
             url += 'boroughs=' + this.options.boroughs + '&';
+        }
+        if (this.options.types !== null) {
+            url += 'types=' + this.options.types + '&';
         }
 
         // load GeoJSON from url, add to map

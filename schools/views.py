@@ -65,7 +65,7 @@ def _filter_schools(request):
         return schools.filter(id=request.GET['id'], point__isnull=False)
 
     if 'types' in request.GET:
-        school_types = request.GET['school_type'].split(',')
+        school_types = request.GET['types'].split(',')
         schools = schools.filter(type__in=school_types)
 
     if 'boroughs' in request.GET:
