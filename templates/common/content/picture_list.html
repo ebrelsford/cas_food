@@ -1,6 +1,6 @@
 {% load thumbnail %}
 <div class="content pictures">
-    <h2>Pictures
+    <h2>Recent Meals
         {% if perms.content.add_picture %}
         <a href="{% url content.views.add_picture id=school.id %}">
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
@@ -17,6 +17,15 @@
                 {% endthumbnail %}
             </a>           
             {% endthumbnail %}
+            <div>Rate this meal: 
+                <ul class="rate">
+                    <li class="rating rating-1 full"></li>
+                    <li class="rating rating-2 empty"></li>
+                    <li class="rating rating-3 empty"></li>
+                    <li class="rating rating-4 empty"></li>
+                    <li class="rating rating-5 empty"></li>
+                </ul>
+            </div>
         </li>
         {% empty %}
         <li>none, yet</li>

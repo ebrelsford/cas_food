@@ -129,3 +129,16 @@ table.month .day-number {
     padding: 3px;
     background: lightGray;
 }
+
+.rate .rating {
+    height: 16px;
+    width: 16px;
+    float: left;
+    margin-right: 2px;
+}
+.rate .rating.full {
+    background: url('/media/images/star_fav.png');
+}
+.rate .rating.empty {
+    background: url('/media/images/star_fav_empty.png');
+}
