@@ -71,7 +71,6 @@ var SchoolMap = {
 
 
     init: function(options, elem) {
-              console.log(this.getTransformedLonLat(-73.967514, 40.72086));
         this.options = $.extend({}, this.options, options);
         this.elem = elem;
         this.$elem = $(elem);
@@ -186,15 +185,12 @@ var SchoolMap = {
     },
 
     getControlSelectFeature: function(layers) {
-        console.log('adding select feature control');
         var selectControl = new OpenLayers.Control.SelectFeature(layers);
         var t = this;
 
         $.each(layers, function(i, layer) {
-            console.log(layer);
             layer.events.on({
                 "featureselected": function(event) {
-                    console.log('featureselected');
                     if (t.options.popups) {
                         var feature = event.feature;
                         var popup = t.createAndOpenPopup(feature);
@@ -219,7 +215,6 @@ var SchoolMap = {
     },
 
     addContentToPopup: function(popup, feature) {
-                           console.log(feature);
         $content = $(popup).find('div');
         $content
             .append('<h2><a href="/schools/' + feature.fid + '/">' + feature.data.name + '</a></h2>')
