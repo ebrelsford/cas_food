@@ -2,3 +2,5 @@
 .*.sw*
 media/cache
 media/cache/*
+media/pictures
+media/pictures/*
