@@ -1,5 +1,6 @@
 *.pyc
 .*.sw*
+.svn
 media/cache
 media/cache/*
 media/pictures
