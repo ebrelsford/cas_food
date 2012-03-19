@@ -1,0 +1,14 @@
+{% extends "screen/base.html" %}
+
+{% block title %}Get Involved{% endblock %}
+
+{% block content %}
+<div class="left">
+{% include "common/getinvolved/index_content.html" %}
+</div>
+<div class="right">
+    {% block right %}
+    <div id="map" style="height: 200px;"></div>
+    {% endblock %}
+</div>
+{% endblock %}

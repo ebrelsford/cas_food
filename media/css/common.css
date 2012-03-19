@@ -35,7 +35,9 @@ h3 {
     padding-right: 5px;
 }
 .content .video,
-.content .note {
+.content .note,
+.content .petition,
+.content .news {
     margin-bottom: 5px;
     padding: 10px;
 }

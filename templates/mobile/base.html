@@ -12,19 +12,16 @@
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
         {% endif %}
         <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/themes/casfood.min.css" />
+        <!-- /jQuery [Mobile] -->
 
         <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
 
-        <!-- Leaflet -->
-        <!--
-        <script src="{{ MEDIA_URL }}lib/leaflet/leaflet.js"></script>
-        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/leaflet/leaflet.css" />
-        -->
+        <!-- maps -->
         <script src="{{ MEDIA_URL }}lib/OpenLayers/OpenLayers.js"></script>
         <script src="{{ MEDIA_URL }}lib/cloudmade.js"></script>
         <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
+        <!-- /maps -->
 
-        <!--<script src="{{ MEDIA_URL }}js/common/map.js"></script>-->
         <script src="{{ MEDIA_URL }}js/common/map.js"></script>
         <script src="{{ MEDIA_URL }}js/mobile/init.js"></script>
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
@@ -56,11 +53,7 @@
                     <ul>
                         <li><a href="{% url schools.views.map %}" data-icon="casfood-map">Map</a></li>
                         <li><a href="{% url food.views.menu %}" data-icon="info">Menu</a></li>
-                        <!--
-                        <li><a href="#">Distribution</a></li>
-                        <li><a href="#">Nutrition</a></li>
-                        -->
-                        <li><a href="#" data-icon="casfood-organize">Organize</a></li>
+                        <li><a href="{% url getinvolved.views.index %}" data-icon="casfood-organize">Get Involved</a></li>
                         <li><a href="#" data-icon="plus">More</a></li>
                     </ul>
                 </div>

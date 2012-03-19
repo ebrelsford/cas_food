@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^menu/(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'food.views.menu_day'),
     url(r'^menu/dish/(?P<id>\d+)/$', 'food.views.details'),
 
+    url(r'^get-involved/$', 'getinvolved.views.index'),
+
     url(r'^admin/', include(admin.site.urls)),
 
     # auth
