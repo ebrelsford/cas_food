@@ -1,2 +1,4 @@
 *.pyc
 .*.sw*
+media/cache
+media/cache/*
