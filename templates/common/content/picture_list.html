@@ -1,5 +1,5 @@
 {% load thumbnail %}
-<div class="content pictures">
+<div class="content meals">
     <h2>Recent Meals
         {% if perms.content.add_picture %}
         <a href="{% url content.views.add_picture id=school.id %}">
@@ -7,29 +7,34 @@
         </a>
         {% endif %}
     </h2>
+    <div class="button previous"></div>
     <ul>
         {% for picture in pictures %}
-        <li class="picture">
-            {% thumbnail picture.picture "600x600" as full %}
-            <a title="{{ picture.title }}" href="{{ full.url }}" rel="external">
-                {% thumbnail picture.picture "200x200" as thumb %}
-                <img src="{{ thumb.url }}" />
+        <li class="meal {% cycle odd,even %}">
+            <div class="image-wrapper">
+                {% thumbnail picture.picture "600x600" as full %}
+                <a title="{{ picture.title }}" href="{{ full.url }}" rel="external">
+                    {% thumbnail picture.picture "200x200" as thumb %}
+                    <img src="{{ thumb.url }}" />
+                    {% endthumbnail %}
+                </a>           
                 {% endthumbnail %}
-            </a>           
-            {% endthumbnail %}
-            <div>Rate this meal: 
+            </div>
+            <div class="rate-wrapper">Rate this meal: 
                 <ul class="rate">
-                    <li class="rating rating-1 full"></li>
+                    <li class="rating rating-1 full picked"></li>
                     <li class="rating rating-2 empty"></li>
                     <li class="rating rating-3 empty"></li>
                     <li class="rating rating-4 empty"></li>
                     <li class="rating rating-5 empty"></li>
                 </ul>
+                <div class="clear"></div>
             </div>
         </li>
         {% empty %}
         <li>none, yet</li>
         {% endfor %}
     </ul>
+    <div class="button next"></div>
     <div class="clear"></div>
 </div>

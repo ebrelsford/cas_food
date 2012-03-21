@@ -69,6 +69,31 @@ h3 {
     font-weight: bold;
 }
 
+.content.meals {
+}
+.content.meals .button {
+    height: 32px;
+    width: 32px;
+    margin-top: 115px;
+}
+.content.meals .previous {
+    background: url('/media/images/br_prev.png') no-repeat;
+    float: left;
+}
+.content.meals .next {
+    background: url('/media/images/br_next.png') no-repeat;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+.content .meal {
+    float: left;
+    padding: 10px;
+}
+.content .meal .image-wrapper {
+    height: 220px;
+}
+
 .section {
     margin-top: 25px;
 }
@@ -130,6 +155,8 @@ table.month .day-number {
     background: lightGray;
 }
 
+.rate-wrapper {
+}
 .rate .rating {
     height: 16px;
     width: 16px;

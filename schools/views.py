@@ -16,11 +16,11 @@ def map(request):
 
 def details(request, id=None):
     school = get_object_or_404(School, id=id)
+    pictures = list(reversed(school.picture_set.order_by('-added').all()[:3]))
     return render_to_response("schools/details.html", {
         'school': school,
         'notes': school.note_set.order_by('added').all(),
-        'pictures': school.picture_set.order_by('added').all(),
-        'videos': school.video_set.order_by('added').all(),
+        'pictures': pictures,
     }, context_instance=RequestContext(request))
 
 def add(request):
