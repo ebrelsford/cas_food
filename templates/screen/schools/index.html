@@ -4,8 +4,5 @@
 
 {% block content %}
 {% include "common/schools/map.html" %}
-<div id="map" style="height: 500px; width: 100%;"></div>
-{% if not user.is_anonymous %}
-<h2><a href="{% url schools.views.add %}">Add a school</a></h2>
-{% endif %}
+<div id="map" style="height: 500px; width: 75%;"></div>
 {% endblock %}

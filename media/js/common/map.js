@@ -34,7 +34,7 @@ var SchoolMap = {
     defaultStyle: new OpenLayers.StyleMap({
         'default': new OpenLayers.Style({
             pointRadius: 4,
-            fillColor: "#ff7800",
+            fillColor: '#C545D6',
             fillOpacity: 0.8,
             strokeWidth: 0,
         }),
@@ -62,13 +62,18 @@ var SchoolMap = {
     }),
 
     gardenToCafeStyle: {
-        fillColor: '#0F0',
+        fillColor: '#0C8714',
     },
 
     wellnessInTheSchoolsStyle: {
-        fillColor: '#F00',
+        fillColor: "#FF0",
     },
 
+    gardenToCafeAndWellnessInTheSchoolsStyle: {
+        fillColor: "#FF0",
+        strokeColor: '#0C8714',
+        strokeWidth: 2,
+    },
 
     init: function(options, elem) {
         this.options = $.extend({}, this.options, options);
@@ -291,6 +296,25 @@ var SchoolMap = {
                 value: true,
             }),
             symbolizer: this.wellnessInTheSchoolsStyle,
+        }));
+
+        rules.push(new OpenLayers.Rule({
+            filter: new OpenLayers.Filter.Logical({
+                type: OpenLayers.Filter.Logical.AND,
+                filters: [
+                    new OpenLayers.Filter.Comparison({
+                        type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                        property: 'participates_in_garden_to_cafe',
+                        value: true,
+                    }),
+                    new OpenLayers.Filter.Comparison({
+                        type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                        property: 'participates_in_wellness_in_the_schools',
+                        value: true,
+                    }),
+                ],
+            }),
+            symbolizer: this.gardenToCafeAndWellnessInTheSchoolsStyle,
         }));
 
         /*
