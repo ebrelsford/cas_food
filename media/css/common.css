@@ -114,6 +114,9 @@ h3 {
 .nutrition table th {
     font-weight: bold;
 }
+.nutrition .amount {
+    text-align: right;
+}
 
 table.month {
     width: 100%;

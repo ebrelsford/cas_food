@@ -2,9 +2,17 @@ from django.db import models
 
 from distributors.models import Distributor
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.name
+
 class Dish(models.Model):
     name = models.CharField(max_length=128)
     distributors = models.ManyToManyField(Distributor, blank=True, null=True, help_text='The distributors who schools get this dish from')
+    ingredients = models.ManyToManyField(Ingredient, blank=True, null=True, help_text='The ingredients in this dish')
+
     # pictures TODO use contenttypes and use those in content.models
     # notes TODO use contenttypes and use those in content.models
     # aliases, other names the school uses for this dish
@@ -34,7 +42,7 @@ class NutritionFact(models.Model):
     percent_daily_value = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, help_text='The percent daily value of this nutrient in one serving of this dish')
 
     def __unicode__(self):
-        return self.dish.name, self.nutrient.name
+        return self.dish.name + ': ' + self.nutrient.name
 
 class Meal(models.Model):
     # TODO auditing

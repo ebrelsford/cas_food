@@ -3,6 +3,12 @@
 <div class="nutrition section">
     <table>
         <tr><th colspan="2">Nutrition Facts</th></tr>
+        {% for nutritionfact in dish.nutritionfact_set.all %}
+        <tr class="nutrition-fact">
+            <td class="nutrient">{{ nutritionfact.nutrient.name }}</td>
+            <td class="amount">{{ nutritionfact.amount }}</td>
+        </tr>
+        {% empty %}
         <tr>
             <td>calories</td>
             <td>340</td>
@@ -15,7 +21,17 @@
             <td>total fat</td>
             <td>14 g</td>
         </tr>
+        {% endfor %}
     </table>
+</div>
+
+<div class="section">
+    <h2>Ingredients</h2>
+    {% for ingredient in dish.ingredients.all %}
+    {{ ingredient }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+    We don't know yet.
+    {% endfor %}
 </div>
 
 <div class="section">
@@ -24,13 +40,12 @@
 </div>
 
 <div class="section">
-    <h2>Alternatives</h2>
-    <div>What healthy alternatives are there to {{ dish.name }}?</div>
-</div>
-
-<div class="section">
     <h2>Pictures</h2>
+    {% if dish.name == 'chicken tenders' %}
+    <div><img src="{{ MEDIA_URL }}images/school_chicken.jpg" /></div>
+    {% else %}
     <div>Pictures of {{ dish.name }} in the wild.</div>
+    {% endif %}
 </div>
 
 <div class="section">
