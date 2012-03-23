@@ -8,7 +8,6 @@ import settings
 urlpatterns = patterns('',
     url(r'^$', 'schools.views.index'),
     url(r'^map/$', 'schools.views.map'),
-    url(r'^schools/add/$', 'schools.views.add'),
     url(r'^schools/geojson', 'schools.views.as_geojson'),
     url(r'^schools/(?P<id>\d+)/$', 'schools.views.details'),
 

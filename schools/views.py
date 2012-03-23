@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 
 from cas_food.shortcuts import render_to_response
-from forms import SchoolSearchForm
 from models import School
 
 def index(request):
@@ -21,20 +20,6 @@ def details(request, id=None):
         'school': school,
         'notes': school.note_set.order_by('added').all(),
         'pictures': pictures,
-    }, context_instance=RequestContext(request))
-
-def add(request):
-    schools = None
-    if request.method == 'POST':
-        form = SchoolSearchForm(request.POST)
-        if form.is_valid():
-            search_text = form.cleaned_data['search_text']
-            schools = School.objects.filter(name__icontains=search_text).order_by('name')
-    else:
-        form = SchoolSearchForm()
-    return render_to_response('schools/add.html', {
-        'form': form,
-        'schools': schools,
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):
