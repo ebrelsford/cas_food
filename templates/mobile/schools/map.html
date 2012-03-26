@@ -5,5 +5,13 @@
 {% block page_id %}map-page{% endblock %}
 
 {% block content %}
+<div>
+    <form action="" class="school-search" method="post">
+        <div class="error-message"></div>
+        <label for="id_school" class="ui-hidden-accessible">Search by address:</label>
+        <input type="search" id="id_school" name="school" />
+        <input type="submit" value="search" />
+    </form>
+</div>
 <div id="map" style="height: 500px; width: 100%;"></div>
 {% endblock %}

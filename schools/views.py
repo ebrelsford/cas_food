@@ -14,7 +14,9 @@ def index(request):
     }, context_instance=RequestContext(request))
 
 def map(request):
-    return render_to_response("schools/map.html", {}, context_instance=RequestContext(request))
+    return render_to_response("schools/map.html", {
+        'form': SchoolSearchForm()
+    }, context_instance=RequestContext(request))
 
 def details(request, id=None):
     school = get_object_or_404(School, id=id)

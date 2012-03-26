@@ -187,3 +187,7 @@ table.month .day-number {
 .rate .rating.empty {
     background: url('/media/images/star_fav_empty.png');
 }
+
+.ui-autocomplete {
+    z-index: 1500 !important;
+}

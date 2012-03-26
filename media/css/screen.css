@@ -78,6 +78,3 @@ form.school-search p {
 form.school-search .ui-autocomplete-input {
     width: 400px;
 }
-.ui-autocomplete {
-    z-index: 1500 !important;
-}

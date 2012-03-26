@@ -4,12 +4,16 @@
         <!-- jQuery [Mobile] -->
         {% if debug %}
         <script src="{{ MEDIA_URL }}lib/jquery-1.7.1.min.js"></script>
-        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/jquery.mobile-1.0.1.min.css" />
+        <script src="{{ MEDIA_URL }}lib/jquery-ui/js/jquery-ui-1.8.18.custom.min.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css" />
         <script src="{{ MEDIA_URL }}lib/jquery.mobile/jquery.mobile-1.0.1.min.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/jquery.mobile-1.0.1.min.css" />
         {% else %}
         <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css" type="text/css" />
         <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
         {% endif %}
         <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/themes/casfood.min.css" />
         <!-- /jQuery [Mobile] -->
@@ -23,6 +27,7 @@
         <!-- /maps -->
 
         <script src="{{ MEDIA_URL }}js/common/map.js"></script>
+        <script src="{{ MEDIA_URL }}js/common/jquery.school-search.js"></script>
         <script src="{{ MEDIA_URL }}js/mobile/init.js"></script>
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/common.css" />

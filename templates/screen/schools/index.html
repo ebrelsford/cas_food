@@ -5,58 +5,21 @@
 {% block head_scripts %}
 {{ super.block }}
 <script>
-    function zoomToSchool(id) {
-        $('#map').data('schoolmap').zoomToFid(id, true);
-    }
-
     $(document).ready(function() {
         $('#map').schoolmap({
             boroughs: 'Brooklyn,Manhattan',   
             types: 'Elementary',
         });
 
-        $('form input[name="school"]').on('autocompleteselect', function(e, ui) {
-            $(this).data('current_school', { 
-                id: ui.item.id,
-                name: ui.item.value,
-            });
-            zoomToSchool(ui.item.id);
-        });
-
-        $('form.school-search').submit(function(e) {
-            e.preventDefault();
-
-            var input = $('form.school-search input[name="school"]').val();
-
-            // had already selected a school, just select that again if the input hasn't changed
-            var current_school = $(this).find(':input[name="school"]').data('current_school');
-            if (current_school && current_school.name === input) {
-                zoomToSchool(current_school.id);
-                return;
-            }
-
-            // search by address
-            $('.loading').addClass('active');
-            $.getJSON('{% url geo.views.geocode %}?location=' + input, 
-            function(data) { 
-                $('.loading').removeClass('active');
-                if (data) {
-                    $('#map').data('schoolmap').centerOnLonLat(data.longitude, data.latitude, true);
-                    $('.error-message').text('');
-                }
-                else {
-                    $('.error-message').text("Couldn't find the address you entered. Be more specific?");
-                }
-            });
-        });
+        $('form.school-search').schoolsearch();
     });
 </script>
 {% endblock %}
 
 {% block content %}
 <div>
-    <div class="error-message"></div>
     <form action="" class="school-search" method="post">
+        <div class="error-message"></div>
         {{ form.media.css }}
         {{ form.media.js }}
         {{ form.as_p }}

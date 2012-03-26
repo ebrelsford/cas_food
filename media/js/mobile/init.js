@@ -5,4 +5,8 @@ $(document).on('pageshow', '#map-page', function(event) {
         types: 'Elementary',
         mobile: true,
     });
+    $('form.school-search').schoolsearch({
+        autocomplete: false,   
+        mobile: true,
+    });
 });
