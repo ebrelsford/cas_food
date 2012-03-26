@@ -16,6 +16,21 @@ h3 {
     clear: both;
 }
 
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.loading {
+    display: none;
+    background: url('/media/images/loading.gif');
+    width: 16px;
+    height: 16px;
+}
+.loading.active {
+    display: inline-block;
+}
+
 .footer .connect li {
     float: left;
     margin-right: 10px;

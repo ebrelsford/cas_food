@@ -5,10 +5,13 @@ from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 
 from cas_food.shortcuts import render_to_response
+from forms import SchoolSearchForm
 from models import School
 
 def index(request):
-    return render_to_response("schools/index.html", {}, context_instance=RequestContext(request))
+    return render_to_response("schools/index.html", {
+        'form': SchoolSearchForm()
+    }, context_instance=RequestContext(request))
 
 def map(request):
     return render_to_response("schools/map.html", {}, context_instance=RequestContext(request))

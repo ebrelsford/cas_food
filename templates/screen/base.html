@@ -3,13 +3,22 @@
     <head>
         {% if debug %}
         <script src="{{ MEDIA_URL }}lib/jquery-1.7.1.min.js"></script>
+        <script src="{{ MEDIA_URL }}lib/jquery-ui/js/jquery-ui-1.8.18.custom.min.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.18.custom.css" />
         {% else %}
         <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css" type="text/css" />
         {% endif %}
         <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
         <script src="{{ MEDIA_URL }}js/common/ratings.js"></script>
 
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
+
+        <script src="{{ MEDIA_URL }}lib/OpenLayers/OpenLayers.js"></script>
+        <script src="{{ MEDIA_URL }}lib/cloudmade.js"></script>
+        <script src="{{ MEDIA_URL }}js/common/map.js"></script>
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
 
         {% block head_includes %}{% endblock %}
         {% block head_scripts %}

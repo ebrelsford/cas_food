@@ -23,6 +23,8 @@ urlpatterns = patterns('',
 
     url(r'^get-involved/$', 'getinvolved.views.index'),
 
+    url(r'^geo/geocode', 'geo.views.geocode'),
+
     url(r'^admin/', include(admin.site.urls)),
 
     # auth
@@ -36,6 +38,7 @@ urlpatterns = patterns('',
     (r'^accounts/password/reset/confirm?uid=(?P<uidb36>.*)&token=(?P<token>.*)$', 'django.contrib.auth.views.password_reset_confirm'),
     (r'^accounts/password/reset/complete/$', 'django.contrib.auth.views.password_reset_complete'),
 
+    (r'^selectable/', include('selectable.urls')),
 )
 
 if settings.DEBUG:

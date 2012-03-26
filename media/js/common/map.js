@@ -75,6 +75,14 @@ var SchoolMap = {
         strokeWidth: 2,
     },
 
+    searchStyle: {
+        pointRadius: 10,
+        fillColor: '#F3FA2D',
+        fillOpacity: 0.6,
+        strokeWidth: 1,
+        strokeColor: '#000000',
+    },
+
     init: function(options, elem) {
         this.options = $.extend({}, this.options, options);
         this.elem = elem;
@@ -127,9 +135,25 @@ var SchoolMap = {
                 }
             },
         });
+
+        this.search_layer = new OpenLayers.Layer.Vector('search', {
+            projection: this.olMap.displayProjection,
+            styleMap: new OpenLayers.StyleMap({
+                'default': this.searchStyle,
+            }),
+        });
+        this.olMap.addLayer(this.search_layer);
+
         return this;
     },
 
+    zoomToFid: function(fid, select) {
+        if (select) {
+            this.selectControl.unselectAll();
+            this.selectControl.select(this.school_layer.getFeatureByFid(fid));
+        }
+        this.centerOnFeature(this.school_layer, fid);
+    },
 
     getLayer: function(name, url) {
         var layer = new OpenLayers.Layer.Vector(name, {
@@ -352,6 +376,17 @@ var SchoolMap = {
         this.olMap.setCenter(l, 15);
     },
 
+    centerOnLonLat: function(lon, lat, show) {
+        var lonLat = this.getTransformedLonLat(lon, lat);
+        this.olMap.setCenter(lonLat, 15);
+        if (show) this.setSearchFeature(lonLat);
+    },
+
+    setSearchFeature: function(lonLat) {
+        this.search_layer.removeAllFeatures();
+        var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonLat.lon, lonLat.lat));
+        this.search_layer.addFeatures([feature]);
+    },
 
 };
 
