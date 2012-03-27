@@ -1,0 +1,5 @@
+Here is your activation link for {{ site }}:
+
+http://{{ site }}{% url registration_activate activation_key=activation_key %}
+
+This link will remain valid for {{ expiration_days }} days.

@@ -32,7 +32,7 @@
 
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/common.css" />
         <link rel="stylesheet" href="{{ MEDIA_URL }}css/screen.css" />
-        <title>{% block title %}New Site{% endblock %}</title>
+        <title>{% block title %}School Food App | {% endblock %}</title>
     </head>
     <body>
         <div class="wrapper">
@@ -41,7 +41,8 @@
                     <div class="logo">School Food App</div>
                     <div class="account">
                         {% if user.is_anonymous %}
-                        <a href="{% url django.contrib.auth.views.login %}">login</a>
+                        <a href="{% url django.contrib.auth.views.login %}">login</a> or
+                        <a href="{% url registration_register %}">register</a>
                         {% else %}
                         logged in as {{ user }}  <a href="{% url django.contrib.auth.views.logout %}">logout</a>
                         {% endif %}
