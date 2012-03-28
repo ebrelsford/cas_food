@@ -149,6 +149,9 @@ table.month td {
     border: 1px solid black;
     font-size: 12px;
 }
+table.month td.today {
+    background-color: lightGray;
+}
 table.month .day-number {
     display: block;
     width: 100%;
