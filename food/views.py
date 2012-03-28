@@ -56,7 +56,7 @@ def menu_day(request, school_type=None, year=None, month=None, day=None):
 
 def menu(request):
     today = date.today()
-    return menu_month(request, school_type='primary', year=today.year, month=today.month)
+    return menu_month(request, school_type='elementary', year=today.year, month=today.month)
 
 def details(request, id=None):
     dish = get_object_or_404(Dish, id=id)
