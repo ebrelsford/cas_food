@@ -20,6 +20,16 @@ def _pairwise(iterable):
     next(b, None)
     return izip(a, b)
 
+def _remove_non_ascii(s): 
+    return "".join(i for i in s if ord(i)<128)
+
+def _prepare_string(s):
+    """Get a string ready to be looked at, removing extra spaces, non-ascii characters."""
+    s = s.strip()
+    s = re.sub(r'\s+', ' ', s)
+    s = _remove_non_ascii(s)
+    return s
+
 def load_menu(filename, school_type):
     menu = open(filename, 'r').readlines()
 
@@ -29,11 +39,8 @@ def load_menu(filename, school_type):
     current_meal = None
 
     for line, next_line in _pairwise(menu):
-        line = line.strip()
-        next_line = next_line.strip()
-
-        line = re.sub(r'\s+', ' ', line)
-        next_line = re.sub(r'\s+', ' ', next_line)
+        line = _prepare_string(line)
+        next_line = _prepare_string(next_line)
 
         if not line:
             continue
@@ -77,6 +84,7 @@ def load_menu(filename, school_type):
 
             # add the dish if we have to, update our current meal
             dish, created = Dish.objects.get_or_create(name=dish_name)
+            dish.save() # call save() explicitly to ensure slug is created
             current_meal.dishes.add(dish)
             current_meal.save()
             print 'dish name (%s)' % dish_name

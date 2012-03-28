@@ -58,8 +58,8 @@ def menu(request):
     today = date.today()
     return menu_month(request, school_type='elementary', year=today.year, month=today.month)
 
-def details(request, id=None):
-    dish = get_object_or_404(Dish, id=id)
+def details(request, slug=None):
+    dish = get_object_or_404(Dish, slug=slug)
     return render_to_response('food/details.html', {
         'dish': dish,
     }, context_instance=RequestContext(request))

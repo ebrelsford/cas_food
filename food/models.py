@@ -1,5 +1,6 @@
 from django.db import models
 
+from cas_food.utils import slugify
 from distributors.models import Distributor
 
 class Ingredient(models.Model):
@@ -10,6 +11,7 @@ class Ingredient(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=128)
+    slug = models.SlugField(max_length=132)
     distributors = models.ManyToManyField(Distributor, blank=True, null=True, help_text='The distributors who schools get this dish from')
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True, help_text='The ingredients in this dish')
 
@@ -25,7 +27,13 @@ class Dish(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('food.views.details', (), { 'id': self.id })
+        return ('food.views.details', (), { 'slug': self.slug })
+
+    def save(self, *args, **kwargs):
+        """Set slug before saving, if needed."""
+        if not self.slug:
+            self.slug = slugify(Dish, self)
+        super(Dish, self).save(*args, **kwargs)
 
 class Nutrient(models.Model):
     name = models.CharField(max_length=128)
