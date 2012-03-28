@@ -3,6 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+import auth_urls
 import settings
 
 urlpatterns = patterns('',
@@ -28,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # auth
+
     (r'^accounts/password/reset/$', 'accounts.views.password_reset'),
     (r'^accounts/password/reset/email=(?P<email>.*)$', 'accounts.views.password_reset'),
     (r'^accounts/', include('registration.backends.default.urls')),

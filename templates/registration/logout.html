@@ -1,6 +1,8 @@
 {% extends "registration/base.html" %}
 
-{% block title %}Logged out{% endblock %}
+{% block title %}{{ block.super }}Logged out{% endblock %}
+
+{% block header_title %}Logged out{% endblock %}
 
 {% block breadcrumbs %}
 {{ block.super }} &gt;&gt; Logout

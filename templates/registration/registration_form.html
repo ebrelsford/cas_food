@@ -1,10 +1,12 @@
-{% extends "screen/base.html" %}
+{% extends "registration/base.html" %}
 
-{% block title %}School Food App | Register{% endblock %}
+{% block title %}{{ block.super }}Register{% endblock %}
+
+{% block header_title %}Register{% endblock %}
 
 {% block content %}
 <h2>Register</h2>
-<form action="." method="post">
+<form action="" method="post">
     {% csrf_token %}
     <table>
     {{ form.as_table }}

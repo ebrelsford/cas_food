@@ -37,13 +37,13 @@
 
         {% block head_includes %}{% endblock %}
         {% block head_scripts %}{% endblock %}
-        <title>{% block title %}default title{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
         <div id="{% block page_id %}{% endblock %}" data-role="page" data-add-back-btn="true">
             {% block header %}
             <div data-role="header">
-                <h1>{% block header_title %}default title{% endblock %}</h1>
+                <h1>{% block header_title %}{% endblock %}</h1>
             </div>
             {% endblock %}
 
