@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-import auth_urls
+import glossary.urls as glossary_urls
 import settings
 
 urlpatterns = patterns('',
@@ -23,6 +23,8 @@ urlpatterns = patterns('',
     url(r'^menu/dish/(?P<id>\d+)/$', 'food.views.details'),
 
     url(r'^get-involved/$', 'getinvolved.views.index'),
+
+    url(r'^glossary/', include(glossary_urls)),
 
     url(r'^geo/geocode', 'geo.views.geocode'),
 

@@ -1,0 +1,17 @@
+{% extends "glossary/base.html" %}
+
+{% block title %}{{ block.super }}{{ object.title }}{% endblock %}
+
+{% block header_title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<div class="glossary">
+    <ul class="content">
+        <li class="entry odd">
+            <div class="title">{{ object.title }}</div>
+            <div class="text">{{ object.text }}</div>
+        </li>
+    </ul>
+</div>
+{% endblock %}

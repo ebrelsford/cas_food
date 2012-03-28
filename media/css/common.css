@@ -109,6 +109,10 @@ h3 {
     height: 220px;
 }
 
+.content .entry {
+    padding: 10px;
+}
+
 .section {
     margin-top: 25px;
 }
@@ -190,4 +194,8 @@ table.month .day-number {
 
 .ui-autocomplete {
     z-index: 1500 !important;
+}
+
+.glossary .entry .title {
+    font-weight: bold;
 }
