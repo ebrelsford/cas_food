@@ -5,7 +5,8 @@
 {% block header_title %}Log in{% endblock %}
 
 {% block content %}
-<p>Please log in. You should have received a username and password. If you've forgotten either, you can <a href="{% url accounts.views.password_reset %}">reset your password</a>.</p>
+<p>Please log in. If you've forgotten your username or password, you can <a href="{% url accounts.views.password_reset %}">reset your password</a>.</p>
+<p>If you don't have an account, please <a href="{% url registration_register %}">register</a> to get one.</p>
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
