@@ -7,6 +7,7 @@
         </a>
         {% endif %}
     </h2>
+    {% if pictures %}
     <div class="button previous"></div>
     <ul>
         {% for picture in pictures %}
@@ -31,10 +32,11 @@
                 <div class="clear"></div>
             </div>
         </li>
-        {% empty %}
-        <li>none, yet</li>
         {% endfor %}
     </ul>
     <div class="button next"></div>
+    {% else %}
+    No meals have been added yet&mdash;<a href="{% url content.views.add_picture id=school.id %}">be the first</a>!
+    {% endif %}
     <div class="clear"></div>
 </div>
