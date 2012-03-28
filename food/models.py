@@ -27,7 +27,7 @@ class Dish(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('food.views.details', (), { 'slug': self.slug })
+        return ('food_dish_detail', (), { 'slug': self.slug })
 
     def save(self, *args, **kwargs):
         """Set slug before saving, if needed."""

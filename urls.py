@@ -3,6 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+import food.urls as food_urls
 import glossary.urls as glossary_urls
 import settings
 
@@ -20,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^menu/(?P<school_type>\w+)/$', 'food.views.menu'),
     url(r'^menu/(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$', 'food.views.menu_month'),
     url(r'^menu/(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$', 'food.views.menu_day'),
-    url(r'^menu/dish/(?P<slug>.*)/$', 'food.views.details'),
+    url(r'^menu/', include(food_urls)),
 
     url(r'^get-involved/$', 'getinvolved.views.index'),
 

@@ -1,11 +1,9 @@
 from datetime import date
 
-from django.shortcuts import get_object_or_404
-from django.template import RequestContext
 from django.views.generic.date_based import archive_day, archive_month
 
-from cas_food.shortcuts import get_template, render_to_response
-from models import Dish, Meal
+from cas_food.shortcuts import get_template
+from models import Meal
 
 def menu_month(request, school_type=None, year=None, month=None):
     month, year = int(month), int(year)
@@ -57,9 +55,3 @@ def menu_day(request, school_type=None, year=None, month=None, day=None):
 def menu(request):
     today = date.today()
     return menu_month(request, school_type='elementary', year=today.year, month=today.month)
-
-def details(request, slug=None):
-    dish = get_object_or_404(Dish, slug=slug)
-    return render_to_response('food/details.html', {
-        'dish': dish,
-    }, context_instance=RequestContext(request))
