@@ -47,13 +47,12 @@ class NutritionFact(models.Model):
 class Meal(models.Model):
     # TODO auditing
     SCHOOL_TYPE_CHOICES = (
-        ('primary', 'primary'),
-        ('secondary', 'secondary'),
+        ('elementary', 'elementary'),
     )
 
     date = models.DateField(help_text='The date this meal is served')
     dishes = models.ManyToManyField(Dish, help_text='The dishes in this meal')
-    school_type = models.CharField(max_length=32, choices=SCHOOL_TYPE_CHOICES)
+    school_type = models.CharField(max_length=32, choices=SCHOOL_TYPE_CHOICES, default='elementary')
 
     def __unicode__(self):
         return str(self.date)

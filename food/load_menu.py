@@ -2,6 +2,7 @@
 # -*- coding: latin-1 -*-
 
 from datetime import date, datetime
+from itertools import tee, izip
 import re
 
 from food.models import Meal, Dish
@@ -9,7 +10,15 @@ from food.models import Meal, Dish
 date_pattern = re.compile(r'^(.*) (\d{4})$')
 day_of_month_pattern = re.compile(r'^(\d+)$')
 meal_name_pattern = re.compile(r'^[A-Z’ ]+$', flags=re.UNICODE)
-dish_name_pattern = re.compile(r'^-?(?:with )?(?:OR a )?(.*?)(?: OR)?\W*$')
+dish_name_pattern = re.compile(r'^-?(?:OR a )?(.*?)(?: OR)?\W*$')
+
+JOINERS = ('on', 'with',)
+
+def _pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = tee(iterable)
+    next(b, None)
+    return izip(a, b)
 
 def load_menu(filename, school_type):
     menu = open(filename, 'r').readlines()
@@ -19,9 +28,12 @@ def load_menu(filename, school_type):
     current_day = None
     current_meal = None
 
-    for line in menu:
+    for line, next_line in _pairwise(menu):
         line = line.strip()
+        next_line = next_line.strip()
+
         line = re.sub(r'\s+', ' ', line)
+        next_line = re.sub(r'\s+', ' ', next_line)
 
         if not line:
             continue
@@ -52,13 +64,19 @@ def load_menu(filename, school_type):
         # dish
         dish_name_match = dish_name_pattern.match(line)
         if dish_name_match:
-            dish_name = dish_name_match.group(1).lower()
-            dish = Dish.objects.filter(name=dish_name)
-            if not dish:
-                dish = Dish(name=dish_name)
-                dish.save()
-            else:
-                dish = dish[0]
+            dish_name = dish_name_match.group(1)
+
+            # should have already joined this line with the previous, ignore it
+            if any([line.startswith(joiner) for joiner in JOINERS]):
+                continue
+
+            # try to match with next line
+            if any([next_line.startswith(joiner) for joiner in JOINERS]):
+                dish_name = ' '.join((dish_name, next_line,))
+            dish_name = dish_name.lower()
+
+            # add the dish if we have to, update our current meal
+            dish, created = Dish.objects.get_or_create(name=dish_name)
             current_meal.dishes.add(dish)
             current_meal.save()
             print 'dish name (%s)' % dish_name
