@@ -1,0 +1,14 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}{{ block.super }}{{ school.name }}{% endblock %}
+{% block header_title %}Add  {{ type }}{% endblock %}
+
+{% block content %}
+<form action ="" method="post"{% if is_multipart %} enctype="multipart/form-data" data-ajax="false"{% endif %}>
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}             
+    </table>
+    <input type="submit" value="submit" />
+</form>
+{% endblock %}
