@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
 
     'cas_food.accounts',
+    'cas_food.audit',
     'cas_food.content',
     'cas_food.distributors',
     'cas_food.food',

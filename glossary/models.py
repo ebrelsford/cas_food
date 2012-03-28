@@ -1,7 +1,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-class Entry(models.Model):
+from audit.models import AuditedModel
+
+class Entry(AuditedModel):
     title = models.CharField(max_length=256)
     slug = models.SlugField(max_length=256)
     text = models.TextField()
