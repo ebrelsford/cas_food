@@ -1,6 +1,6 @@
 {% extends "screen/schools/base.html" %}
 
-{% block title %}{{ school.name }} | School Food App{% endblock %}
+{% block title %}{{ block.super }}{{ school.name }}{% endblock %}
 
 {% block left %}
 <h1>{{ school.name }}</h1>
