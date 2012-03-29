@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 from sorl.thumbnail import ImageField
 
-from schools.models import School
-
 class BaseContent(models.Model):
-    school = models.ForeignKey(School, null=True, blank=True)
+    """a piece of content that can be attached to anything"""
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     added = models.DateTimeField(auto_now_add=True)
     added_by = models.ForeignKey(User)
@@ -29,12 +31,3 @@ class Picture(BaseContent):
 class Note(BaseContent):
     title = models.CharField(max_length=256)
     text = models.TextField()
-
-@receiver(post_save, sender=Video)
-@receiver(post_save, sender=Picture)
-@receiver(post_save, sender=Note)
-def mark_school_has_content(sender, **kwargs):
-    school = kwargs['instance'].school
-    if not school.has_content:
-        school.has_content = True
-        school.save()

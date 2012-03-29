@@ -1,7 +1,7 @@
 <div class="content notes">
     <h2>Comments
         {% if perms.content.add_note %}
-        <a href="{% url content.views.add_note id=school.id %}">
+        <a href="{% url schools.views.add_note id=school.id %}">
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
         </a>
         {% endif %}

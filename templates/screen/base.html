@@ -21,11 +21,29 @@
         <script src="{{ MEDIA_URL }}js/common/map.js"></script>
         <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
 
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-lightbox/css/jquery.lightbox-0.5.css" type="text/css" />
+        <script src="{{ MEDIA_URL }}lib/jquery-lightbox/js/jquery.lightbox-0.5.min.js" type="text/javascript"></script>
+
+        <script src="{{ MEDIA_URL }}lib/jquery.expander.min.js"></script>
+
         {% block head_includes %}{% endblock %}
         {% block head_scripts %}
         <script>
             $(document).ready(function() {
                 $('.rate').rate();
+                $(':input.date').datepicker();
+                $('.expandable').expander({
+                    expandText: 'more',
+                    slicePoint: 40,
+                    userCollapseText: 'less',   
+                });
+            });
+            $('a.img-gallery').lightBox({
+                imageLoading: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-ico-loading.gif',   
+                imageBtnClose: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-btn-close.gif',   
+                imageBtnPrev: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-btn-prev.gif',   
+                imageBtnNext: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-btn-next.gif',   
+                imageBlank: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-blank.gif',   
             });
         </script>
         {% endblock %}

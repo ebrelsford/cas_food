@@ -1,26 +1,28 @@
 {% load thumbnail %}
 <div class="content meals">
     <h2>Recent Meals
-        {% if perms.content.add_picture %}
-        <a href="{% url content.views.add_picture id=school.id %}">
+        {% if perms.tray.add_meal %}
+        <a href="{% url tray.views.add id=school.id %}">
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
         </a>
         {% endif %}
     </h2>
-    {% if pictures %}
+    {% if meals %}
     <div class="button previous"></div>
     <ul>
-        {% for picture in pictures %}
+        {% for meal in meals %}
         <li class="meal {% cycle odd,even %}">
             <div class="image-wrapper">
-                {% thumbnail picture.picture "600x600" as full %}
-                <a title="{{ picture.title }}" href="{{ full.url }}" rel="external">
-                    {% thumbnail picture.picture "200x200" as thumb %}
-                    <img src="{{ thumb.url }}" />
+                {% thumbnail meal.picture "600x600" as full %}
+                <a title="{{ meal.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+                    {% thumbnail meal.picture "150x150" as thumb %}
+                    <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
                     {% endthumbnail %}
                 </a>           
                 {% endthumbnail %}
             </div>
+            <div class="date">{{ meal.date }}</div>
+            <div class="description expandable">{{ meal.description }}</div>
             <div class="rate-wrapper">Rate this meal: 
                 <ul class="rate">
                     <li class="rating rating-1 full picked"></li>
@@ -36,7 +38,7 @@
     </ul>
     <div class="button next"></div>
     {% else %}
-    No meals have been added yet&mdash;<a href="{% url content.views.add_picture id=school.id %}">be the first</a>!
+    No meals have been added yet&mdash;<a href="{% url tray.views.add id=school.id %}">be the first</a>!
     {% endif %}
     <div class="clear"></div>
 </div>

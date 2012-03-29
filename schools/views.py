@@ -1,10 +1,12 @@
 import geojson
 
+from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
 from cas_food.shortcuts import render_to_response
+from content.forms import NoteForm
 from forms import SchoolSearchForm
 from models import School
 
@@ -20,11 +22,13 @@ def map(request):
 
 def details(request, id=None):
     school = get_object_or_404(School, id=id)
-    pictures = list(reversed(school.picture_set.order_by('-added').all()[:3]))
+    meals = school.tray_set.all().order_by('added')
+    if meals.count() > 3:
+        meals = meals[meals.count() - 3:]
     return render_to_response("schools/details.html", {
         'school': school,
-        'notes': school.note_set.order_by('added').all(),
-        'pictures': pictures,
+        'notes': school.notes.order_by('added').all(),
+        'meals': meals,
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):
@@ -65,3 +69,33 @@ def _filter_schools(request):
         schools = schools.filter(borough__in=boroughs)
 
     return schools
+
+@permission_required('content.add_picture')
+def add_meal(request, id=None):
+    pass
+
+@permission_required('content.add_note')
+def add_note(request, id=None):
+    school = get_object_or_404(School, id=id)
+    return _add(request, school, NoteForm, 'Note')
+
+def _add(request, school, form_class, type_text, is_multipart=False):
+    if request.method == 'POST':
+        if is_multipart:
+            form = form_class(request.POST, request.FILES, object=school) 
+        else:
+            form = form_class(request.POST, object=school) 
+        if form.is_valid():    
+            form.save()        
+            return redirect('schools.views.details', id=school.id)
+    else:
+        form = form_class(object=school, initial={
+            'added_by': request.user,
+        })
+
+    return render_to_response('content/add.html', {
+        'type': type_text,
+        'school': school,
+        'form': form,
+        'is_multipart': is_multipart,
+    }, context_instance=RequestContext(request))

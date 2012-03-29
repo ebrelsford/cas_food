@@ -62,6 +62,7 @@ INSTALLED_APPS = (
     'cas_food.food',
     'cas_food.glossary',
     'cas_food.schools',
+    'cas_food.tray',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

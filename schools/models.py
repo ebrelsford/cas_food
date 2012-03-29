@@ -1,4 +1,7 @@
+from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
+
+from content.models import Note
 
 class School(models.Model):
     name = models.CharField(max_length=256)
@@ -21,6 +24,8 @@ class School(models.Model):
 
     point = models.PointField()
     objects = models.GeoManager()
+
+    notes = generic.GenericRelation(Note)
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
