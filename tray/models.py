@@ -14,3 +14,17 @@ class Tray(AuditedModel):
     description = models.TextField(null=True, blank=True, help_text='describe the meal on the tray')
     school = models.ForeignKey(School, help_text='the school this tray is from')
     notes = generic.GenericRelation(Note, help_text='comments on this tray')
+
+    def __unicode__(self):
+        return self.school.name + str(self.date)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('tray.views.details', (), {
+            'id': self.school.id,
+            'tray_id': self.id,
+        })
+
+class Rating(AuditedModel):
+    tray = models.ForeignKey(Tray, help_text='the tray being rated')
+    points = models.PositiveIntegerField(help_text='the points given to the tray')

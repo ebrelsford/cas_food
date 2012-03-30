@@ -1,0 +1,62 @@
+{% extends "screen/schools/base.html" %}
+{% load thumbnail %}
+
+{% block title %}{{ block.super }}{{ school.name }}{% endblock %}
+
+{% block left %}
+<h1>{{ school.name }}</h1>
+<h2>{{ tray.date }}</h2>
+<div class="meal">
+    <div class="image-wrapper">
+        {% thumbnail tray.picture "600x600" as full %}
+        <a title="{{ tray.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+            {% thumbnail tray.picture "300x300" as thumb %}
+            <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+            {% endthumbnail %}
+        </a>           
+        {% endthumbnail %}
+    </div>
+    <div class="description">{{ tray.description }}</div>
+    <div class="rate-wrapper">Rate this meal: 
+        <ul class="rate" data-change-rating-url="{% url tray.views.rate id=school.id tray_id=tray.id  %}">
+            <li class="rating rating-1 full picked"></li>
+            <li class="rating rating-2 empty"></li>
+            <li class="rating rating-3 empty"></li>
+            <li class="rating rating-4 empty"></li>
+            <li class="rating rating-5 empty"></li>
+        </ul>
+        <div class="loading"></div>
+        <div class="clear"></div>
+        <div class="ratings-results-wrapper">
+            <div class="ratings-results">
+                <span class="ratings-average"></span> out of 5 (<span class="ratings-count"></span> rating<span class="ratings-plural"></span>)
+            </div>
+        </div>
+    </div>
+    <div class="comments">
+        {{ tray.notes.count }} comment{{ tray.notes.count|pluralize }}
+        <form action="" method="post">{% csrf_token %}
+            {% for hidden in comment_form.hidden_fields  %}
+            {{ hidden }}
+            {% endfor %}
+            {{ comment_form.non_field_errors }}
+            {{ comment_form.text.errors }}
+            <div>
+                {{ comment_form.text }}
+            </div>
+            <input type="submit" value="add comment" />
+        </form>
+
+        <ul class="content">
+            {% for comment in tray.notes.all %}
+            <li class="note {% cycle 'odd' 'even' %}">
+                {{ comment.text }}
+                <div class="meta">
+                    added by <span class="added-by">{{ comment.added_by }}</span> on <span class="added-on">{{ comment.added }}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -16,6 +16,7 @@ h3 {
     clear: both;
 }
 
+.errorlist,
 .error-message {
     color: red;
     font-weight: bold;
@@ -34,6 +35,9 @@ h3 {
 }
 .loading.active {
     display: inline-block;
+}
+.rate-wrapper .loading {
+    float: left;
 }
 
 .footer .connect li {
@@ -215,6 +219,13 @@ table.month .day-number {
 }
 .rate .rating.empty {
     background: url('/media/images/star_fav_empty.png');
+}
+.ratings-results-wrapper {
+    min-height: 15px;
+}
+.ratings-results {
+    display: none;
+    font-size: 12px;
 }
 
 .ui-autocomplete {

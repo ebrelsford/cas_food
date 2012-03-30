@@ -10,28 +10,35 @@
     {% if meals %}
     <div class="button previous"></div>
     <ul>
-        {% for meal in meals %}
+        {% for tray in meals %}
         <li class="meal {% cycle odd,even %}">
             <div class="image-wrapper">
-                {% thumbnail meal.picture "600x600" as full %}
-                <a title="{{ meal.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
-                    {% thumbnail meal.picture "150x150" as thumb %}
+                {% thumbnail tray.picture "600x600" as full %}
+                <a title="{{ tray.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+                    {% thumbnail tray.picture "150x150" as thumb %}
                     <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
                     {% endthumbnail %}
                 </a>           
                 {% endthumbnail %}
             </div>
-            <div class="date">{{ meal.date }}</div>
-            <div class="description expandable">{{ meal.description }}</div>
+            <div class="date">{{ tray.date }}</div>
+            <div class="description expandable">{{ tray.description }}</div>
+            <div class="comments"><a href="{{ tray.get_absolute_url }}">{{ tray.notes.all|length }} comments</a></div>
             <div class="rate-wrapper">Rate this meal: 
-                <ul class="rate">
+                <ul class="rate" data-change-rating-url="{% url tray.views.rate id=school.id tray_id=tray.id  %}">
                     <li class="rating rating-1 full picked"></li>
                     <li class="rating rating-2 empty"></li>
                     <li class="rating rating-3 empty"></li>
                     <li class="rating rating-4 empty"></li>
                     <li class="rating rating-5 empty"></li>
                 </ul>
+                <div class="loading"></div>
                 <div class="clear"></div>
+                <div class="ratings-results-wrapper">
+                    <div class="ratings-results">
+                        <span class="ratings-average"></span> out of 5 (<span class="ratings-count"></span> rating<span class="ratings-plural"></span>)
+                    </div>
+                </div>
             </div>
         </li>
         {% endfor %}

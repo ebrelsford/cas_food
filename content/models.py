@@ -29,5 +29,4 @@ class Picture(BaseContent):
     description = models.TextField(null=True, blank=True)
 
 class Note(BaseContent):
-    title = models.CharField(max_length=256)
     text = models.TextField()
