@@ -2,7 +2,7 @@
 <div class="content meals">
     <h2>Recent Meals
         {% if perms.tray.add_meal %}
-        <a href="{% url tray.views.add id=school.id %}">
+        <a href="{% url tray.views.add school_slug=school.slug %}">
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
         </a>
         {% endif %}
@@ -25,7 +25,7 @@
             <div class="description expandable">{{ tray.description }}</div>
             <div class="comments"><a href="{{ tray.get_absolute_url }}">{{ tray.notes.all|length }} comments</a></div>
             <div class="rate-wrapper">Rate this meal: 
-                <ul class="rate" data-change-rating-url="{% url tray.views.rate id=school.id tray_id=tray.id  %}">
+                <ul class="rate" data-change-rating-url="{% url tray.views.rate school_slug=school.slug tray_id=tray.id  %}">
                     <li class="rating rating-1 full picked"></li>
                     <li class="rating rating-2 empty"></li>
                     <li class="rating rating-3 empty"></li>
@@ -45,7 +45,7 @@
     </ul>
     <div class="button next"></div>
     {% else %}
-    No meals have been added yet&mdash;<a href="{% url tray.views.add id=school.id %}">be the first</a>!
+    No meals have been added yet&mdash;<a href="{% url tray.views.add school_slug=school.slug %}">be the first</a>!
     {% endif %}
     <div class="clear"></div>
 </div>

@@ -11,17 +11,17 @@ from mobile.shortcuts import render_to_response
 from forms import TrayForm
 from models import Tray, Rating
 
-def add(request, id=None):
+def add(request, school_slug=None):
     initial = {
         'added_by': request.user,
-        'school': get_object_or_404(School, id=id)
+        'school': get_object_or_404(School, slug=school_slug)
     }
 
     if request.method == 'POST':
         form = TrayForm(request.POST, request.FILES, initial=initial)
         if form.is_valid():
             form.save()
-            return redirect('schools.views.details', id=id)
+            return redirect('schools.views.details', school_slug=initial['school'].slug)
     else:
         form = TrayForm(initial=initial)
 
@@ -30,15 +30,15 @@ def add(request, id=None):
         'form': form,
     }, context_instance=RequestContext(request))
 
-def details(request, id=None, tray_id=None):
+def details(request, school_slug=None, tray_id=None):
     """Details for the given tray"""
-    tray = get_object_or_404(Tray, school__id=id, id=tray_id)
+    tray = get_object_or_404(Tray, school__slug=school_slug, id=tray_id)
 
     if request.method == "POST":
         comment_form = NoteForm(request.POST, object=tray, initial={ 'added_by': request.user })
         if comment_form.is_valid():
             comment_form.save()
-            return redirect('tray.views.details', id=id, tray_id=tray_id)
+            return redirect('tray.views.details', school_slug=school_slug, tray_id=tray_id)
     else:
         comment_form = NoteForm(object=tray, initial={ 'added_by': request.user })
 
@@ -47,9 +47,6 @@ def details(request, id=None, tray_id=None):
         'comment_form': comment_form,
         'tray': tray,
     }, context_instance=RequestContext(request))
-
-def comment(request, id=None, tray_id=None):
-    """Post a comment on this tray"""
 
 def _add_rating(tray, user, points):
     """Add a rating to a tray for a user, deleting other ratings by that user first."""
@@ -61,12 +58,12 @@ def _get_average_points(tray):
     """Get the average points for this tray."""
     return Rating.objects.filter(tray=tray).aggregate(average_points=Avg('points'))['average_points']
 
-def rate(request, id=None, tray_id=None):
-    """Rate a tray (tray_id) posted on a school (id)."""
+def rate(request, school_slug=None, tray_id=None):
+    """Rate a tray (tray_id) posted on a school (school_slug)."""
     status = 'OK'
     try:
         points = request.GET.get('points')
-        tray = Tray.objects.get(school__id=id, id=tray_id)
+        tray = Tray.objects.get(school__slug=school_slug, id=tray_id)
         _add_rating(tray, request.user, points)
     except:
         status = 'failure'

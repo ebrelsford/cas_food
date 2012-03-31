@@ -20,8 +20,8 @@ def map(request):
         'form': SchoolSearchForm()
     }, context_instance=RequestContext(request))
 
-def details(request, id=None):
-    school = get_object_or_404(School, id=id)
+def details(request, school_slug=None):
+    school = get_object_or_404(School, slug=school_slug)
     meals = school.tray_set.all().order_by('added')
     if meals.count() > 3:
         meals = meals[meals.count() - 3:]
@@ -47,6 +47,7 @@ def _school_feature(school):
         geometry=geojson.Point(coordinates=(school.point.x, school.point.y)),
         properties={
             'name': school.name,
+            'slug': school.slug,
             'address': school.address,
             'participates_in_wellness_in_the_schools': school.participates_in_wellness_in_the_schools,
             'participates_in_garden_to_cafe': school.participates_in_garden_to_cafe,
@@ -75,8 +76,8 @@ def add_meal(request, id=None):
     pass
 
 @permission_required('content.add_note')
-def add_note(request, id=None):
-    school = get_object_or_404(School, id=id)
+def add_note(request, school_slug=None):
+    school = get_object_or_404(School, slug=school_slug)
     return _add(request, school, NoteForm, 'Note')
 
 def _add(request, school, form_class, type_text, is_multipart=False):
@@ -87,7 +88,7 @@ def _add(request, school, form_class, type_text, is_multipart=False):
             form = form_class(request.POST, object=school) 
         if form.is_valid():    
             form.save()        
-            return redirect('schools.views.details', id=school.id)
+            return redirect('schools.views.details', school_slug=school.slug)
     else:
         form = form_class(object=school, initial={
             'added_by': request.user,

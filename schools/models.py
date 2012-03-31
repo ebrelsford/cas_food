@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 from content.models import Note
 
 class School(models.Model):
+    slug = models.SlugField(max_length=260)
     name = models.CharField(max_length=256)
 
     address = models.CharField(max_length=256, null=True, blank=True)

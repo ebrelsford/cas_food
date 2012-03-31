@@ -246,7 +246,7 @@ var SchoolMap = {
     addContentToPopup: function(popup, feature) {
         $content = $(popup).find('div');
         $content
-            .append('<h2><a href="/schools/' + feature.fid + '/">' + feature.data.name + '</a></h2>')
+            .append('<h2><a href="/schools/' + feature.data.slug + '/">' + feature.data.name + '</a></h2>')
             .append('<div class="address">' + feature.data.address + '</div>');
         if (feature.data.participates_in_wellness_in_the_schools) {
             $content.append('<div class="participation">Participates in <a href="http://www.wellnessintheschools.org/" target="_blank">Wellness in the Schools</a></div>');

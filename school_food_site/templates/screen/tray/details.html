@@ -18,7 +18,7 @@
     </div>
     <div class="description">{{ tray.description }}</div>
     <div class="rate-wrapper">Rate this meal: 
-        <ul class="rate" data-change-rating-url="{% url tray.views.rate id=school.id tray_id=tray.id  %}">
+        <ul class="rate" data-change-rating-url="{% url tray.views.rate school_slug=school.slug tray_id=tray.id  %}">
             <li class="rating rating-1 full picked"></li>
             <li class="rating rating-2 empty"></li>
             <li class="rating rating-3 empty"></li>
