@@ -5,9 +5,9 @@ from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
-from cas_food.shortcuts import render_to_response
 from content.forms import NoteForm
 from schools.models import School
+from mobile.shortcuts import render_to_response
 from forms import TrayForm
 from models import Tray, Rating
 

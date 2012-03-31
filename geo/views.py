@@ -4,7 +4,7 @@ from urllib2 import urlopen
 
 from django.http import HttpResponse
 
-from settings import YAHOO_APP_ID
+from school_food_site.settings import YAHOO_APP_ID
 
 BBOX = {
     'top': 40.922,

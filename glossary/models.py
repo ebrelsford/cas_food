@@ -1,7 +1,7 @@
 from django.db import models
 
 from audit.models import AuditedModel
-from cas_food.utils import slugify
+from utils import slugify
 
 class Entry(AuditedModel):
     title = models.CharField(max_length=256)

@@ -19,7 +19,6 @@ def do_menu_calendar(parser, token):
         show_details = (tokens[4] == 'True')
     except:
         show_details = True
-    print 'show_details', show_details
     return MenuCalendarNode(year, month, meal_list, show_details=show_details)
 
 

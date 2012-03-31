@@ -1,6 +1,6 @@
 from django.db import models
 
-from cas_food.utils import slugify
+from utils import slugify
 from distributors.models import Distributor
 
 class Ingredient(models.Model):

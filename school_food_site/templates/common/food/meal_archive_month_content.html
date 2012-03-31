@@ -1,0 +1,17 @@
+{% load menu_calendar %}
+
+<h1>{{ school_type }} school menu</h1>
+<div>
+    <div class="calendar-head">
+        <a class="previous" href="{% url food_menu_month school_type=school_type year=previous_month|date:"Y" month=previous_month|date:"m" %}">previous</a>
+        <a class="next" href="{% url food_menu_month school_type=school_type year=next_month|date:"Y" month=next_month|date:"m" %}">next</a>
+        <div class="clear"></div>
+    </div>
+    {% with y=month|date:"Y" m=month|date:"m" %}
+    {% if not is_mobile %}
+    {% menu_calendar y m meal_list %}
+    {% else %}
+    {% menu_calendar y m meal_list False %}
+    {% endif %}
+    {% endwith %}
+</div>

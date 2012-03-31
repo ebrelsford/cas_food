@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
-from cas_food.shortcuts import render_to_response
+from mobile.shortcuts import render_to_response
 from schools.models import School
 from forms import NoteForm, PictureForm, VideoForm
 

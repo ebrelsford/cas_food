@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
-from cas_food.shortcuts import render_to_response
 from content.forms import NoteForm
 from forms import SchoolSearchForm
+from mobile.shortcuts import render_to_response
 from models import School
 
 def index(request):

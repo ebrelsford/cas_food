@@ -2,7 +2,7 @@ from django import forms
 
 from selectable.forms.widgets import AutoCompleteWidget
 
-from cas_food.schools.lookups import SchoolLookup
+from schools.lookups import SchoolLookup
 
 class SchoolSearchForm(forms.Form):
     school = forms.CharField(
