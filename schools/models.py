@@ -32,6 +32,18 @@ class School(models.Model):
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
 
+class Contact(models.Model):
+    """A person at a school who might be worth contacting"""
+    school = models.ForeignKey(School)
+    name = models.CharField(max_length=128)
+    type = models.CharField(max_length=64, null=True, blank=True, choices=(
+        ('principal', 'principal'),
+    ))
+    phone = models.CharField(max_length=32, null=True, blank=True)
+    
+    def __unicode__(self):
+        return self.name + ': ' + self.school.name
+
 class GardenToCafe(models.Model):
     school = models.ForeignKey(School)
     garden_coordinators = models.CharField(max_length=256)
