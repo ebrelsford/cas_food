@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import admin
 admin.autodiscover()
@@ -39,3 +40,4 @@ if settings.DEBUG:
     urlpatterns = patterns('',
         (r'^' + settings.MEDIA_URL.lstrip('/'), include('appmedia.urls')),
     ) + urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
