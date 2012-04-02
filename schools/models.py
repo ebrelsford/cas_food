@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 
@@ -31,6 +33,12 @@ class School(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
+
+    def _get_school_food_code(self):
+        """Get the school food code, which is the ats_code minus the county character"""
+        school_food_code, i = re.subn('\D+', '', self.ats_code)
+        return school_food_code
+    school_food_code = property(_get_school_food_code)
 
 class Contact(models.Model):
     """A person at a school who might be worth contacting"""
