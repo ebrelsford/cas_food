@@ -21,7 +21,7 @@ class Tray(AuditedModel):
     @models.permalink
     def get_absolute_url(self):
         return ('tray.views.details', (), {
-            'id': self.school.id,
+            'school_slug': self.school.slug,
             'tray_id': self.id,
         })
 
