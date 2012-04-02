@@ -6,6 +6,7 @@ from content.models import Note
 class School(models.Model):
     slug = models.SlugField(max_length=260)
     name = models.CharField(max_length=256)
+    ats_code = models.CharField(max_length=16, null=True, blank=True, help_text='an NYC-wide unique school ID')
 
     address = models.CharField(max_length=256, null=True, blank=True)
     borough = models.CharField(max_length=64, null=True, blank=True)
