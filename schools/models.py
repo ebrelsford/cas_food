@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 
@@ -6,6 +8,7 @@ from content.models import Note
 class School(models.Model):
     slug = models.SlugField(max_length=260)
     name = models.CharField(max_length=256)
+    ats_code = models.CharField(max_length=16, null=True, blank=True, help_text='an NYC-wide unique school ID')
 
     address = models.CharField(max_length=256, null=True, blank=True)
     borough = models.CharField(max_length=64, null=True, blank=True)
@@ -30,6 +33,24 @@ class School(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
+
+    def _get_school_food_code(self):
+        """Get the school food code, which is the ats_code minus the county character"""
+        school_food_code, i = re.subn('\D+', '', self.ats_code)
+        return school_food_code
+    school_food_code = property(_get_school_food_code)
+
+class Contact(models.Model):
+    """A person at a school who might be worth contacting"""
+    school = models.ForeignKey(School)
+    name = models.CharField(max_length=128)
+    type = models.CharField(max_length=64, null=True, blank=True, choices=(
+        ('principal', 'principal'),
+    ))
+    phone = models.CharField(max_length=32, null=True, blank=True)
+    
+    def __unicode__(self):
+        return self.name + ': ' + self.school.name
 
 class GardenToCafe(models.Model):
     school = models.ForeignKey(School)

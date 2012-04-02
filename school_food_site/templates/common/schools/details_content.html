@@ -3,8 +3,17 @@
 {% include "common/tray/meal_list.html" %}
 {% include "common/content/note_list.html" %}
 
-<div class="section">
+<div>
     <h2>Get Involved</h2>
-    <div>Contact information for the principal and school food manager at this school.</div>
-    <div>A way to "watch" or "follow" this school to get notifications of updates to it.</div>
+    <div class="section">
+        {% for principal in principals %}
+        Contact the principal: {{ principal.name }} {{ principal.phone }}
+        {% endfor %}
+    </div>
+    <div class="section">
+        For more information, including the SchoolFood manager and the cafeteria phone number, look at the <a href="http://www.opt-osfns.org/osfns/resources/sch_searchNew/schFoodNew.aspx?cfoodsch={{ school.school_food_code }}">SchoolFood page for this school</a>.
+    </div>
+    <div class="section">
+        A way to "watch" or "follow" this school to get notifications of updates to it.
+    </div>
 </div>

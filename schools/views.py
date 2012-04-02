@@ -29,6 +29,7 @@ def details(request, school_slug=None):
         'school': school,
         'notes': school.notes.order_by('added').all(),
         'meals': meals,
+        'principals': school.contact_set.filter(type='principal'),
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):
