@@ -1,7 +1,6 @@
 from django.db import models
 
 from utils import slugify
-from distributors.models import Distributor
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=128)
@@ -12,7 +11,6 @@ class Ingredient(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
-    distributors = models.ManyToManyField(Distributor, blank=True, null=True, help_text='The distributors who schools get this dish from')
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True, help_text='The ingredients in this dish')
 
     # pictures TODO use contenttypes and use those in content.models

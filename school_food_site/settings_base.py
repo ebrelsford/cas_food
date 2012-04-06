@@ -58,7 +58,6 @@ INSTALLED_APPS = (
     'accounts',
     'audit',
     'content',
-    'distributors',
     'food',
     'glossary',
     'schools',
