@@ -1,5 +1,7 @@
+from django.contrib.contenttypes import generic
 from django.db import models
 
+from content.models import Picture
 from utils import slugify
 
 class Ingredient(models.Model):
@@ -12,8 +14,8 @@ class Dish(models.Model):
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True, help_text='The ingredients in this dish')
+    pictures = generic.GenericRelation(Picture)
 
-    # pictures TODO use contenttypes and use those in content.models
     # notes TODO use contenttypes and use those in content.models
     # aliases, other names the school uses for this dish
 

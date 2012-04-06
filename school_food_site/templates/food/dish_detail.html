@@ -1,4 +1,5 @@
 {% extends "food/base.html" %}
+{% load thumbnail %}
 
 {% block title %}{{ block.super }}{{ object.name }}{% endblock %}
 {% block header_title %}{{ object.name }}{% endblock %}
@@ -6,6 +7,21 @@
 
 {% block content %}
 <h1>{{ object.name }}</h1>
+
+<div class="photos" style="float: right;">
+    {% for picture in dish.pictures.all %}
+        {% thumbnail picture.picture "600x600" as full %}
+        <a title="{{ picture.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+            {% thumbnail picture.picture "150x150" as thumb %}
+            <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+            {% endthumbnail %}
+        </a>           
+        {% endthumbnail %}
+    {% endfor %}
+    <a href="{% url food_dish_add_picture slug=object.slug %}">
+        <img src="{{ MEDIA_URL }}images/round_plus.png" />
+    </a>
+</div>
 
 <div class="nutrition section">
     <table>
