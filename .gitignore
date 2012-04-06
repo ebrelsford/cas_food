@@ -2,7 +2,7 @@ settings.py
 *.pyc
 .*.sw*
 .svn
-media/cache
-media/cache/*
-media/pictures
-media/pictures/*
+school_food_site/media/cache
+school_food_site/media/cache/*
+school_food_site/media/pictures
+school_food_site/media/pictures/*
