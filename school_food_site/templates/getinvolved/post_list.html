@@ -17,7 +17,7 @@
         {% for post in object_list %}
         <li class="entry action-post {% cycle 'odd' 'even' %}">
             <h3 class="title">
-                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                {{ post.type.name|title }}: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                 {% if perms.getinvolved.change_post %}
                 <a href="{% url getinvolved_post_update pk=post.id %}">
                     <img src="{{ MEDIA_URL }}images/doc_edit.png" />
@@ -25,6 +25,9 @@
                 {% endif %}
             </h3>
             <div class="text">{{ post.text|safe }}</div>
+            <div class="meta">
+                Posted by <span class="added-by">{{ post.added_by }}</span> on <span class="added-on">{{ post.added|date:"N j, Y \a\t P" }}</span>.
+            </div>
         </li>
         {% endfor %}
     </ul>
