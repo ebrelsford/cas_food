@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'appmedia',
+    'ckeditor',
     'registration',
     'selectable',
     'south',
@@ -59,6 +60,7 @@ INSTALLED_APPS = (
     'audit',
     'content',
     'food',
+    'getinvolved',
     'glossary',
     'schools',
     'tray',
@@ -81,3 +83,20 @@ INTERNAL_IPS = ('127.0.0.1',)
 ACCOUNT_ACTIVATION_DAYS = 7
 
 THUMBNAIL_UPSCALE = False
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'kama',
+        'toolbar': (
+            [ 'Source', '-', 'Bold', 'Italic','Underline','-','RemoveFormat'  ],
+            [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
+            [ 'NumberedList','BulletedList','-','Blockquote','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            [ 'Link','Unlink' ],
+            [ 'Image','Flash','Table','SpecialChar' ],
+        ),
+    },
+    'admin': {
+        'skin': 'v2',
+        'toolbar': 'Full',
+    },
+}

@@ -1,0 +1,19 @@
+{% extends "getinvolved/base.html" %}
+
+{% block title %}{{ block.super }}Take Action: {% if post %}Update{% else %}Add{% endif %} Post{% endblock %}
+
+{% block header_title %}Take Action: {% if post %}Update{% else %}Add{% endif %} Post{% endblock %}
+
+{% block content %}
+<h2>Take Action: {% if post %}Update{% else %}Add{% endif %} Post</h2>
+<div class="getinvolved">
+    <form action="" method="post">
+        <table>
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_table }}
+        </table>
+        <input type="submit" />
+    </form>
+</div>
+{% endblock %}

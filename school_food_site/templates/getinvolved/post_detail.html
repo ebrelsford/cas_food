@@ -1,0 +1,18 @@
+{% extends "getinvolved/base.html" %}
+
+{% block title %}{{ block.super }}Take Action{% endblock %}
+
+{% block header_title %}Take Action{% endblock %}
+
+{% block content %}
+<h2>{{ post.title }}
+    {% if perms.getinvolved.change_post %}
+    <a href="{% url getinvolved_post_update pk=post.id %}">
+        <img src="{{ MEDIA_URL }}images/doc_edit.png" />
+    </a>
+    {% endif %}
+</h2>
+<div class="getinvolved">
+    <div class="text">{{ post.text|safe }}</div>
+</div>
+{% endblock %}

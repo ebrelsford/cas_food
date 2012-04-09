@@ -10,3 +10,6 @@ pyproj==1.9.0
 simplejson==2.3.2
 sorl-thumbnail==11.12
 wsgiref==0.1.2
+
+# install a version of django-ckeditor with support for settings.CKEDITOR_CONFIGS
+-e git+https://github.com/eserge/django-ckeditor.git@9a55d7b8887df804caea046a0fcbbed01310ff3d#egg=django_ckeditor-dev

@@ -5,6 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 import food.urls as food_urls
+import getinvolved.urls as getinvolved_urls
 import glossary.urls as glossary_urls
 import schools.urls as school_urls
 import tray.urls as tray_urls
@@ -19,9 +20,10 @@ urlpatterns = patterns('',
 
     url(r'^menu/', include(food_urls)),
 
-    url(r'^get-involved/$', 'getinvolved.views.index'),
+    #url(r'^get-involved/$', 'getinvolved.views.index'),
 
     url(r'^glossary/', include(glossary_urls)),
+    url(r'^take-action/', include(getinvolved_urls)),
 
     url(r'^geo/geocode', 'geo.views.geocode'),
 
@@ -34,6 +36,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
 
     (r'^selectable/', include('selectable.urls')),
+    (r'^ckeditor/', include('ckeditor.urls')),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,32 @@
+{% extends "getinvolved/base.html" %}
+
+{% block title %}{{ block.super }}Take Action{% endblock %}
+
+{% block header_title %}Take Action{% endblock %}
+
+{% block content %}
+<h2>Take Action
+    {% if perms.getinvolved.add_post %}
+    <a href="{% url getinvolved_post_create %}">
+        <img src="{{ MEDIA_URL }}images/round_plus.png" />
+    </a>
+    {% endif %}
+</h2>
+<div class="getinvolved">
+    <ul class="content entries">
+        {% for post in object_list %}
+        <li class="action-post {% cycle 'odd' 'even' %}">
+            <h3 class="title">
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                {% if perms.getinvolved.change_post %}
+                <a href="{% url getinvolved_post_update pk=post.id %}">
+                    <img src="{{ MEDIA_URL }}images/doc_edit.png" />
+                </a>
+                {% endif %}
+            </h3>
+            <div class="text">{{ post.text|safe }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
