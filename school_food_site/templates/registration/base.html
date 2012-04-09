@@ -1,4 +1,4 @@
-{% extends is_mobile|yesno:"mobile/base.html,screen/base.html" %}
+{% extends is_mobile|yesno:"mobile/base.html,screen/base_with_sidebar.html" %}
 {% comment %}
 Change parent template based on is_mobile. This should work fine for the registration
 pages because they are simpler than some of the others and are basically the same for
