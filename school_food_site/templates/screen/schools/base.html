@@ -1,4 +1,4 @@
-{% extends "screen/base.html" %}
+{% extends "screen/base_with_sidebar.html" %}
 
 {% block head_includes %}
 {{ block.super }}
@@ -24,12 +24,7 @@
 </script>
 {% endblock %}
 
-{% block content %}
-<div class="left">
-    {% block left %}{% endblock %}
-</div>
-<div class="right">
-    <div id="map" style="width: 100%; height: 200px;"></div>
-    {% block right %}{% endblock %}
-</div>
+{% block sidebar %}
+<div id="map" style="width: 100%; height: 200px;"></div>
+{{ super.block }}
 {% endblock %}
