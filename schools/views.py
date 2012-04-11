@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
+from accounts.models import UserProfile
 from content.forms import NoteForm
 from forms import SchoolSearchForm
 from mobile.shortcuts import render_to_response
@@ -30,6 +31,7 @@ def details(request, school_slug=None):
         'notes': school.notes.order_by('added').all(),
         'meals': meals,
         'principals': school.contact_set.filter(type='principal'),
+        'is_following': UserProfile.objects.filter(schools_following=school, user=request.user).count() > 0,
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):

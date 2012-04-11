@@ -1,11 +1,16 @@
+import json
+
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.tokens import default_token_generator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
+from schools.models import School
 from forms import PasswordResetForm
+from models import UserProfile
 
 @csrf_protect
 def password_reset(request, email=None, is_admin_site=False, template_name='registration/password_reset_form.html',
@@ -36,3 +41,30 @@ def password_reset(request, email=None, is_admin_site=False, template_name='regi
         'form': form,
     }, context_instance=RequestContext(request))
 
+@permission_required('accounts.can_follow_schools')
+def follow(request, school_slug):
+    """Start following a school"""
+    status = 'OK'
+    try:
+        school = School.objects.get(slug=school_slug)
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+        user_profile.schools_following.add(school)
+        user_profile.save()
+    except:
+        status = 'failure'
+
+    return HttpResponse(json.dumps({ 'status': status }), mimetype='application/json')            
+
+@permission_required('accounts.can_follow_schools')
+def unfollow(request, school_slug):
+    """Stop following a school"""
+    status = 'OK'
+    try:
+        school = School.objects.get(slug=school_slug)
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+        user_profile.schools_following.remove(school)
+        user_profile.save()
+    except:
+        status = 'failure'
+
+    return HttpResponse(json.dumps({ 'status': status }), mimetype='application/json')            

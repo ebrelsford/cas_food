@@ -243,3 +243,10 @@ table.month .day-number {
 .glossary .entry .title {
     font-weight: bold;
 }
+
+.follow.following .non-follower {
+    display: none;
+}
+.follow.not-following .follower {
+    display: none;
+}

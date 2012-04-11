@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^$', 'schools.views.index'),
     url(r'^map/$', 'schools.views.map'),
     url(r'^schools/(?P<school_slug>[^/]+)/meals/', include(tray_urls)),
+    url(r'^schools/(?P<school_slug>[^/]+)/follow/', 'accounts.views.follow'),
+    url(r'^schools/(?P<school_slug>[^/]+)/unfollow/', 'accounts.views.unfollow'),
     url(r'^schools/', include(school_urls)),
 
     url(r'^menu/', include(food_urls)),

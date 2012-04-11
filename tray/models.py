@@ -1,10 +1,13 @@
 from django.contrib.contenttypes import generic
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from sorl.thumbnail import ImageField
 
 from audit.models import AuditedModel
 from content.models import Note
+from notify.notifiers import NewTrayNotifier
 from schools.models import School
 
 class Tray(AuditedModel):
@@ -28,3 +31,9 @@ class Tray(AuditedModel):
 class Rating(AuditedModel):
     tray = models.ForeignKey(Tray, help_text='the tray being rated')
     points = models.PositiveIntegerField(help_text='the points given to the tray')
+
+@receiver(post_save, sender=Tray)
+def tray_create_notify_followers(sender, instance=None, created=False, **kwargs):
+    """notify followers when a tray is created"""
+    if created:
+        NewTrayNotifier(instance).send()
