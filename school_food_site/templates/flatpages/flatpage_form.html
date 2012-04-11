@@ -1,0 +1,18 @@
+{% extends "flatpages/base.html" %}
+
+{% block title %}{{ block.super }}{{ flatpage.title }} | Edit{% endblock %}
+{% block header_title %}{{ flatpage.title }}{% endblock %}
+{% block page_id %}flatpage-edit{% endblock %}
+
+{% block content %}
+<div>
+    <form action="" method="post">
+        <table>
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+import flatpages.urls as flatpages_urls
 import food.urls as food_urls
 import getinvolved.urls as getinvolved_urls
 import glossary.urls as glossary_urls
@@ -26,6 +27,7 @@ urlpatterns = patterns('',
 
     url(r'^glossary/', include(glossary_urls)),
     url(r'^take-action/', include(getinvolved_urls)),
+    url(r'^flatpages/', include(flatpages_urls)),
 
     url(r'^geo/geocode', 'geo.views.geocode'),
 

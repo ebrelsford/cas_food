@@ -1,0 +1,12 @@
+{% extends "flatpages/base.html" %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block header_title %}{{ flatpage.title }}{% endblock %}
+{% block page_id %}flatpage{% endblock %}
+
+{% block content %}
+{% if perms.flatpages.change_flat_page %}
+<a href="{% url flatpages_flatpage_update pk=flatpage.pk %}">Edit this page</a>
+{% endif %}
+{{ flatpage.content }}
+{% endblock %}

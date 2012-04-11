@@ -27,6 +27,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
     'mobile.middleware.MobileMiddleware',
 )
@@ -42,6 +43,7 @@ TEMPLATE_SCREEN_DIR = "screen"
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.flatpages',
     'django.contrib.gis',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -59,6 +61,7 @@ INSTALLED_APPS = (
     'accounts',
     'audit',
     'content',
+    'flatpages',
     'food',
     'getinvolved',
     'glossary',
