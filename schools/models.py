@@ -2,8 +2,11 @@ import re
 
 from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from content.models import Note
+from notify.notifiers import NewNoteNotifier
 
 class School(models.Model):
     slug = models.SlugField(max_length=260)
@@ -59,3 +62,9 @@ class GardenToCafe(models.Model):
 
     def __unicode__(self):
         return str(self.school)
+
+@receiver(post_save, sender=Note)
+def note_create_notify_followers(sender, instance=None, created=False, **kwargs):
+    """notify followers when a note is added to a school they are following"""
+    if created and instance.content_type.model_class() == School:
+        NewNoteNotifier(instance).send()
