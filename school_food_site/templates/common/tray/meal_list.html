@@ -1,11 +1,9 @@
 {% load thumbnail %}
 <div class="content meals">
     <h2>What I had for lunch
-        {% if perms.tray.add_meal %}
         <a href="{% url tray.views.add school_slug=school.slug %}">
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
         </a>
-        {% endif %}
     </h2>
     {% if meals %}
     <div class="button previous"></div>

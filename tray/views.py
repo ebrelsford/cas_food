@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404, redirect
@@ -11,6 +12,8 @@ from mobile.shortcuts import render_to_response
 from forms import TrayForm
 from models import Tray, Rating
 
+@login_required
+@permission_required('tray.add_meal')
 def add(request, school_slug=None):
     initial = {
         'added_by': request.user,
