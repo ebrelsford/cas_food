@@ -21,6 +21,11 @@ def map(request):
         'form': SchoolSearchForm()
     }, context_instance=RequestContext(request))
 
+def _is_following(school, user):
+    if user.is_authenticated():
+        return UserProfile.objects.filter(schools_following=school, user=request.user).count() > 0
+    return False
+
 def details(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
     meals = school.tray_set.all().order_by('added')
@@ -31,7 +36,7 @@ def details(request, school_slug=None):
         'notes': school.notes.order_by('added').all(),
         'meals': meals,
         'principals': school.contact_set.filter(type='principal'),
-        'is_following': UserProfile.objects.filter(schools_following=school, user=request.user).count() > 0,
+        'is_following': _is_following(school, request.user),
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):

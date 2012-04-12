@@ -13,52 +13,56 @@
     <div class="section">
         For more information, including the SchoolFood manager and the cafeteria phone number, look at the <a href="http://www.opt-osfns.org/osfns/resources/sch_searchNew/schFoodNew.aspx?cfoodsch={{ school.school_food_code }}">SchoolFood page for this school</a>.
     </div>
-    {% if perms.accounts.can_follow_schools %}
-    <div class="section follow{% if is_following %} following{% else %} not-following{% endif %}">
-        <script>
-            function change_following(follow, $link) {
-                var loading = $link.parent().find('.loading');
-                loading.css('display', 'inline-block');
+    <div class="section">
+        {% if perms.accounts.can_follow_schools %}
+        <div class="follow{% if is_following %} following{% else %} not-following{% endif %}">
+            <script>
+                function change_following(follow, $link) {
+                    var loading = $link.parent().find('.loading');
+                    loading.css('display', 'inline-block');
 
-                if (follow) {
-                    url = '{% url accounts.views.follow school_slug=school.slug %}';
-                }
-                else {
-                    url = '{% url accounts.views.unfollow school_slug=school.slug %}';
-                }
-                $.getJSON(url, function(data) {
-                    loading.hide();
-                    if (data.status === 'OK') {
-                        $follow = $link.parents('.follow');
-                        if (follow) {
-                            $follow.removeClass('not-following')
-                                .addClass('following');
-                        }
-                        else {
-                            $follow.removeClass('following')
-                                .addClass('not-following');
-                        }
+                    if (follow) {
+                        url = '{% url accounts.views.follow school_slug=school.slug %}';
                     }
+                    else {
+                        url = '{% url accounts.views.unfollow school_slug=school.slug %}';
+                    }
+                    $.getJSON(url, function(data) {
+                        loading.hide();
+                        if (data.status === 'OK') {
+                            $follow = $link.parents('.follow');
+                            if (follow) {
+                                $follow.removeClass('not-following')
+                                    .addClass('following');
+                            }
+                            else {
+                                $follow.removeClass('following')
+                                    .addClass('not-following');
+                            }
+                        }
+                    });
+                }
+                $(document).ready(function() {
+                    $('a.follow-school').click(function(e) {
+                        e.preventDefault();
+                        change_following(true, $(this));
+                    });
+                    $('a.unfollow-school').click(function(e) {
+                        e.preventDefault();
+                        change_following(false, $(this));
+                    });
                 });
-            }
-            $(document).ready(function() {
-                $('a.follow-school').click(function(e) {
-                    e.preventDefault();
-                    change_following(true, $(this));
-                });
-                $('a.unfollow-school').click(function(e) {
-                    e.preventDefault();
-                    change_following(false, $(this));
-                });
-            });
-        </script>
-        
-        <div class="follower">
-            You're following this school. <a href="#" class="unfollow-school">Stop following this school.</a><div class="loading"></div>
-        </div>
-        <div class="non-follower">
-            <a href="#" class="follow-school">Follow this school</a><div class="loading"></div> to receive updates when someone adds notes or pictures to it.
+            </script>
+            
+            <div class="follower">
+                You're following this school. <a href="#" class="unfollow-school">Stop following this school.</a><div class="loading"></div>
+            </div>
+            <div class="non-follower">
+                <a href="#" class="follow-school">Follow this school</a><div class="loading"></div> to receive updates when someone adds notes or pictures to it.
+            </div>
+            {% else %}
+            <a href="">Login</a> to follow this school and receive updates when people add notes or pictures to it.
+            {% endif %}
         </div>
     </div>
-    {% endif %}
 </div>
