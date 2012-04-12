@@ -1,6 +1,6 @@
 import geojson
 
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
@@ -23,7 +23,7 @@ def map(request):
 
 def _is_following(school, user):
     if user.is_authenticated():
-        return UserProfile.objects.filter(schools_following=school, user=request.user).count() > 0
+        return UserProfile.objects.filter(schools_following=school, user=user).count() > 0
     return False
 
 def details(request, school_slug=None):
@@ -79,10 +79,7 @@ def _filter_schools(request):
 
     return schools
 
-@permission_required('content.add_picture')
-def add_meal(request, id=None):
-    pass
-
+@login_required
 @permission_required('content.add_note')
 def add_note(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
