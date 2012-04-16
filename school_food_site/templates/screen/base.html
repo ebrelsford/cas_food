@@ -30,7 +30,19 @@
         {% block head_scripts %}
         <script>
             $(document).ready(function() {
-                $('.rate').rate();
+                $('#log-in-dialog').dialog({
+                    autoOpen: false,
+                    modal: true,
+                    buttons: {
+                        Ok: function() {
+                                $(this).dialog('close');
+                            },
+                    }
+                });
+                $('.rate').rate({
+                    loggedIn: {% if request.user.is_authenticated %}true{% else %}false{% endif %},
+                    $logInDialog: $('#log-in-dialog'),
+                });
                 $(':input.date').datepicker();
                 $('.expandable').expander({
                     expandText: 'more',
@@ -101,6 +113,9 @@
                 </div>
                 <div class="clear"></div>
             </div>
+        </div>
+        <div id="log-in-dialog">
+            You must log in before doing this.
         </div>
     </body>
 </html>

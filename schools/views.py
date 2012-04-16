@@ -38,9 +38,6 @@ def _get_meals(request, school, count=3):
 
     if meals.count() > 3:
         meals = meals[meals.count() - 3:]
-
-    for m in meals:
-        print m.user_rated
     return meals
 
 def details(request, school_slug=None):

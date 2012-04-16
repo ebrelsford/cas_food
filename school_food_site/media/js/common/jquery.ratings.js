@@ -4,6 +4,9 @@
 
 var Rate = {
     options: {
+        $logInDialog: null,
+        loggedIn: false,
+        requireLogin: true,
     },
 
     init: function(options, elem) {
@@ -14,7 +17,15 @@ var Rate = {
         var t = this;
         this.$elem.find('.rating')
             .click(function() {
-                t.changeRating($(this));
+                if (t.options.requireLogin && !t.options.loggedIn) {
+                    // force login
+                    if (t.options.$logInDialog !== null) {
+                        t.options.$logInDialog.dialog('open');
+                    }
+                }
+                else {
+                    t.changeRating($(this));
+                }
             });
     },
 
