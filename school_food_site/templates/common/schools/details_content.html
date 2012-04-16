@@ -63,7 +63,7 @@
         </div>
         {% else %}
         <div>
-            <a href="">Login</a> to follow this school and receive updates when people add notes or pictures to it.
+            <a href="{% url django.contrib.auth.views.login %}?next={{ request.path }}">Login</a> to follow this school and receive updates when people add notes or pictures to it.
         </div>
         {% endif %}
     </div>
