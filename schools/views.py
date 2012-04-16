@@ -1,6 +1,7 @@
 import geojson
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
@@ -10,6 +11,7 @@ from content.forms import NoteForm
 from forms import SchoolSearchForm
 from mobile.shortcuts import render_to_response
 from models import School
+from tray.models import Rating
 
 def index(request):
     return render_to_response("schools/index.html", {
@@ -26,11 +28,25 @@ def _is_following(school, user):
         return UserProfile.objects.filter(schools_following=school, user=user).count() > 0
     return False
 
-def details(request, school_slug=None):
-    school = get_object_or_404(School, slug=school_slug)
-    meals = school.tray_set.all().order_by('added')
+def _get_meals(request, school, count=3):
+    meals = school.tray_set.all().annotate(total_points=Sum('rating__points'), total_count=Count('rating__id')).extra(
+        select={
+            'user_rated': "SELECT COUNT(*)=1 FROM tray_rating WHERE tray_rating.tray_id=tray_tray.id AND tray_rating.added_by_id=%s",
+        },
+        select_params=(request.user.id,),
+    ).order_by('added')
+
     if meals.count() > 3:
         meals = meals[meals.count() - 3:]
+
+    for m in meals:
+        print m.user_rated
+    return meals
+
+def details(request, school_slug=None):
+    school = get_object_or_404(School, slug=school_slug)
+    meals = _get_meals(request, school)
+
     return render_to_response("schools/details.html", {
         'school': school,
         'notes': school.notes.order_by('added').all(),

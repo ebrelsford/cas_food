@@ -2,7 +2,7 @@ import json
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
-from django.db.models import Avg
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
@@ -57,10 +57,6 @@ def _add_rating(tray, user, points):
     rating = Rating(tray=tray, points=points, added_by=user)
     rating.save()
 
-def _get_average_points(tray):
-    """Get the average points for this tray."""
-    return Rating.objects.filter(tray=tray).aggregate(average_points=Avg('points'))['average_points']
-
 def rate(request, school_slug=None, tray_id=None):
     """Rate a tray (tray_id) posted on a school (school_slug)."""
     status = 'OK'
@@ -71,8 +67,10 @@ def rate(request, school_slug=None, tray_id=None):
     except:
         status = 'failure'
 
+    ratings = Rating.objects.filter(tray=tray)
+
     return HttpResponse(mimetype='application/json', content=json.dumps({
-        'average': _get_average_points(tray),
-        'count': Rating.objects.filter(tray=tray).count(),
+        'sum': ratings.aggregate(sum=Sum('points'))['sum'],
+        'count': ratings.count(),
         'status': status,
     }))

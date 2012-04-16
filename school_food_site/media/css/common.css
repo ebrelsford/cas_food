@@ -217,16 +217,18 @@ table.month .day-number {
 .rate-wrapper {
 }
 .rate .rating {
-    height: 16px;
-    width: 16px;
+    height: 32px;
+    width: 32px;
     float: left;
     margin-right: 2px;
+    cursor: pointer;
 }
-.rate .rating.full {
-    background: url('/media/images/star_fav.png');
+.rating-up {
+    background: url('/media/images/hand_pro.png') no-repeat;
 }
-.rate .rating.empty {
-    background: url('/media/images/star_fav_empty.png');
+.rating-down {
+    background: url('/media/images/hand_contra.png') no-repeat;
+    margin-top: 16px;
 }
 .ratings-results-wrapper {
     min-height: 15px;
@@ -234,6 +236,9 @@ table.month .day-number {
 .ratings-results {
     display: none;
     font-size: 12px;
+}
+.ratings-results.already-voted {
+    display: block;
 }
 
 .ui-autocomplete {

@@ -30,7 +30,7 @@ class Tray(AuditedModel):
 
 class Rating(AuditedModel):
     tray = models.ForeignKey(Tray, help_text='the tray being rated')
-    points = models.PositiveIntegerField(help_text='the points given to the tray')
+    points = models.IntegerField(help_text='the points given to the tray')
 
 @receiver(post_save, sender=Tray)
 def tray_create_notify_followers(sender, instance=None, created=False, **kwargs):
