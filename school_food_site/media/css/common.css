@@ -263,3 +263,10 @@ table.month .day-number {
 .dish-form .ui-multiselect {
     width: 100% !important;
 }
+.dish-form .new-ingredient-form .ui-button-text {
+    padding: 0.2em 1em;
+    line-height: 1;
+}
+.dish-form .new-ingredient-form input[type=text] {
+    vertical-align: super;
+}
