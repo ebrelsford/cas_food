@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^dish/(?P<slug>[^/]*)/edit/$', DishUpdateView.as_view(), name='food_dish_update'),
 
     url(r'^ingredients/add/(?P<name>[^/]*)/$', 'food.views.add_or_get_ingredient'),
+    url(r'^nutrients/add/(?P<name>[^/]*)/$', 'food.views.add_or_get_nutrient'),
 )

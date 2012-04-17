@@ -270,3 +270,16 @@ table.month .day-number {
 .dish-form .new-ingredient-form input[type=text] {
     vertical-align: super;
 }
+
+.dish-form .new-nutrient-toggle img {
+    margin-right: 2px;
+    vertical-align: top;
+}
+.dish-form .new-nutrient-form .ui-button-text {
+    padding: 0.2em .5em;
+    line-height: 1;
+}
+.dish-form .new-nutrient-form input[type=text] {
+    width: 85px;
+    vertical-align: super;
+}

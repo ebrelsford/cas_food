@@ -20,13 +20,24 @@
     function addNewIngredient(name) {
         var $multiselect = $('select[name="ingredients"]');
         $.getJSON('/menu/ingredients/add/' + name + '/', function(data) {
-            console.log(data);
             if (data.id !== null) {
                 if (data.created) {
                     $multiselect.append('<option value="' + data.id + '">' + name + '</option>');
                 }
                 $multiselect.find('option[value=' + data.id + ']').attr('selected', 'selected');
                 $multiselect.multiselect('refresh');
+            }
+        });
+    }
+
+    function addNewNutrient($target, name) {
+        $.getJSON('/menu/nutrients/add/' + name + '/', function(data) {
+            console.log(data);
+            if (data.id !== null) {
+                if (data.created) {
+                    $target.append('<option value="' + data.id + '">' + name + '</option>');
+                }
+                $target.find('option[value=' + data.id + ']').attr('selected', 'selected');
             }
         });
     }
@@ -58,6 +69,34 @@
                 event.preventDefault();
                 addNewIngredient($(event.target).val());
                 $(event.target).val('');
+            }
+        });
+
+        $('.new-nutrient-toggle').click(function() {
+            $(this).parent().find('.new-nutrient-form').toggle();
+            return false;
+        });
+        $('.new-nutrient-form a')
+        .button()
+        .click(function() {
+            $new_nutrient_form = $(this).parents('.new-nutrient-form');
+            $target = $(this).parents('td').find('select');
+            addNewNutrient($target, $new_nutrient_form.find('input[type=text]').val());
+            $new_nutrient_form.hide();
+        });
+        $('.new-nutrient-form input[type=text]').keydown(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+            }
+        });
+        $('.new-nutrient-form input[type=text]').keyup(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+
+                $new_nutrient_form = $(event.target).parents('.new-nutrient-form');
+                $target = $(event.target).parents('td').find('select');
+                addNewNutrient($target, $new_nutrient_form.find('input[type=text]').val());
+                $new_nutrient_form.hide();
             }
         });
     });
@@ -98,6 +137,13 @@
                             {% endfor %}
                             {{ nutrition_form.nutrient.errors }}
                             {{ nutrition_form.nutrient }}
+                            <a href="#" class="new-nutrient-toggle">
+                                <img src="{{ MEDIA_URL }}images/round_plus.png" width="16" height="16" />
+                            </a>
+                            <div class="new-nutrient-form" style="display: none;">
+                                <input type="text" id="new-nutrient" name="new-nutrient" />
+                                <a href="#">Add</a>
+                            </div>
                         </td>
                         <td>
                             {{ nutrition_form.amount.errors }}

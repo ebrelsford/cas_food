@@ -9,13 +9,27 @@ from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayAr
 from content.forms import PictureForm
 from mobile.shortcuts import get_template
 from forms import DishForm
-from models import Dish, Ingredient, Meal, NutritionFact
+from models import Dish, Ingredient, Meal, Nutrient, NutritionFact
 
 def add_or_get_ingredient(request, name=None):
     try:
         ingredient, created = Ingredient.objects.get_or_create(name=name.lower())
         result = {
             'id': ingredient.id,
+            'created': created,
+        }
+    except:
+        result = {
+            'id': None,
+            'created': False,
+        }
+    return HttpResponse(json.dumps(result), mimetype='application/json')
+
+def add_or_get_nutrient(request, name=None):
+    try:
+        nutrient, created = Nutrient.objects.get_or_create(name=name.lower())
+        result = {
+            'id': nutrient.id,
             'created': created,
         }
     except:
