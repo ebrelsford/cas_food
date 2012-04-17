@@ -1,11 +1,13 @@
 from datetime import date
 
 from django.core.urlresolvers import reverse
-from django.views.generic import CreateView, MonthArchiveView, DayArchiveView
+from django.forms.models import inlineformset_factory
+from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
 
 from content.forms import PictureForm
 from mobile.shortcuts import get_template
-from models import Dish, Meal
+from forms import DishForm
+from models import Dish, Meal, NutritionFact
 
 def menu(request):
     today = date.today()
@@ -64,3 +66,46 @@ class DishAddPictureView(CreateView):
 
     def get_success_url(self):
         return reverse('food_dish_detail', kwargs={ 'slug': self.dish.slug })
+
+class DishUpdateView(UpdateView):
+    form_class = DishForm
+    model = Dish
+
+    def _get_formset_factory(self):
+        """Get a formset factory for this model and NutritionFact"""
+        return inlineformset_factory(self.model, NutritionFact)
+
+    def _get_formset(self):
+        """Get the NutritionFormSet"""
+        try:
+            # might have been added in post()
+            return self.nutrition_formset
+        except:
+            NutritionFormSet = self._get_formset_factory()
+            return NutritionFormSet(instance=self.get_object())
+
+    def get_context_data(self, **kwargs):
+        context = super(DishUpdateView, self).get_context_data(**kwargs)
+        context['nutrition_formset'] = self._get_formset()
+        print context['nutrition_formset']
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Get both the form and the formset, confirm that both are valid"""
+        self.object = self.get_object()
+
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        NutritionFormSet = self._get_formset_factory()
+        self.nutrition_formset = NutritionFormSet(request.POST, request.FILES, instance=self.object)
+
+        if form.is_valid() and self.nutrition_formset.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        """Save formset, then pass it up to save the form"""
+        self.nutrition_formset.save()
+        return super(DishUpdateView, self).form_valid(form)

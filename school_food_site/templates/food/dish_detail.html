@@ -61,18 +61,4 @@
     <h2>Production</h2>
     <div>Where is {{ object.name }} made? How does it get to the school cafeteria?</div>
 </div>
-
-<div class="section">
-    <h2>Pictures</h2>
-    {% if object.name == 'chicken tenders' %}
-    <div><img src="{{ MEDIA_URL }}images/school_chicken.jpg" /></div>
-    {% else %}
-    <div>Pictures of {{ object.name }} in the wild.</div>
-    {% endif %}
-</div>
-
-<div class="section">
-    <h2>More information</h2>
-    <div>Where can I find more information about {{ object.name }}?</div>
-</div>
 {% endblock %}

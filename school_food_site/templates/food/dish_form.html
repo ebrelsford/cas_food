@@ -9,9 +9,49 @@
 
 <div>
     <form action="" method="post">
+        {{ nutrition_formset.management_form }}
         <table>
             {% csrf_token %}
             {{ form.as_table }}
+
+            <tr>
+                <td colspan="2">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nutrient</th>
+                                <th>Amount</th>
+                                <th>% Daily Value</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="dynamic-formset">
+                            {% for nutrition_form in nutrition_formset %}
+                            <tr>
+                                <td>
+                                    {% for hidden in nutrition_form.hidden_fields %}
+                                    {{ hidden }}
+                                    {% endfor %}
+                                    {{ nutrition_form.nutrient.errors }}
+                                    {{ nutrition_form.nutrient }}
+                                </td>
+                                <td>
+                                    {{ nutrition_form.amount.errors }}
+                                    {{ nutrition_form.amount }}
+                                </td>
+                                <td>
+                                    {{ nutrition_form.percent_daily_value.errors }}
+                                    {{ nutrition_form.percent_daily_value }}
+                                </td>
+                                <td>
+                                    {{ nutrition_form.DELETE }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </table>
         <input type="submit" value="submit" />
     </form>

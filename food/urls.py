@@ -1,9 +1,8 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView
 
-from forms import DishForm
 from models import Dish
-from views import DayMenuView, MonthMenuView, DishAddPictureView
+from views import DayMenuView, DishUpdateView, MonthMenuView, DishAddPictureView
 
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
@@ -18,11 +17,5 @@ urlpatterns = patterns('',
         name='food_dish_detail'
     ),
     url(r'^dish/(?P<slug>[^/]*)/picture/add/$', DishAddPictureView.as_view(), name='food_dish_add_picture'),
-    url(r'^dish/(?P<slug>[^/]*)/edit/$', 
-        UpdateView.as_view(
-            form_class=DishForm,
-            model=Dish,
-        ), 
-        name='food_dish_update'
-    ),
+    url(r'^dish/(?P<slug>[^/]*)/edit/$', DishUpdateView.as_view(), name='food_dish_update'),
 )
