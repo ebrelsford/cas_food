@@ -1,6 +1,7 @@
 from datetime import date
 import json
 
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
@@ -11,6 +12,8 @@ from mobile.shortcuts import get_template
 from forms import DishForm
 from models import Dish, Ingredient, Meal, Nutrient, NutritionFact
 
+@login_required
+@permission_required('food.change_dish')
 def add_or_get_ingredient(request, name=None):
     try:
         ingredient, created = Ingredient.objects.get_or_create(name=name.lower())
@@ -25,6 +28,8 @@ def add_or_get_ingredient(request, name=None):
         }
     return HttpResponse(json.dumps(result), mimetype='application/json')
 
+@login_required
+@permission_required('food.change_dish')
 def add_or_get_nutrient(request, name=None):
     try:
         nutrient, created = Nutrient.objects.get_or_create(name=name.lower())
