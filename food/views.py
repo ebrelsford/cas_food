@@ -1,13 +1,29 @@
 from datetime import date
+import json
 
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
+from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
 
 from content.forms import PictureForm
 from mobile.shortcuts import get_template
 from forms import DishForm
-from models import Dish, Meal, NutritionFact
+from models import Dish, Ingredient, Meal, NutritionFact
+
+def add_or_get_ingredient(request, name=None):
+    try:
+        ingredient, created = Ingredient.objects.get_or_create(name=name.lower())
+        result = {
+            'id': ingredient.id,
+            'created': created,
+        }
+    except:
+        result = {
+            'id': None,
+            'created': False,
+        }
+    return HttpResponse(json.dumps(result), mimetype='application/json')
 
 def menu(request):
     today = date.today()

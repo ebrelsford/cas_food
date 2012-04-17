@@ -259,3 +259,7 @@ table.month .day-number {
 .follow.not-following .follower {
     display: none;
 }
+
+.dish-form .ui-multiselect {
+    width: 100% !important;
+}

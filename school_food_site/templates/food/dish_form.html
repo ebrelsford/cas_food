@@ -4,55 +4,117 @@
 {% block header_title %}{{ object.name }}{% endblock %}
 {% block page_id %}dish-form-page{% endblock %}
 
+{% block head_includes %}
+{{ block.super }}
+<script src="{{ MEDIA_URL }}lib/jquery.formset.min.js"></script>
+
+<script src="{{ MEDIA_URL }}lib/jquery-multiselect/jquery.multiselect.min.js"></script>
+<script src="{{ MEDIA_URL }}lib/jquery-multiselect/jquery.multiselect.filter.min.js"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-multiselect/jquery.multiselect.css" />
+<link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-multiselect/jquery.multiselect.filter.css" />
+{% endblock %}
+
+{% block head_scripts %}
+{{ block.super }}
+<script>
+    function addNewIngredient(name) {
+        var $multiselect = $('select[name="ingredients"]');
+        $.getJSON('/menu/ingredients/add/' + name + '/', function(data) {
+            console.log(data);
+            if (data.id !== null) {
+                if (data.created) {
+                    $multiselect.append('<option value="' + data.id + '">' + name + '</option>');
+                }
+                $multiselect.find('option[value=' + data.id + ']').attr('selected', 'selected');
+                $multiselect.multiselect('refresh');
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('select[name="ingredients"]').multiselect({
+            noneSelectedText: 'Select ingredients',
+            selectedList: 8,
+        })
+        .multiselectfilter();
+
+        $('.dynamic-formset tr').formset({
+            prefix: 'nutritionfact_set',
+            keepFieldValues: '[name$="-dish"]',
+        });
+
+        $('.new-ingredient-form a')
+        .button()
+        .click(function() {
+            addNewIngredient($(this).parent().find('input[type=text]').val());
+        });
+        $('.new-ingredient-form input[type=text]').keydown(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+            }
+        });
+        $('.new-ingredient-form input[type=text]').keyup(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                addNewIngredient($(event.target).val());
+                $(event.target).val('');
+            }
+        });
+    });
+</script>
+{% endblock %}
+
 {% block content %}
 <h1>Edit {{ object.name }}</h1>
 
 <div>
-    <form action="" method="post">
+    <form action="" method="post" class="dish-form">
         {{ nutrition_formset.management_form }}
-        <table>
-            {% csrf_token %}
-            {{ form.as_table }}
-
-            <tr>
-                <td colspan="2">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nutrient</th>
-                                <th>Amount</th>
-                                <th>% Daily Value</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="dynamic-formset">
-                            {% for nutrition_form in nutrition_formset %}
-                            <tr>
-                                <td>
-                                    {% for hidden in nutrition_form.hidden_fields %}
-                                    {{ hidden }}
-                                    {% endfor %}
-                                    {{ nutrition_form.nutrient.errors }}
-                                    {{ nutrition_form.nutrient }}
-                                </td>
-                                <td>
-                                    {{ nutrition_form.amount.errors }}
-                                    {{ nutrition_form.amount }}
-                                </td>
-                                <td>
-                                    {{ nutrition_form.percent_daily_value.errors }}
-                                    {{ nutrition_form.percent_daily_value }}
-                                </td>
-                                <td>
-                                    {{ nutrition_form.DELETE }}
-                                </td>
-                            </tr>
+        {% csrf_token %}
+        <div class="section">
+            <h2>Ingredients</h2>
+            {{ form.ingredients }}
+            <div class="new-ingredient-form">
+                <label for="new-ingredient">New ingredient:</label> <input type="text" id="new-ingredient" name="new-ingredient" /> <a href="#">Add</a>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Nutrition Facts</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>Amount</th>
+                        <th>% Daily Value</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="dynamic-formset">
+                    {% for nutrition_form in nutrition_formset %}
+                    <tr>
+                        <td>
+                            {% for hidden in nutrition_form.hidden_fields %}
+                            {{ hidden }}
                             {% endfor %}
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </table>
+                            {{ nutrition_form.nutrient.errors }}
+                            {{ nutrition_form.nutrient }}
+                        </td>
+                        <td>
+                            {{ nutrition_form.amount.errors }}
+                            {{ nutrition_form.amount }}
+                        </td>
+                        <td>
+                            {{ nutrition_form.percent_daily_value.errors }}
+                            {{ nutrition_form.percent_daily_value }}
+                        </td>
+                        <td>
+                            {{ nutrition_form.DELETE }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         <input type="submit" value="submit" />
     </form>
 </div>
