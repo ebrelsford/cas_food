@@ -29,7 +29,8 @@ def _is_following(school, user):
     return False
 
 def _get_meals(request, school, count=3):
-    meals = school.tray_set.all().annotate(total_points=Sum('rating__points'), total_count=Count('rating__id')).extra(
+    meals = school.tray_set.all().annotate(total_points=Sum('rating__points'),
+                                           total_count=Count('rating__id')).extra(
         select={
             'user_rated': "SELECT COUNT(*)=1 FROM tray_rating WHERE tray_rating.tray_id=tray_tray.id AND tray_rating.added_by_id=%s",
         },

@@ -11,7 +11,8 @@ from notify.notifiers import NewNoteNotifier
 class School(models.Model):
     slug = models.SlugField(max_length=260)
     name = models.CharField(max_length=256)
-    ats_code = models.CharField(max_length=16, null=True, blank=True, help_text='an NYC-wide unique school ID')
+    ats_code = models.CharField(max_length=16, null=True, blank=True,
+                                help_text='an NYC-wide unique school ID')
 
     address = models.CharField(max_length=256, null=True, blank=True)
     borough = models.CharField(max_length=64, null=True, blank=True)
@@ -22,7 +23,8 @@ class School(models.Model):
     type = models.CharField(max_length=128, null=True, blank=True)
     grades = models.CharField(max_length=128, null=True, blank=True)
 
-    admin_district = models.DecimalField(max_digits=8, decimal_places=3, null=True, blank=True)
+    admin_district = models.DecimalField(max_digits=8, decimal_places=3,
+                                         null=True, blank=True)
     geo_district = models.IntegerField(null=True, blank=True)
 
     has_content = models.BooleanField(default=False)
@@ -38,7 +40,10 @@ class School(models.Model):
         return '%s %s' % (self.name, self.city,)
 
     def _get_school_food_code(self):
-        """Get the school food code, which is the ats_code minus the county character"""
+        """
+        Get the school food code, which is the ats_code minus the county 
+        character
+        """
         school_food_code, i = re.subn('\D+', '', self.ats_code)
         return school_food_code
     school_food_code = property(_get_school_food_code)
