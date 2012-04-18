@@ -8,11 +8,15 @@ class Notifier(object):
         self.text_template = text_template
 
     def get_context(self):
-        """Get the context to include when rendering the notification templates"""
+        """
+        Get the context to include when rendering the notification templates
+        """
         return {}
 
     def get_receivers(self):
-        """Get the receivers (of type User) who should receive this notification"""
+        """
+        Get the receivers (of type User) who should receive this notification
+        """
         raise NotImplementedError
 
     def _get_receiver_addresses(self):
@@ -34,8 +38,11 @@ class FollowerNotifier(Notifier):
         return self.get_followers()
 
 class NewTrayNotifier(FollowerNotifier):
-    def __init__(self, tray, subject_template='notify/new_tray_subject.txt', text_template='notify/new_tray_text.txt'):
-        super(NewTrayNotifier, self).__init__(subject_template=subject_template, text_template=text_template)
+    def __init__(self, tray, subject_template='notify/new_tray_subject.txt',
+                 text_template='notify/new_tray_text.txt'):
+        super(NewTrayNotifier, self).__init__(
+            subject_template=subject_template,
+            text_template=text_template)
         self.tray = tray
 
     def get_context(self):
@@ -47,8 +54,11 @@ class NewTrayNotifier(FollowerNotifier):
         return [profile.user for profile in self.tray.school.followers.all()]
 
 class NewNoteNotifier(FollowerNotifier):
-    def __init__(self, note, subject_template='notify/new_note_subject.txt', text_template='notify/new_note_text.txt'):
-        super(NewNoteNotifier, self).__init__(subject_template=subject_template, text_template=text_template)
+    def __init__(self, note, subject_template='notify/new_note_subject.txt',
+                 text_template='notify/new_note_text.txt'):
+        super(NewNoteNotifier, self).__init__(
+            subject_template=subject_template,
+            text_template=text_template)
         self.note = note
 
     def get_context(self):
