@@ -46,7 +46,9 @@ def add_or_get_nutrient(request, name=None):
 
 def menu(request):
     today = date.today()
-    return MonthMenuView.as_view()(request, year=str(today.year), month=str(today.month), school_type='elementary').render()
+    return MonthMenuView.as_view()(request, year=str(today.year),
+                                   month=str(today.month),
+                                   school_type='elementary').render()
 
 class MonthMenuView(MonthArchiveView):
     allow_empty = True
@@ -55,7 +57,8 @@ class MonthMenuView(MonthArchiveView):
     month_format='%m'
 
     def get_queryset(self):
-        self.template_name = get_template('food/meal_archive_month.html', self.request)
+        self.template_name = get_template('food/meal_archive_month.html',
+                                          self.request)
         return Meal.objects.filter(school_type=self.kwargs['school_type'])
 
     def get_context_data(self, **kwargs):
@@ -70,7 +73,8 @@ class DayMenuView(DayArchiveView):
     month_format='%m'
 
     def get_queryset(self):
-        self.template_name = get_template('food/meal_archive_day.html', self.request)
+        self.template_name = get_template('food/meal_archive_day.html', 
+                                          self.request)
         return Meal.objects.filter(school_type=self.kwargs['school_type'])
 
     def get_context_data(self, **kwargs):
@@ -122,7 +126,6 @@ class DishUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(DishUpdateView, self).get_context_data(**kwargs)
         context['nutrition_formset'] = self._get_formset()
-        print context['nutrition_formset']
         return context
 
     def post(self, request, *args, **kwargs):
@@ -133,7 +136,8 @@ class DishUpdateView(UpdateView):
         form = self.get_form(form_class)
 
         NutritionFormSet = self._get_formset_factory()
-        self.nutrition_formset = NutritionFormSet(request.POST, request.FILES, instance=self.object)
+        self.nutrition_formset = NutritionFormSet(request.POST, request.FILES,
+                                                  instance=self.object)
 
         if form.is_valid() and self.nutrition_formset.is_valid():
             return self.form_valid(form)

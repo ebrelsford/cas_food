@@ -9,8 +9,12 @@ urlpatterns = patterns('',
         ),
         name='glossary_list'
     ),
+
     url(r'^add/$', 'glossary.views.create', name='glossary_entry_create'),
-    url(r'^(?P<slug>.*)/edit/$', 'glossary.views.update', name='glossary_entry_update'),
+
+    url(r'^(?P<slug>.*)/edit/$', 'glossary.views.update',
+        name='glossary_entry_update'),
+
     url(r'^(?P<slug>.*)/$', DetailView.as_view(
             model=Entry,
         ), 

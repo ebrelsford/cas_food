@@ -13,7 +13,8 @@ class Ingredient(models.Model):
 class Dish(models.Model):
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
-    ingredients = models.ManyToManyField(Ingredient, blank=True, null=True, help_text='The ingredients in this dish')
+    ingredients = models.ManyToManyField(Ingredient, blank=True, null=True,
+                                         help_text='The ingredients in this dish')
     pictures = generic.GenericRelation(Picture)
 
     # notes TODO use contenttypes and use those in content.models
@@ -37,7 +38,9 @@ class Dish(models.Model):
 
 class Nutrient(models.Model):
     name = models.CharField(max_length=128)
-    daily_recommended_amount = models.IntegerField(blank=True, null=True, help_text='The daily recommended amount of this nutrient, in milligrams') # only in milligrams
+    daily_recommended_amount = models.IntegerField(
+        blank=True, null=True,
+        help_text='The daily recommended amount of this nutrient, in milligrams') # only in milligrams
 
     def __unicode__(self):
         return self.name
@@ -46,8 +49,12 @@ class NutritionFact(models.Model):
     # TODO auditing
     dish = models.ForeignKey(Dish, help_text='The dish this fact belongs to')
     nutrient = models.ForeignKey(Nutrient, help_text='The nutrient for this fact')
-    amount = models.IntegerField(blank=True, null=True, help_text='The amount of this nutrient (in milligrams or calories) in one serving of this dish') # only in milligrams or calories, depending on nutrient
-    percent_daily_value = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, help_text='The percent daily value of this nutrient in one serving of this dish')
+    amount = models.IntegerField(
+        blank=True, null=True,
+        help_text='The amount of this nutrient (in milligrams or calories) in one serving of this dish') # only in milligrams or calories, depending on nutrient
+    percent_daily_value = models.DecimalField(
+        max_digits=4, decimal_places=1, blank=True, null=True,
+        help_text='The percent daily value of this nutrient in one serving of this dish')
 
     def __unicode__(self):
         return self.dish.name + ': ' + self.nutrient.name
@@ -60,7 +67,8 @@ class Meal(models.Model):
 
     date = models.DateField(help_text='The date this meal is served')
     dishes = models.ManyToManyField(Dish, help_text='The dishes in this meal')
-    school_type = models.CharField(max_length=32, choices=SCHOOL_TYPE_CHOICES, default='elementary')
+    school_type = models.CharField(max_length=32, choices=SCHOOL_TYPE_CHOICES,
+                                   default='elementary')
 
     def __unicode__(self):
         return str(self.date)

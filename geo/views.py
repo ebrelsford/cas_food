@@ -23,10 +23,14 @@ def geocode(request):
     return response            
 
 def _is_in_bbox(latitude, longitude):
-    return (latitude <= BBOX['top'] and latitude >= BBOX['bottom']) and (longitude <= BBOX['right'] and longitude >= BBOX['left'])
+    return ((latitude <= BBOX['top'] and latitude >= BBOX['bottom']) and 
+        (longitude <= BBOX['right'] and longitude >= BBOX['left']))
 
 def _geocode_with_yahoo(location):
-    """Geocode using Yahoo Placefinder. Return None if no results are found within BBOX."""
+    """
+    Geocode using Yahoo Placefinder. Return None if no results are found within
+    BBOX.
+    """
     query = {
         'location': location,
         'flags': 'CJ',

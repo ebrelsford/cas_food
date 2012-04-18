@@ -9,11 +9,14 @@ from django.utils.translation import ugettext_lazy as _
 
 class PasswordResetForm(_PasswordResetForm):
 
-    def save(self, domain_override=None, email_template_name='registration/password_reset_email.txt',
+    def save(self, domain_override=None,
+             email_template_name='registration/password_reset_email.txt',
              html_email_template_name='registration/password_reset_email.html',
-             use_https=False, token_generator=default_token_generator, request=None):
+             use_https=False, token_generator=default_token_generator,
+             request=None):
         """
-        Generates a one-use only link for resetting password and sends to the user
+        Generates a one-use only link for resetting password and sends to the 
+        user
         """
         for user in self.users_cache:
             if not domain_override:
@@ -36,7 +39,8 @@ class PasswordResetForm(_PasswordResetForm):
             subject = _("Password reset on %s") % site_name
             text_content = text_template.render(c)
             html_content = html_template.render(c)
-            msg = EmailMultiAlternatives(subject, text_content, None, [user.email])
+            msg = EmailMultiAlternatives(subject, text_content, None,
+                                         [user.email])
             msg.attach_alternative(html_content, 'text/html')
             msg.send()
 

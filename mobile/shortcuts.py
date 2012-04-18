@@ -8,7 +8,8 @@ def render_to_response(template, context={}, context_instance=None):
     on IS_MOBILE in the request context, which should be put there by 
     middleware.
     """
-    return r2r(get_template(template, context_instance['request']), context, context_instance=context_instance)
+    return r2r(get_template(template, context_instance['request']), context,
+               context_instance=context_instance)
 
 def get_template(template, request):
     template_dir = TEMPLATE_SCREEN_DIR

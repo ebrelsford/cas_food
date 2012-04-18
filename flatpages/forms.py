@@ -8,4 +8,5 @@ class FlatPageForm(ModelForm):
 
     class Meta:
         model = FlatPage
-        exclude = ('url', 'enable_comments', 'template_name', 'registration_required', 'sites',)
+        exclude = ('url', 'enable_comments', 'template_name',
+                   'registration_required', 'sites',)

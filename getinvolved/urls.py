@@ -10,8 +10,13 @@ urlpatterns = patterns('',
         ),
         name='getinvolved_post_list'
     ),
-    url(r'^posts/add/$', PostCreateView.as_view(), name='getinvolved_post_create'),
-    url(r'^posts/(?P<pk>\d+)/edit/$', PostUpdateView.as_view(), name='getinvolved_post_update'),
+
+    url(r'^posts/add/$', PostCreateView.as_view(),
+        name='getinvolved_post_create'),
+
+    url(r'^posts/(?P<pk>\d+)/edit/$', PostUpdateView.as_view(),
+        name='getinvolved_post_update'),
+
     url(r'^posts/(?P<pk>\d+)/$', DetailView.as_view(
             model=Post,
         ), name='getinvolved_post_detail'

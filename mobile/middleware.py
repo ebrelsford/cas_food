@@ -6,7 +6,8 @@ class MobileMiddleware(object):
 
     def is_mobile(self, request):
         """                        
-        Add is_mobile: True if user agent contains an obvious smartphone, False otherwise
+        Add is_mobile: True if user agent contains an obvious smartphone, False
+        otherwise
         """
         ua = request.META.get('HTTP_USER_AGENT', '').lower()
         return any([mobile_ua in ua for mobile_ua in self.MOBILE_UAS]) 

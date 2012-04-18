@@ -5,9 +5,13 @@ from django.forms import HiddenInput, IntegerField, ModelForm, ModelChoiceField
 from models import Note, Picture, Video
  
 class ContentForm(ModelForm):
-    content_type = ModelChoiceField(label='content_type', queryset=ContentType.objects.all(), widget=HiddenInput())
-    object_id = IntegerField(label='object_id', min_value=1, widget=HiddenInput())
-    added_by = ModelChoiceField(label='added_by', queryset=User.objects.all(), widget=HiddenInput())
+    content_type = ModelChoiceField(label='content_type',
+                                    queryset=ContentType.objects.all(),
+                                    widget=HiddenInput())
+    object_id = IntegerField(label='object_id', min_value=1,
+                             widget=HiddenInput())
+    added_by = ModelChoiceField(label='added_by', queryset=User.objects.all(),
+                                widget=HiddenInput())
 
     def __init__(self, *args, **kwargs):
         """Use a pass object kwarg to get the content_type and object_id"""

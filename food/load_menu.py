@@ -24,7 +24,10 @@ def _remove_non_ascii(s):
     return "".join(i for i in s if ord(i)<128)
 
 def _prepare_string(s):
-    """Get a string ready to be looked at, removing extra spaces, non-ascii characters."""
+    """
+    Get a string ready to be looked at, removing extra spaces, non-ascii 
+    characters.
+    """
     s = s.strip()
     s = re.sub(r'\s+', ' ', s)
     s = _remove_non_ascii(s)

@@ -27,7 +27,8 @@ def update(request, slug):
             form.save()
             return redirect('glossary_list')
     else:
-        form = ChangeEntryForm(instance=entry, initial={ 'updated_by': request.user, })
+        form = ChangeEntryForm(instance=entry,
+                               initial={ 'updated_by': request.user, })
     return render_to_response('glossary/entry_form.html', {
         'form': form,
     }, context_instance=RequestContext(request))

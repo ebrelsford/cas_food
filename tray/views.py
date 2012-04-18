@@ -24,7 +24,8 @@ def add(request, school_slug=None):
         form = TrayForm(request.POST, request.FILES, initial=initial)
         if form.is_valid():
             form.save()
-            return redirect('schools.views.details', school_slug=initial['school'].slug)
+            return redirect('schools.views.details',
+                            school_slug=initial['school'].slug)
     else:
         form = TrayForm(initial=initial)
 
@@ -38,12 +39,15 @@ def details(request, school_slug=None, tray_id=None):
     tray = get_object_or_404(Tray, school__slug=school_slug, id=tray_id)
 
     if request.method == "POST":
-        comment_form = NoteForm(request.POST, object=tray, initial={ 'added_by': request.user })
+        comment_form = NoteForm(request.POST, object=tray,
+                                initial={ 'added_by': request.user })
         if comment_form.is_valid():
             comment_form.save()
-            return redirect('tray.views.details', school_slug=school_slug, tray_id=tray_id)
+            return redirect('tray.views.details', school_slug=school_slug,
+                            tray_id=tray_id)
     else:
-        comment_form = NoteForm(object=tray, initial={ 'added_by': request.user })
+        comment_form = NoteForm(object=tray,
+                                initial={ 'added_by': request.user })
 
     return render_to_response('tray/details.html', {
         'school': tray.school,
@@ -52,7 +56,10 @@ def details(request, school_slug=None, tray_id=None):
     }, context_instance=RequestContext(request))
 
 def _add_rating(tray, user, points):
-    """Add a rating to a tray for a user, deleting other ratings by that user first."""
+    """
+    Add a rating to a tray for a user, deleting other ratings by that user 
+    first.
+    """
     Rating.objects.filter(tray=tray, added_by=user).delete()
     rating = Rating(tray=tray, points=points, added_by=user)
     rating.save()

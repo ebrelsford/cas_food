@@ -12,10 +12,13 @@ from schools.models import School
 
 class Tray(AuditedModel):
     """A picture of a lunch tray for rating and discussion."""
-    picture = ImageField(upload_to='pictures', help_text='a picture of the tray')
+    picture = ImageField(upload_to='pictures',
+                         help_text='a picture of the tray')
     date = models.DateField(help_text='the date the meal in this tray was served')
-    description = models.TextField(null=True, blank=True, help_text='describe the meal on the tray')
-    school = models.ForeignKey(School, help_text='the school this tray is from')
+    description = models.TextField(null=True, blank=True,
+                                   help_text='describe the meal on the tray')
+    school = models.ForeignKey(School,
+                               help_text='the school this tray is from')
     notes = generic.GenericRelation(Note, help_text='comments on this tray')
 
     def __unicode__(self):
@@ -33,7 +36,8 @@ class Rating(AuditedModel):
     points = models.IntegerField(help_text='the points given to the tray')
 
 @receiver(post_save, sender=Tray)
-def tray_create_notify_followers(sender, instance=None, created=False, **kwargs):
+def tray_create_notify_followers(sender, instance=None, created=False,
+                                 **kwargs):
     """notify followers when a tray is created"""
     if created:
         NewTrayNotifier(instance).send()

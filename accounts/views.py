@@ -13,11 +13,13 @@ from forms import PasswordResetForm
 from models import UserProfile
 
 @csrf_protect
-def password_reset(request, email=None, is_admin_site=False, template_name='registration/password_reset_form.html',
-        email_template_name='registration/password_reset_email.txt',
-        html_email_template_name='registration/password_reset_email.html',
-        password_reset_form=PasswordResetForm, token_generator=default_token_generator,
-        post_reset_redirect=None):
+def password_reset(request, email=None, is_admin_site=False,
+                   template_name='registration/password_reset_form.html',
+                   email_template_name='registration/password_reset_email.txt',
+                   html_email_template_name='registration/password_reset_email.html',
+                   password_reset_form=PasswordResetForm,
+                   token_generator=default_token_generator,
+                   post_reset_redirect=None):
     if post_reset_redirect is None:
         post_reset_redirect = reverse('django.contrib.auth.views.password_reset_done')
     if request.method == "POST":
@@ -53,7 +55,8 @@ def follow(request, school_slug):
     except:
         status = 'failure'
 
-    return HttpResponse(json.dumps({ 'status': status }), mimetype='application/json')            
+    return HttpResponse(json.dumps({ 'status': status }),
+                        mimetype='application/json')            
 
 @permission_required('accounts.can_follow_schools')
 def unfollow(request, school_slug):
@@ -67,4 +70,5 @@ def unfollow(request, school_slug):
     except:
         status = 'failure'
 
-    return HttpResponse(json.dumps({ 'status': status }), mimetype='application/json')            
+    return HttpResponse(json.dumps({ 'status': status }),
+                        mimetype='application/json')            
