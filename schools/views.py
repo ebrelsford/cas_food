@@ -11,7 +11,6 @@ from content.forms import NoteForm
 from forms import SchoolSearchForm
 from mobile.shortcuts import render_to_response
 from models import School
-from tray.models import Rating
 
 def index(request):
     return render_to_response("schools/index.html", {
