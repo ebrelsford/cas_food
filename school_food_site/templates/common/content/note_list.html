@@ -7,15 +7,14 @@
     <ul>
         {% for note in notes %}
         <li class="note {% cycle odd,even %}">
-            <h3 class="title">{{ note.title }}</h3>
-            <div class="text">{{ note.text }}</div>
-            <div class="meta">
-                Posted by <span class="added-by">{{ note.added_by }}</span> on <span class="added-on">{{ note.added|date:"N j, Y \a\t P" }}</span>.
-            </div>
+        {% include "common/content/note_single.html" %}
         </li>
         {% empty %}
-        <li>none, yet</li>
+        <li>No comments yet.</li>
         {% endfor %}
     </ul>
+    {% if more_notes %}
+    <a href="{% url schools_notes_list school_slug=school.slug %}">show more comments</a>
+    {% endif %}
     <div class="clear"></div>
 </div>

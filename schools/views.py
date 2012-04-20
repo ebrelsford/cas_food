@@ -5,6 +5,7 @@ from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
+from django.views.generic import ListView
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
@@ -43,10 +44,13 @@ def _get_meals(request, school, count=3):
 def details(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
     meals = _get_meals(request, school)
+    notes = school.notes.order_by('added').all()
+    notes_to_display = 10
 
     return render_to_response("schools/details.html", {
         'school': school,
-        'notes': school.notes.order_by('added').all(),
+        'notes': notes[:notes_to_display],
+        'more_notes': notes.count() > notes_to_display,
         'meals': meals,
         'principals': school.contact_set.filter(type='principal'),
         'is_following': _is_following(school, request.user),
@@ -118,3 +122,16 @@ def _add(request, school, form_class, type_text, is_multipart=False):
         'form': form,
         'is_multipart': is_multipart,
     }, context_instance=RequestContext(request))
+
+class SchoolNoteListView(ListView):
+    template_name = 'schools/note_list.html'
+
+    def get_queryset(self):
+        self.school = get_object_or_404(School,
+                                        slug=self.kwargs['school_slug'])
+        return self.school.notes.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(SchoolNoteListView, self).get_context_data(**kwargs)
+        context['school'] = self.school
+        return context

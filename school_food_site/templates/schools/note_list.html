@@ -1,0 +1,20 @@
+{% extends "schools/base.html" %}
+
+{% block title %}{{ block.super }}{{ school.name }} | Comments{% endblock %}
+
+{% block header_title %}{{ school.name }} | Comments{% endblock %}
+
+{% block content %}
+<h1>Comments on {{ school.name }}</h2>
+<div class="content notes">
+    <ul>
+        {% for note in note_list %}
+        <li class="note {% cycle odd,even %}">
+        {% include "common/content/note_single.html" %}
+        </li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
