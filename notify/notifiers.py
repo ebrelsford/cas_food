@@ -62,7 +62,7 @@ class NewNoteNotifier(FollowerNotifier):
         self.note = note
 
     def get_context(self):
-        context = super(NewTrayNotifier, self).get_context()
+        context = super(NewNoteNotifier, self).get_context()
         context.update(dict(note=self.note))
         return context
 
