@@ -28,22 +28,28 @@ def _is_following(school, user):
         return UserProfile.objects.filter(schools_following=school, user=user).count() > 0
     return False
 
-def _get_meals(request, school, count=3):
+def _get_meals(school, index=0, count=3, user_id=None):
     meals = school.tray_set.all().annotate(total_points=Sum('rating__points'),
                                            total_count=Count('rating__id')).extra(
         select={
             'user_rated': "SELECT COUNT(*)=1 FROM tray_rating WHERE tray_rating.tray_id=tray_tray.id AND tray_rating.added_by_id=%s",
         },
-        select_params=(request.user.id,),
-    ).order_by('added')
+        select_params=(user_id,),
+    ).order_by('date')
 
-    if meals.count() > 3:
-        meals = meals[meals.count() - 3:]
+    meal_count = meals.count()
+    if meal_count > count:
+        # TODO this could be more natural...
+        start = meal_count - count + index
+        if start < 0:
+            return meals.none()
+        end = start + count
+        return meals[start:end]
     return meals
 
 def details(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
-    meals = _get_meals(request, school)
+    meals = _get_meals(school, user_id=request.user.id)
     notes = school.notes.order_by('added').all()
     notes_to_display = 10
 
@@ -134,4 +140,23 @@ class SchoolNoteListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SchoolNoteListView, self).get_context_data(**kwargs)
         context['school'] = self.school
+        return context
+
+class MealListView(ListView):
+    default_count = 3
+    default_index = 0
+
+    def get_queryset(self):
+        self.count = int(self.request.GET.get('count', self.default_count))
+        self.index = int(self.request.GET.get('index', self.default_index))
+        self.school = get_object_or_404(School,
+                                        slug=self.kwargs['school_slug'])
+        return _get_meals(self.school, index=self.index, count=self.count, 
+                          user_id=self.request.user.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(MealListView, self).get_context_data(**kwargs)
+        context['school'] = self.school
+        context['has_next'] = False
+        context['has_previous'] = False
         return context

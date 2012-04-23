@@ -105,18 +105,17 @@ em {
     font-weight: bold;
 }
 
-.content.meals {
-}
-.content.meals .button {
+.meals .button {
     height: 32px;
     width: 32px;
     margin-top: 115px;
+    cursor: pointer;
 }
-.content.meals .previous {
+.meals .previous {
     background: url('/media/images/br_prev.png') no-repeat;
     float: left;
 }
-.content.meals .next {
+.meals .next {
     background: url('/media/images/br_next.png') no-repeat;
     display: inline-block;
     height: 32px;
