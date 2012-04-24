@@ -31,6 +31,11 @@ class Tray(AuditedModel):
             'tray_id': self.id,
         })
 
+    class Meta:
+        permissions = (
+            ('add note', 'Can add notes to trays'),
+        )
+
 class Rating(AuditedModel):
     tray = models.ForeignKey(Tray, help_text='the tray being rated')
     points = models.IntegerField(help_text='the points given to the tray')

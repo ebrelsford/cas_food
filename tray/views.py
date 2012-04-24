@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseNotAllowed
 from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
@@ -52,6 +52,18 @@ def details(request, school_slug=None, tray_id=None):
     except:
         raise Http404
 
+    comment_form = NoteForm(object=tray, initial={ 'added_by': request.user })
+
+    return render_to_response('tray/details.html', {
+        'school': tray.school,
+        'comment_form': comment_form,
+        'tray': tray,
+    }, context_instance=RequestContext(request))
+
+@login_required
+@permission_required('tray.add_note')
+def add_comment(request, school_slug=None, tray_id=None):
+    tray = get_object_or_404(Tray, school__slug=school_slug, id=tray_id)
     if request.method == "POST":
         comment_form = NoteForm(request.POST, object=tray,
                                 initial={ 'added_by': request.user })
@@ -60,14 +72,7 @@ def details(request, school_slug=None, tray_id=None):
             return redirect('tray.views.details', school_slug=school_slug,
                             tray_id=tray_id)
     else:
-        comment_form = NoteForm(object=tray,
-                                initial={ 'added_by': request.user })
-
-    return render_to_response('tray/details.html', {
-        'school': tray.school,
-        'comment_form': comment_form,
-        'tray': tray,
-    }, context_instance=RequestContext(request))
+        return HttpResponseNotAllowed(['POST',])
 
 def _add_rating(tray, user, points):
     """

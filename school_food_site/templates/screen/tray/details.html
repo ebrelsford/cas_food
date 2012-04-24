@@ -3,6 +3,20 @@
 
 {% block title %}{{ block.super }}{{ school.name }}{% endblock %}
 
+{% block head_scripts %}
+{{ block.super }}
+<script>
+    $(document).ready(function() {
+        {% if not request.user.is_authenticated %}
+        $('.add-comment').submit(function(e) {
+            e.preventDefault();
+            $('#log-in-dialog').dialog('open');
+        });
+        {% endif %}
+    });
+</script>
+{% endblock %}
+
 {% block content %}
 <h1>{{ school.name }}</h1>
 <h2>{{ tray.date }}</h2>
@@ -20,7 +34,7 @@
     {% include "tray/tray_rating_snippet.html" %}
     <div class="comments">
         {{ tray.notes.count }} comment{{ tray.notes.count|pluralize }}
-        <form action="" method="post">{% csrf_token %}
+        <form class="add-comment" action="{% url tray.views.add_comment school_slug=school.slug tray_id=tray.id %}" method="post">{% csrf_token %}
             {% for hidden in comment_form.hidden_fields  %}
             {{ hidden }}
             {% endfor %}
