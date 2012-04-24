@@ -10,8 +10,8 @@ urlpatterns = patterns('',
         name='schools_notes_list'
     ),
 
-    url(r'^(?P<school_slug>[^/]+)/mealsjson/', MealListView.as_view(),
-        name='schools_json_meals_list'
+    url(r'^(?P<school_slug>[^/]+)/meals/', MealListView.as_view(),
+        name='schools_meals_list'
     ),
 
     url(r'^(?P<school_slug>[^/]+)/comments/add/$', 'schools.views.add_note'),

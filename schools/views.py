@@ -39,17 +39,13 @@ def _get_meals(school, index=0, count=3, user_id=None):
 
     meal_count = meals.count()
     if meal_count > count:
-        # TODO this could be more natural...
-        start = meal_count - count + index
-        if start < 0:
+        if index < 0:
             return meals.none()
-        end = start + count
-        return meals[start:end]
+        return meals[index:index + count]
     return meals
 
 def details(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
-    meals = _get_meals(school, user_id=request.user.id)
     notes = school.notes.order_by('added').all()
     notes_to_display = 10
 
@@ -57,7 +53,7 @@ def details(request, school_slug=None):
         'school': school,
         'notes': notes[:notes_to_display],
         'more_notes': notes.count() > notes_to_display,
-        'meals': meals,
+        'meals_count': school.tray_set.count(),
         'principals': school.contact_set.filter(type='principal'),
         'is_following': _is_following(school, request.user),
     }, context_instance=RequestContext(request))
@@ -159,4 +155,5 @@ class MealListView(ListView):
         context['school'] = self.school
         context['has_next'] = False
         context['has_previous'] = False
+        print context
         return context

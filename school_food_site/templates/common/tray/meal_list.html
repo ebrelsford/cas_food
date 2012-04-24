@@ -1,19 +1,41 @@
 {% load thumbnail %}
 <script>
-    $(document).ready(function() {
-        $('.meals').photopager({
-            baseUrl: '{% url schools_json_meals_list school_slug=school.slug %}',
-            $listContainer: $('.meals .meals-list'),
-            elementClass: 'meal',
-            cycle: true,
-            onMove: function(photos) {
-                $('.expandable').expander({
+    function loadTrays(carousel, state) {
+        for (var i = carousel.first; i <= carousel.last; i++) {
+            if (!carousel.has(i)) {
+                addTray(carousel, i);
+            }
+        }
+    }
+
+    function addTray(carousel, index) {
+        $.get('{% url schools_meals_list school_slug=school.slug %}?',
+            {
+                count: 1,
+                index: index,
+            },
+            function(trays) {
+                var trays = carousel.add(index, trays);
+                $(trays).find('.expandable').expander({
                     expandText: 'more',
                     slicePoint: 40,
                     userCollapseText: 'less',   
                 });
-            },
-        });       
+                $(trays).find('.rate').rate({
+                    loggedIn: {% if request.user.is_authenticated %}true{% else %}false{% endif %},
+                    $logInDialog: $('#log-in-dialog'),
+                });
+            }
+        );
+    }
+
+    $(document).ready(function() {
+        $('.carousel').jcarousel({
+            itemLoadCallback: loadTrays,
+            scroll: 1,
+            size: {{ meals_count }} - 1, // account for 0-indexing
+            start: {{ meals_count }} - 3,
+        });
     });
 </script>
 <div class="content">
@@ -22,15 +44,9 @@
             <img src="{{ MEDIA_URL }}images/round_plus.png" />
         </a>
     </h2>
-    {% if meals %}
+    {% if meals_count > 0 %}
     <div class="meals">
-        <div class="button previous"></div>
-        <ul class="meals-list">
-            {% with tray_list=meals %}
-            {% include "tray/tray_list.html" %}
-            {% endwith %}
-        </ul>
-        <div class="button next"></div>
+        <ul class="meals-list carousel jcarousel-skin-meals"></ul>
     </div>
     {% else %}
     No meals have been added yet&mdash;<a href="{% url tray.views.add school_slug=school.slug %}">be the first</a>!
