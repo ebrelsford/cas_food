@@ -17,22 +17,7 @@
         {% endthumbnail %}
     </div>
     <div class="description">{{ tray.description }}</div>
-    <div class="rate-wrapper">Rate this meal: 
-        <ul class="rate" data-change-rating-url="{% url tray.views.rate school_slug=school.slug tray_id=tray.id  %}">
-            <li class="rating rating-1 full picked"></li>
-            <li class="rating rating-2 empty"></li>
-            <li class="rating rating-3 empty"></li>
-            <li class="rating rating-4 empty"></li>
-            <li class="rating rating-5 empty"></li>
-        </ul>
-        <div class="loading"></div>
-        <div class="clear"></div>
-        <div class="ratings-results-wrapper">
-            <div class="ratings-results">
-                <span class="ratings-average"></span> out of 5 (<span class="ratings-count"></span> rating<span class="ratings-plural"></span>)
-            </div>
-        </div>
-    </div>
+    {% include "tray/tray_rating_snippet.html" %}
     <div class="comments">
         {{ tray.notes.count }} comment{{ tray.notes.count|pluralize }}
         <form action="" method="post">{% csrf_token %}

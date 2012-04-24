@@ -1,8 +1,8 @@
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponse
-from django.db.models import Sum
+from django.http import Http404, HttpResponse
+from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 
@@ -36,7 +36,21 @@ def add(request, school_slug=None):
 
 def details(request, school_slug=None, tray_id=None):
     """Details for the given tray"""
-    tray = get_object_or_404(Tray, school__slug=school_slug, id=tray_id)
+    try:
+        trays = Tray.objects.filter(school__slug=school_slug, id=tray_id)
+        trays = trays.annotate(total_points=Sum('rating__points'),
+                               total_count=Count('rating__id'))
+        tray = trays.extra(
+            select={
+                'user_rated': ("SELECT COUNT(*)=1 "
+                               "FROM tray_rating "
+                               "WHERE tray_rating.tray_id=tray_tray.id "
+                               "AND tray_rating.added_by_id=%s"),
+            },
+            select_params=(request.user.id,),
+        )[0]
+    except:
+        raise Http404
 
     if request.method == "POST":
         comment_form = NoteForm(request.POST, object=tray,
