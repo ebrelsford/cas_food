@@ -63,7 +63,6 @@ INSTALLED_APPS = (
     'content',
     'flatpages',
     'food',
-    'generic',
     'getinvolved',
     'glossary',
     'schools',
