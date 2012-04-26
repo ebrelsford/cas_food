@@ -7,7 +7,7 @@
     <ul>
         {% for note in notes %}
         <li class="note {% cycle odd,even %}">
-        {% include "common/content/note_single.html" %}
+        {% include "content/note_single.html" %}
         </li>
         {% empty %}
         <li>No comments yet.</li>
