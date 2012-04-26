@@ -1,6 +1,7 @@
-{% extends is_mobile|yesno:"mobile/base.html,schools/screen/base.html" %}
+{% extends is_mobile|yesno:"mobile/base.html,screen/schools/base.html" %}
 {% comment %}
 Change parent template based on is_mobile. This should work fine for these pages 
 because they are simpler than some of the others and are basically the same for
 mobile and immobile devices.
 {% endcomment%}
+

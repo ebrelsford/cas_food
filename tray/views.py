@@ -3,12 +3,11 @@ import json
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import Http404, HttpResponse, HttpResponseNotAllowed
 from django.db.models import Count, Sum
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
 from content.forms import NoteForm
 from schools.models import School
-from mobile.shortcuts import render_to_response
 from forms import TrayForm
 from models import Tray, Rating
 

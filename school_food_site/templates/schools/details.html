@@ -1,9 +1,17 @@
-{% extends "mobile/base.html" %}
+{% extends "schools/base.html" %}
 
-{% block title %}{{ school.name.title }}{% endblock %}
+{% block title %}
+{% if is_mobile %}
+{{ school.name.title }}
+{% else %}
+{{ block.super }} {{ school.name.title }}
+{% endif %}
+{% endblock %}
+
 {% block header_title %}{{ school.name.title }}{% endblock %}
 {% block page_id %}school-details{% endblock %}
 
 {% block content %}
 {% include "schools/details_content.html" %}
 {% endblock %}
+

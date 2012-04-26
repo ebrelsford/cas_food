@@ -1,7 +1,16 @@
-{% extends "screen/schools/base.html" %}
+{% extends "tray/base.html" %}
 {% load thumbnail %}
 
-{% block title %}{{ block.super }}{{ school.name }}{% endblock %}
+{% block title %}
+{% if is_mobile %}
+{{ school.name.title }}
+{% else %}
+{{ block.super }} {{ school.name.title }}
+{% endif %}
+{% endblock %}
+
+{% block header_title %}{{ school.name.title }}{% endblock %}
+{% block page_id %}tray-details{% endblock %}
 
 {% block head_scripts %}
 {{ block.super }}

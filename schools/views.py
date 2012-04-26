@@ -3,18 +3,17 @@ import geojson
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db.models import Count, Sum
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.views.generic import ListView
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
 from forms import SchoolSearchForm
-from mobile.shortcuts import render_to_response
 from models import School
 
 def index(request):
-    return render_to_response("schools/index.html", {
+    return render_to_response("schools/map.html", {
         'form': SchoolSearchForm()
     }, context_instance=RequestContext(request))
 

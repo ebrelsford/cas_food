@@ -8,7 +8,6 @@ from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
 
 from content.forms import PictureForm
-from mobile.shortcuts import get_template
 from forms import DishForm
 from models import Dish, Ingredient, Meal, Nutrient, NutritionFact
 
@@ -54,11 +53,10 @@ class MonthMenuView(MonthArchiveView):
     allow_empty = True
     allow_future = True
     date_field = 'date'
-    month_format='%m'
+    month_format = '%m'
+    template_name = 'food/meal_archive_month.html'
 
     def get_queryset(self):
-        self.template_name = get_template('food/meal_archive_month.html',
-                                          self.request)
         return Meal.objects.filter(school_type=self.kwargs['school_type'])
 
     def get_context_data(self, **kwargs):
@@ -70,11 +68,10 @@ class DayMenuView(DayArchiveView):
     allow_empty = True
     allow_future = True
     date_field = 'date'
-    month_format='%m'
+    month_format = '%m'
+    template_name = 'food/meal_archive_day.html'
 
     def get_queryset(self):
-        self.template_name = get_template('food/meal_archive_day.html', 
-                                          self.request)
         return Meal.objects.filter(school_type=self.kwargs['school_type'])
 
     def get_context_data(self, **kwargs):
@@ -84,7 +81,7 @@ class DayMenuView(DayArchiveView):
 
 class DishAddPictureView(CreateView):
     form_class = PictureForm
-    template_name = 'screen/food/dish_add_picture_form.html'
+    template_name = 'food/dish_add_picture_form.html'
     
     def get_initial(self):
         """add added_by"""

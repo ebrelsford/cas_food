@@ -23,8 +23,6 @@ urlpatterns = patterns('',
 
     url(r'^menu/', include(food_urls)),
 
-    #url(r'^get-involved/$', 'getinvolved.views.index'),
-
     url(r'^glossary/', include(glossary_urls)),
     url(r'^take-action/', include(getinvolved_urls)),
     url(r'^flatpages/', include(flatpages_urls)),

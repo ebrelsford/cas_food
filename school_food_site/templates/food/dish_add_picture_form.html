@@ -1,0 +1,25 @@
+{% extends "food/base.html" %}
+
+{% block title %}
+{% if is_mobile %}
+{{ dish.name }}: Add picture
+{% else %}
+{{ block.super }}{{ dish.name }}
+{% endif %}
+{% endblock %}
+
+{% block header_title %}Add picture{% endblock %}
+{% block page_id %}dish-add-picture-page{% endblock %}
+
+{% block content %}
+<h1>{{ dish.name }}</h1>
+<h2>Add picture</h2>
+<form method="post" enctype="multipart/form-data"
+    {% if is_mobile %}data-ajax="false"{% endif %}>
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}             
+    </table>
+    <input type="submit" value="submit" />
+</form>
+{% endblock %}

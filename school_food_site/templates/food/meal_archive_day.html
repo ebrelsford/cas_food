@@ -1,0 +1,16 @@
+{% extends "food/base.html" %}
+
+{% block title %}
+{% if is_mobile %}
+Menu for {{ day }}
+{% else %}
+{{ school_type }} school menu for {{ day|date:"F j, Y" }} | School Food App
+{% endif %}
+{% endblock %}
+
+{% block header_title %}{{ day }}{% endblock %}
+{% block page_id %}menu-page{% endblock %}
+
+{% block content %}
+{% include "food/meal_archive_day_content.html" %}
+{% endblock %}
