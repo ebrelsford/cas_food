@@ -9,6 +9,7 @@ from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayAr
 
 from content.forms import PictureForm
 from forms import DishForm
+from generic.views import LoginRequiredMixin, PermissionRequiredMixin
 from models import Dish, Ingredient, Meal, Nutrient, NutritionFact
 
 @login_required
@@ -79,9 +80,11 @@ class DayMenuView(DayArchiveView):
         context['school_type'] = self.kwargs['school_type']
         return context
 
-class DishAddPictureView(CreateView):
+class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,
+                         CreateView):
     form_class = PictureForm
     template_name = 'food/dish_add_picture_form.html'
+    permission = 'content.create_picture'
     
     def get_initial(self):
         """add added_by"""
@@ -103,9 +106,10 @@ class DishAddPictureView(CreateView):
     def get_success_url(self):
         return reverse('food_dish_detail', kwargs={ 'slug': self.dish.slug })
 
-class DishUpdateView(UpdateView):
+class DishUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = DishForm
     model = Dish
+    permission = 'food.change_dish'
 
     def _get_formset_factory(self):
         """Get a formset factory for this model and NutritionFact"""

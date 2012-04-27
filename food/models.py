@@ -75,7 +75,7 @@ class Meal(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('food.views.menu_day', (), { 
+        return ('food_menu_day', (), { 
             'school_type': self.school_type,
             'year': self.date.year,
             'month': self.date.month,
