@@ -44,6 +44,7 @@
                     }
                 });
                 $(':input.date').datepicker();
+                $(':input.date.no-future').datepicker('option', 'maxDate', '+0');
                 $('.rate').rate({
                     loggedIn: {% if request.user.is_authenticated %}true{% else %}false{% endif %},
                     $logInDialog: $('#log-in-dialog'),
