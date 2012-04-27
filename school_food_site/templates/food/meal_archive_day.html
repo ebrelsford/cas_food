@@ -4,7 +4,7 @@
 {% if is_mobile %}
 Menu for {{ day }}
 {% else %}
-{{ school_type }} school menu for {{ day|date:"F j, Y" }} | School Food App
+{{ block.super }}{{ school_type }} school menu for {{ day|date:"F j, Y" }}
 {% endif %}
 {% endblock %}
 
