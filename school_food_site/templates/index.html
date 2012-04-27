@@ -8,7 +8,9 @@
 <div class="home">
     <div style="border-right: solid #a7e1c2 3px; padding-right: 10px; 
         display: inline-block; vertical-align: top; margin-right: 5px;">
-        <img src="{{ MEDIA_URL }}images/map.gif" />
+        <a href="{% url schools.views.map %}">
+            <img src="{{ MEDIA_URL }}images/map.gif" />
+        </a>
     </div>
     <div style="display: inline-block; vertical-align: top; width: 275px;">
         <div id="mission-statement" 
