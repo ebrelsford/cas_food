@@ -1,4 +1,4 @@
-{% extends is_mobile|yesno:"mobile/base.html,screen/schools/base.html" %}
+{% extends is_mobile|yesno:"mobile/base.html,schools/screen/base.html" %}
 
 {% block title %}{{ block.super }}{{ school.name }}{% endblock %}
 {% block header_title %}Add {{ type }}{% endblock %}
