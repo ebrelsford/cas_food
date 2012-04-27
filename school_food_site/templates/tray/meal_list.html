@@ -12,7 +12,7 @@
         $.get('{% url schools_meals_list school_slug=school.slug %}?',
             {
                 count: 1,
-                index: index,
+                index: index - 1, // account for 1-indexing in jcarousel
             },
             function(trays) {
                 var trays = carousel.add(index, trays);
@@ -30,11 +30,15 @@
     }
 
     $(document).ready(function() {
+        var startIndex = 0;
+        if ({{ meals_count }} > 3) {
+            startIndex = {{ meals_count }} - 2;
+        }
         $('.carousel').jcarousel({
             itemLoadCallback: loadTrays,
             scroll: 1,
-            size: {{ meals_count }} - 1, // account for 0-indexing
-            start: {{ meals_count }} - 3,
+            size: {{ meals_count }},
+            start: startIndex,
         });
     });
 </script>
