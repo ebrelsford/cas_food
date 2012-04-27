@@ -4,6 +4,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+from django.views.generic import TemplateView
+
 import flatpages.urls as flatpages_urls
 import food.urls as food_urls
 import getinvolved.urls as getinvolved_urls
@@ -14,7 +16,9 @@ import tray.urls as tray_urls
 import settings
 
 urlpatterns = patterns('',
-    url(r'^$', 'schools.views.index'),
+    url(r'^$', TemplateView.as_view(
+        template_name='index.html',
+    ), name='index'),
     url(r'^map/$', 'schools.views.map'),
     url(r'^schools/(?P<school_slug>[^/]+)/meals/', include(tray_urls)),
     url(r'^schools/(?P<school_slug>[^/]+)/follow/', 'accounts.views.follow'),

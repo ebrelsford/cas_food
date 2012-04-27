@@ -66,8 +66,8 @@
     <body>
         <div class="wrapper">
             <div class="top">
+                <div class="food-logo"></div>
                 <div class="header">
-                    <div class="logo">School Food App</div>
                     <div class="account">
                         {% if user.is_anonymous %}
                         <a href="{% url django.contrib.auth.views.login %}?next={{ request.path }}">login</a> or
@@ -76,16 +76,19 @@
                         logged in as {{ user }}  <a href="{% url django.contrib.auth.views.logout %}">logout</a>
                         {% endif %}
                     </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="nav">
-                    <ul>
-                        <li class="first"><a href="{% url schools.views.index %}">Home</a></li>
-                        <li><a href="{% url food.views.menu %}">Menu</a></li>
-                        <li><a href="{% url getinvolved_post_list %}">Take Action!</a></li>
-                        <li><a href="{% url glossary_list %}">Glossary</a></li>
-                        <li><a href="/about/">About</a></li>
-                    </ul>
+                    <a href="/"><div class="logo"></div></a>
+                    <div class="nav">
+                        <ul>
+                            <li class="first"><a href="/about/"><img src="{{ MEDIA_URL }}images/about.png" /></a></li>
+                            <li><a href="{% url food.views.menu %}"><img src="{{ MEDIA_URL }}images/whats_cooking.png" /></a></li>
+                            <li><a href="/"><img src="{{ MEDIA_URL }}images/good_food_alternatives.png" /></a></li>
+                            <li><a href="{% url schools.views.map %}"><img src="{{ MEDIA_URL }}images/find_your_school.png" /></a></li>
+                            <li><a href="{% url glossary_list %}"><img src="{{ MEDIA_URL }}images/glossary.png" /></a></li>
+                            <li><a href="/"><img src="{{ MEDIA_URL }}images/lunch_line_playlist.png" /></a></li>
+                            <li><a href="{% url getinvolved_post_list %}"><img src="{{ MEDIA_URL }}images/take_action.png" /></a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
                     <div class="clear"></div>
                 </div>
             </div>
@@ -97,7 +100,6 @@
 
             <div class="bottom">
                 <div class="footer">
-                    <p>Produced at City As School, 2012<p>
                     <ul class="connect">
                         <li>
                             <a href="http://twitter.com/"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>

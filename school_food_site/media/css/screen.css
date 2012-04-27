@@ -1,44 +1,50 @@
 body {
-    font-family: Arial, Helvetica;
-    background-color: #AABEF1;
+    font-family: Georgia;
+    background-color: white;
 }
 
 .wrapper {
     background-color: white;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     width: 960px;
     padding: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
+    padding-top: 5px;
 }
+
+.food-logo {
+    float: left;
+    background: url('/media/images/food.gif');
+    width: 159px;
+    height: 226px;
+}
+
 
 .logo {
     float: left;
-    font-size: 40px;
+    background: url('/media/images/logo.gif');
+    width: 424px;
+    height: 81px;
 }
 .account {
     float: right;
 }
 
 .nav {
-    margin: 10px 0;
+    float: left;
     padding: 5px 0;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    width: 655px;
 }
 
 .nav li {
     float: left;
-    margin: 0 10px;
 }
 .nav li.first {
-    margin-left: 0;
 }
 
 .middle {
-    min-height: 600px;
+    min-height: 400px;
 }
 
 .left {
@@ -52,7 +58,6 @@ body {
 }
 
 .bottom {
-    border-top: 1px solid black;
     margin-top: 25px;
     padding-top: 5px;
 }

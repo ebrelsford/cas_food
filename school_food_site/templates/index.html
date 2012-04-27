@@ -1,9 +1,26 @@
-{% extends "mobile/base.html" %}
+{% extends is_mobile|yesno:"mobile/base.html,screen/base.html" %}
 
-{% block title %}Main{% endblock %}
-{% block header_title %}Main{% endblock %}
+{% block title %}Home{% endblock %}
+{% block header_title %}Home{% endblock %}
 {% block page_id %}home-page{% endblock %}
 
-{% block content %}
-Welcome to the school food app!
+{% block middle %}
+<div class="home">
+    <div style="border-right: solid #a7e1c2 3px; padding-right: 10px; 
+        display: inline-block; vertical-align: top; margin-right: 5px;">
+        <img src="{{ MEDIA_URL }}images/map.gif" />
+    </div>
+    <div style="display: inline-block; vertical-align: top; width: 275px;">
+        <div id="mission-statement" 
+            style="border: 3px solid #8c39a2; padding: 10px;">
+            Lunch Line is a platform built to empower New York City's 
+            students, parents, and teachers to fight for healthy school food!
+        </div>
+        <img src="{{ MEDIA_URL }}images/lunches.gif" />
+        <div class="video">
+            <iframe width="100%" src="http://www.youtube.com/embed/8n2HO81RtiA" 
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
 {% endblock %}
