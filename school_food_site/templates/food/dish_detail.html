@@ -19,6 +19,11 @@
 
 {% block content %}
 <h1>{{ object.name }}</h1>
+<div>
+    <a href="{% url food_dish_update slug=dish.slug %}">
+        Edit this dish <img src="{{ MEDIA_URL }}images/doc_edit.png" />
+    </a>
+</div>
 
 <div class="photos" style="float: right;">
     {% if dish.pictures.count > 0 %}

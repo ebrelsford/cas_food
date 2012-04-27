@@ -285,3 +285,17 @@ table.month .day-number {
     width: 85px;
     vertical-align: super;
 }
+
+.food-logo {
+    float: left;
+    background: url('/media/images/food.gif');
+    width: 159px;
+    height: 226px;
+}
+
+.logo {
+    float: left;
+    background: url('/media/images/logo.gif');
+    width: 424px;
+    height: 81px;
+}

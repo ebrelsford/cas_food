@@ -20,13 +20,13 @@ body {
     height: 226px;
 }
 
-
 .logo {
     float: left;
     background: url('/media/images/logo.gif');
     width: 424px;
     height: 81px;
 }
+
 .account {
     float: right;
 }

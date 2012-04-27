@@ -8,7 +8,7 @@ Home
 {% endif %}
 {% endblock %}
 
-{% block header_title %}Home{% endblock %}
+{% block header_title %}Lunch Line{% endblock %}
 {% block page_id %}home-page{% endblock %}
 
 {% block middle %}
@@ -33,3 +33,25 @@ Home
     </div>
 </div>
 {% endblock %}
+
+{% if is_mobile %}
+{% block content %}
+<a href="/"><div class="food-logo"></div></a>
+<a href="/"><div class="logo"></div></a>
+<div class="nav">
+    <ul>
+        <li class="first"><a href="/about/"><img src="{{ MEDIA_URL }}images/about.png" /></a></li>
+        <li><a href="{% url food.views.menu %}"><img src="{{ MEDIA_URL }}images/whats_cooking.png" /></a></li>
+        <li><a href="/"><img src="{{ MEDIA_URL }}images/good_food_alternatives.png" /></a></li>
+        <li><a href="{% url schools.views.map %}"><img src="{{ MEDIA_URL }}images/find_your_school.png" /></a></li>
+        <li><a href="{% url glossary_list %}"><img src="{{ MEDIA_URL }}images/glossary.png" /></a></li>
+        <li><a href="/"><img src="{{ MEDIA_URL }}images/lunch_line_playlist.png" /></a></li>
+        <li><a href="{% url getinvolved_post_list %}"><img src="{{ MEDIA_URL }}images/take_action.png" /></a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% endif %}
