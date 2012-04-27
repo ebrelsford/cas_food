@@ -21,6 +21,7 @@
 <h1>{{ object.name }}</h1>
 
 <div class="photos" style="float: right;">
+    {% if dish.pictures.count > 0 %}
     <ul class="photos-list jcarousel-skin-photos">
         {% for picture in dish.pictures.all %}
         <li>
@@ -34,8 +35,9 @@
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
     <a href="{% url food_dish_add_picture slug=object.slug %}">
-        <img src="{{ MEDIA_URL }}images/round_plus.png" />
+        Add a Picture <img src="{{ MEDIA_URL }}images/round_plus.png" />
     </a>
 </div>
 
@@ -48,18 +50,7 @@
             <td class="amount">{{ nutritionfact.amount }}</td>
         </tr>
         {% empty %}
-        <tr>
-            <td>calories</td>
-            <td>340</td>
-        </tr>
-        <tr>
-            <td>sodium</td>
-            <td>570 mg</td>
-        </tr>
-        <tr>
-            <td>total fat</td>
-            <td>14 g</td>
-        </tr>
+        <tr><td colspan="2">We don't know yet.</td></tr>
         {% endfor %}
     </table>
 </div>
