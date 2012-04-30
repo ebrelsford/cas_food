@@ -299,3 +299,7 @@ table.month .day-number {
     width: 424px;
     height: 81px;
 }
+
+#map-legend img {
+    vertical-align: middle;
+}
