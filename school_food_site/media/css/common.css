@@ -303,3 +303,12 @@ table.month .day-number {
 #map-legend img {
     vertical-align: middle;
 }
+
+.lunch-quiz li {
+    margin-bottom: 20px;
+}
+
+.lunch-quiz .question {
+    margin-bottom: 5px;
+    font-weight: bold;
+}

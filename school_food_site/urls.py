@@ -10,6 +10,7 @@ import flatpages.urls as flatpages_urls
 import food.urls as food_urls
 import getinvolved.urls as getinvolved_urls
 import glossary.urls as glossary_urls
+import feedback.urls as feedback_urls
 import schools.urls as school_urls
 import tray.urls as tray_urls
 
@@ -21,6 +22,7 @@ urlpatterns = patterns('',
     ), name='index'),
     url(r'^map/$', 'schools.views.map'),
     url(r'^schools/(?P<school_slug>[^/]+)/meals/', include(tray_urls)),
+    url(r'^schools/(?P<school_slug>[^/]+)/quiz/', include(feedback_urls)),
     url(r'^schools/(?P<school_slug>[^/]+)/follow/', 'accounts.views.follow'),
     url(r'^schools/(?P<school_slug>[^/]+)/unfollow/', 'accounts.views.unfollow'),
     url(r'^schools/', include(school_urls)),
