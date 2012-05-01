@@ -1,6 +1,11 @@
 <h1>{{ school.name.title }}</h1>
 {% include "schools/details_snippet.html" %}
 {% include "tray/meal_list.html" %}
+
+{% with form=quiz_form %}
+{% include "feedback/feedback_response_form.html" %}
+{% endwith %}
+
 {% include "content/note_list.html" %}
 
 <div>

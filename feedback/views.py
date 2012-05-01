@@ -12,11 +12,15 @@ class FeedbackResponseCreateView(LoginRequiredMixin, PermissionRequiredMixin,
     template_name = 'feedback/create_feedback_response.html'
 
     def get_initial(self):
-        print 'get_initial'
         initial = super(FeedbackResponseCreateView, self).get_initial()
         initial['added_by'] = self.request.user
         initial['school'] = School.objects.get(slug=self.kwargs['school_slug'])
         return initial
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedbackResponseCreateView, self).get_context_data(**kwargs)
+        context['school'] = School.objects.get(slug=self.kwargs['school_slug'])
+        return context
 
     def get_success_url(self):
         slug = self.kwargs['school_slug']

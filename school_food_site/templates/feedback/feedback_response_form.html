@@ -1,0 +1,66 @@
+<script>
+    $(document).ready(function() {
+        $('#finish-display').text($('input[name=finish]').val());
+        $('.finish-slider').slider({
+            min: 0,
+            max: 10,
+            slide: function(event, ui) {
+                $('input[name=finish]').val(ui.value);
+                $('#finish-display').text(ui.value);
+            },
+            value: 0,
+        });
+    });
+</script>
+<h2>Lunch Quiz</h2>
+<div class="lunch-quiz">
+    <form action="{% url feedback_feedback_response_create school_slug=school.slug %}" method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+        {{ form.media }}
+        <ul>
+            <li>
+                <div class="question">What was the texture of the food today?</div>
+                <div>
+                    {{ form.texture.errors }}
+                    {{ form.texture }}
+                </div>
+            </li>
+            <li>
+                <div class="question">How many colors were on your tray today?</div>
+                <div>
+                    {{ form.colors.errors }}
+                    {{ form.colors }}
+                </div>
+            </li>
+            <li>
+                <div class="question">
+                    From 0 to 10, how much of your meal did you finish?
+                    <span id="finish-display" style="font-weight: bold;"></span>
+                </div>
+                <div>
+                    {{ form.finish.errors }}
+                    {{ form.finish }} <div class="finish-slider" style="width: 50%;"></div>
+                </div>
+            </li>
+            <li>
+                <div class="question">How many vegetables were on your tray today?</div>
+                <div>
+                    {{ form.vegetables.errors }}
+                    {{ form.vegetables }}
+                </div>
+            </li>
+            <li>
+                <div class="question">Were you sleepy or energetic after your meal?</div>
+                <div>
+                    {{ form.energy.errors }}
+                    {{ form.energy }}
+                </div>
+            </li>
+        </ul>
+        <input type="submit" value="submit" />
+    </form>
+</div>

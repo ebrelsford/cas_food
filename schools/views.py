@@ -9,6 +9,7 @@ from django.views.generic import ListView
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
+from feedback.forms import FeedbackResponseForm
 from forms import SchoolSearchForm
 from models import School
 
@@ -55,6 +56,10 @@ def details(request, school_slug=None):
         'meals_count': school.tray_set.count(),
         'principals': school.contact_set.filter(type='principal'),
         'is_following': _is_following(school, request.user),
+        'quiz_form': FeedbackResponseForm(initial={
+            'added_by': request.user,
+            'school': school,
+        }),
     }, context_instance=RequestContext(request))
 
 def as_geojson(request):
