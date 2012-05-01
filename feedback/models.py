@@ -39,10 +39,4 @@ class FeedbackResponse(AuditedModel):
     )
 
     def __unicode__(self):
-        return self.school.name + ', ' + self.added
-        
-    @models.permalink
-    def get_absolute_url(self):
-        #return ('view_or_url_name' )
-        pass
-
+        return self.school.name + ', ' + self.added_by.username
