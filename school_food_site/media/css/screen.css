@@ -56,6 +56,12 @@ body {
     float: left;
     width: 29%;
 }
+.right .todays-menu {
+    
+}
+.right .todays-menu h1 {
+    font-size: 20px;
+}
 
 .bottom {
     margin-top: 25px;

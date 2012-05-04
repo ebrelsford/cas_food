@@ -79,6 +79,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
 
+    'food.context_processors.todays_menu',
     'mobile.context_processors.mobile',
 )
 

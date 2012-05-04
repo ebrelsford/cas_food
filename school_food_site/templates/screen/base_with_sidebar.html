@@ -5,6 +5,14 @@
     {% block content %}{% endblock %}
 </div>
 <div class="right">
-    {% block sidebar %}{% endblock %}
+    {% block sidebar %}
+    {% if todays_menu %}
+    <div class="todays-menu">
+        {% with object_list=todays_menu school_type="elementary" day="today" %}
+        {% include "food/meal_archive_day_content.html" %}
+        {% endwith %}
+    </div>
+    {% endif %}
+    {% endblock %}
 </div>
 {% endblock %}
