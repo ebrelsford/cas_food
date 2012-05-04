@@ -1,12 +1,6 @@
 {% extends is_mobile|yesno:"mobile/base.html,screen/base.html" %}
 
-{% block title %}
-{% if is_mobile %}
-Home
-{% else %}
-{{ block.super }} Home
-{% endif %}
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block header_title %}Lunch Line{% endblock %}
 {% block page_id %}home-page{% endblock %}

@@ -1,12 +1,6 @@
 {% extends "food/base.html" %}
 
-{% block title %}
-{% if is_mobile %}
-{{ dish.name }}: Add picture
-{% else %}
-{{ block.super }}{{ dish.name }}
-{% endif %}
-{% endblock %}
+{% block title %}{{ dish.name }} | Add picture{% endblock %}
 
 {% block header_title %}Add picture{% endblock %}
 {% block page_id %}dish-add-picture-page{% endblock %}

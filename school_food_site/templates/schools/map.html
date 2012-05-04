@@ -1,4 +1,4 @@
-{% extends "schools/base.html" %}
+{% extends is_mobile|yesno:"mobile/base.html,screen/base_with_sidebar.html" %}
 
 {% block title %}School Map{% endblock %}
 {% block header_title %}School Map{% endblock %}
