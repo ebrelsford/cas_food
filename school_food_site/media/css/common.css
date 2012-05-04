@@ -312,3 +312,23 @@ table.month .day-number {
     margin-bottom: 5px;
     font-weight: bold;
 }
+
+.flatpage {
+    font-size: 12pt !important;
+    font-family: Georgia !important;
+}
+.flatpage div,
+.flatpage span,
+.flatpage p {
+    font-size: 12pt !important;
+    font-family: Georgia !important;
+}
+.flatpage ol {
+    list-style: decimal;
+}
+.flatpage ul {
+    list-style: disc;
+}
+.flatpage li {
+    padding: 5px 0;
+}
