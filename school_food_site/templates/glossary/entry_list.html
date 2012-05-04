@@ -16,13 +16,15 @@
     <ul class="content entries">
         {% for object in object_list %}
         <li class="entry {% cycle 'odd' 'even' %}">
-            <div class="title">{{ object.title }}
-                {% if perms.glossary.change_entry %}
-                <a href="{% url glossary_entry_update slug=object.slug %}">
-                    <img src="{{ MEDIA_URL }}images/doc_edit.png" />
-                </a>
-                {% endif %}
-            </div>
+            <a name="{{ object.slug }}">
+                <div class="title">{{ object.title }}
+                    {% if perms.glossary.change_entry %}
+                    <a href="{% url glossary_entry_update slug=object.slug %}">
+                        <img src="{{ MEDIA_URL }}images/doc_edit.png" />
+                    </a>
+                    {% endif %}
+                </div>
+            </a>
             <div class="text">{{ object.text }}</div>
         </li>
         {% endfor %}

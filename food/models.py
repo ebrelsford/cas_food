@@ -1,11 +1,22 @@
 from django.contrib.contenttypes import generic
 from django.db import models
 
+from sorl.thumbnail import ImageField
+
 from content.models import Picture
+from glossary.models import Entry
 from utils import slugify
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=128)
+
+    def __unicode__(self):
+        return self.name
+
+class Callout(models.Model):
+    name = models.CharField(max_length=32)
+    glossary_entry = models.ForeignKey(Entry, null=True, blank=True)
+    icon = ImageField(upload_to='callouts', null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -16,6 +27,9 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True,
                                          help_text='The ingredients in this dish')
     pictures = generic.GenericRelation(Picture)
+
+    callouts = models.ManyToManyField(Callout, null=True, blank=True,
+                                      help_text='The callouts for this dish')
 
     # notes TODO use contenttypes and use those in content.models
     # aliases, other names the school uses for this dish
