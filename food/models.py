@@ -25,6 +25,7 @@ class Dish(models.Model):
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True,
+                                         through='DishIngredient',
                                          help_text='The ingredients in this dish')
     pictures = generic.GenericRelation(Picture)
 
@@ -33,6 +34,9 @@ class Dish(models.Model):
 
     # notes TODO use contenttypes and use those in content.models
     # aliases, other names the school uses for this dish
+
+    def get_dishingredients(self):
+        return self.dishingredient_set.all().order_by('order')
 
     class Meta:
         verbose_name_plural = 'dishes'
@@ -49,6 +53,12 @@ class Dish(models.Model):
         if not self.slug:
             self.slug = slugify(Dish, self)
         super(Dish, self).save(*args, **kwargs)
+
+class DishIngredient(models.Model):
+    dish = models.ForeignKey(Dish)
+    ingredient = models.ForeignKey(Ingredient)
+
+    order = models.PositiveIntegerField(default=0, help_text="The position this ingredient is in in the list of ingredients")
 
 class Nutrient(models.Model):
     name = models.CharField(max_length=128)

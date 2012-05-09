@@ -90,8 +90,8 @@
 
 <div class="section">
     <h2>Ingredients</h2>
-    {% for ingredient in object.ingredients.all %}
-    {{ ingredient }}{% if not forloop.last %}, {% endif %}
+    {% for di in object.get_dishingredients %}
+    {{ di.ingredient }}{% if not forloop.last %}, {% endif %}
     {% empty %}
     We don't know yet.
     {% endfor %}

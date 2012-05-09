@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import Callout, Dish, Ingredient, Meal, Nutrient, NutritionFact
+from models import Callout, Dish, DishIngredient, Ingredient, Meal, Nutrient, NutritionFact
 
 class CalloutAdmin(admin.ModelAdmin):
     search_fields = ('name',)
@@ -9,6 +9,10 @@ class CalloutAdmin(admin.ModelAdmin):
 class DishAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_display = ('name',)
+
+class DishIngredientAdmin(admin.ModelAdmin):
+    search_fields = ('dish', 'ingredient',)
+    list_display = ('dish', 'ingredient', 'order',)
 
 class IngredientAdmin(admin.ModelAdmin):
     search_fields = ('name',)
@@ -27,6 +31,7 @@ class MealAdmin(admin.ModelAdmin):
 
 admin.site.register(Callout, CalloutAdmin)
 admin.site.register(Dish, DishAdmin)
+admin.site.register(DishIngredient, DishIngredientAdmin)
 admin.site.register(Meal, MealAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Nutrient, NutrientAdmin)
