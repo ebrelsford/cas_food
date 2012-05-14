@@ -42,7 +42,9 @@ class OrderedModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 class DishForm(forms.ModelForm):
     callouts = forms.ModelMultipleChoiceField(
-        queryset=Callout.objects.all().order_by('name'))
+        queryset=Callout.objects.all().order_by('name'),
+        required=False,
+    )
 
     class Meta:
         exclude = ('name', 'slug',)
@@ -54,7 +56,10 @@ class DishForm(forms.ModelForm):
         """
         super(DishForm, self).__init__(*args, **kwargs)
         if 'instance' in kwargs and kwargs['instance'] is not None:
-            self.fields['ingredients'] = OrderedModelMultipleChoiceField(Ingredient.objects.all())
+            self.fields['ingredients'] = OrderedModelMultipleChoiceField(
+                Ingredient.objects.all(),
+                required=False,
+            )
             widget = SelectMultiple(
                 choices=OrderedDishIngredientChoiceIterator(self.fields['ingredients'], kwargs['instance'])
             )
