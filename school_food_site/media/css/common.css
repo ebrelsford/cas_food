@@ -105,22 +105,6 @@ em {
     font-weight: bold;
 }
 
-.meals .button {
-    height: 32px;
-    width: 32px;
-    margin-top: 115px;
-    cursor: pointer;
-}
-.meals .previous {
-    background: url('/media/images/br_prev.png') no-repeat;
-    float: left;
-}
-.meals .next {
-    background: url('/media/images/br_next.png') no-repeat;
-    display: inline-block;
-    height: 32px;
-    width: 32px;
-}
 .content .meal {
     float: left;
     padding: 10px;
@@ -230,10 +214,10 @@ table.month .day-number {
     cursor: pointer;
 }
 .rating-up {
-    background: url('/media/images/hand_pro.png') no-repeat;
+    background: url('/media/images/ThumbsUp.png') no-repeat;
 }
 .rating-down {
-    background: url('/media/images/hand_contra.png') no-repeat;
+    background: url('/media/images/ThumbsDown.png') no-repeat;
     margin-top: 16px;
 }
 .ratings-results-wrapper {

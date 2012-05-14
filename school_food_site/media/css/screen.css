@@ -89,3 +89,16 @@ form.school-search p {
 form.school-search .ui-autocomplete-input {
     width: 400px;
 }
+
+.ui-multiselect div.selected {
+    width: 300px !important;
+}
+.ui-multiselect div.selected ul.selected {
+    height: 200px !important;
+}
+.ui-multiselect div.available {
+    width: 300px !important;
+}
+.ui-multiselect div.available ul.available {
+    height: 200px !important;
+}

@@ -68,22 +68,20 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(next-horizontal.png) no-repeat 0 0;
+    background: transparent url(/media/images/RightArrow.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-meals .jcarousel-direction-rtl .jcarousel-next-horizontal {
     left: 5px;
     right: auto;
-    background-image: url(prev-horizontal.png);
+    background-image: url(/media/images/RightArrow.png);
 }
 
 .jcarousel-skin-meals .jcarousel-next-horizontal:hover,
 .jcarousel-skin-meals .jcarousel-next-horizontal:focus {
-    background-position: -32px 0;
 }
 
 .jcarousel-skin-meals .jcarousel-next-horizontal:active {
-    background-position: -64px 0;
 }
 
 .jcarousel-skin-meals .jcarousel-next-disabled-horizontal,
@@ -91,7 +89,7 @@
 .jcarousel-skin-meals .jcarousel-next-disabled-horizontal:focus,
 .jcarousel-skin-meals .jcarousel-next-disabled-horizontal:active {
     cursor: default;
-    background-position: -96px 0;
+    background: transparent url(/media/images/RightArrow_disabled.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-meals .jcarousel-prev-horizontal {
@@ -101,22 +99,20 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(prev-horizontal.png) no-repeat 0 0;
+    background: transparent url(/media/images/LeftArrow.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-meals .jcarousel-direction-rtl .jcarousel-prev-horizontal {
     left: auto;
     right: 5px;
-    background-image: url(next-horizontal.png);
+    background-image: url(/media/images/LeftArrow.png);
 }
 
 .jcarousel-skin-meals .jcarousel-prev-horizontal:hover, 
 .jcarousel-skin-meals .jcarousel-prev-horizontal:focus {
-    background-position: -32px 0;
 }
 
 .jcarousel-skin-meals .jcarousel-prev-horizontal:active {
-    background-position: -64px 0;
 }
 
 .jcarousel-skin-meals .jcarousel-prev-disabled-horizontal,
@@ -124,7 +120,8 @@
 .jcarousel-skin-meals .jcarousel-prev-disabled-horizontal:focus,
 .jcarousel-skin-meals .jcarousel-prev-disabled-horizontal:active {
     cursor: default;
-    background-position: -96px 0;
+    /*background-position: -96px 0;*/
+    background: transparent url(/media/images/LeftArrow_disabled.png) no-repeat 0 0;
 }
 
 /**
