@@ -6,7 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from content.models import Note
-from notify.notifiers import NewNoteNotifier
+from notify.notifiers import NewNoteNotifier, NewOrganizerNotifier
+from organize.models import Organizer
 
 class School(models.Model):
     slug = models.SlugField(max_length=260)
@@ -35,6 +36,7 @@ class School(models.Model):
     objects = models.GeoManager()
 
     notes = generic.GenericRelation(Note)
+    organizers = generic.GenericRelation(Organizer)
 
     def __unicode__(self):
         return '%s %s' % (self.name, self.city,)
@@ -73,3 +75,11 @@ def note_create_notify_followers(sender, instance=None, created=False, **kwargs)
     """notify followers when a note is added to a school they are following"""
     if created and instance.content_type.model_class() == School:
         NewNoteNotifier(instance).send()
+
+@receiver(post_save, sender=Organizer)
+def organizer_create_notify_followers(sender, instance=None, created=False, **kwargs):
+    """
+    Notify followers when a organizer is added to a school they are following.
+    """
+    if created and instance.content_type.model_class() == School:
+        NewOrganizerNotifier(instance).send()

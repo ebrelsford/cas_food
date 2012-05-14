@@ -68,3 +68,19 @@ class NewNoteNotifier(FollowerNotifier):
 
     def get_followers(self):
         return [profile.user for profile in self.note.content_object.followers.all()]
+
+class NewOrganizerNotifier(FollowerNotifier):
+    def __init__(self, organizer, subject_template='notify/new_organizer_subject.txt',
+                 text_template='notify/new_organizer_text.txt'):
+        super(NewOrganizerNotifier, self).__init__(
+            subject_template=subject_template,
+            text_template=text_template)
+        self.organizer = organizer
+
+    def get_context(self):
+        context = super(NewOrganizerNotifier, self).get_context()
+        context.update(dict(organizer=self.organizer))
+        return context
+
+    def get_followers(self):
+        return [profile.user for profile in self.organizer.content_object.followers.all()]

@@ -31,6 +31,40 @@
     <div class="section">
         For more information, including the SchoolFood manager and the cafeteria phone number, look at the <a href="http://www.opt-osfns.org/osfns/resources/sch_searchNew/schFoodNew.aspx?cfoodsch={{ school.school_food_code }}">SchoolFood page for this school</a>.
     </div>
+    <div class="section organizers">
+        {% if school.organizers %}
+        <div>
+            There are {{ school.organizers.count }} organizers at this school: 
+            {% if is_following %}
+            <ul class="content">
+                {% for organizer in school.organizers.all %}
+                <li class="organizer {% cycle "odd" "even" %}">
+                    <h3 class="name">{{ organizer.name }}</h3>
+                    <div class="description">{{ organizer.description }}</div>
+                    {% if organizer.phone %}
+                    <div class="phone">{{ organizer.phone }}</div>
+                    {% endif %}
+                    {% if organizer.email %}
+                    <div class="email">
+                        <a href="mailto:{{ organizer.email }}">{{ organizer.email }}</a>
+                    </div>
+                    {% endif %}
+                    {% if organizer.url %}
+                    <div class="url">site: {{ organizer.url|urlize }}</div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            Please log in and follow this school to view their details.
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="section add-organizer">
+        Are you organizing here? 
+        <a href="{% url schools_add_organizer school_slug=school.slug %}">Let everyone know!</a>
+    </div>
     <div class="section">
         {% if perms.accounts.can_follow_schools %}
         <div class="follow{% if is_following %} following{% else %} not-following{% endif %}">

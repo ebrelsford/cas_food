@@ -1,0 +1,14 @@
+A new organizer has been added to {{ organizer.content_object.name }}. Maybe
+you should get in touch with them? Details:
+
+{{ organizer.name }}
+{{ organizer.description }}
+{% if organizer.phone %}
+phone: {{ organizer.phone }}
+{% endif %}
+{% if organizer.email %}
+email: {{ organizer.email }}
+{% endif %}
+{% if organizer.url %}
+url: {{ organizer.url }}
+{% endif %}

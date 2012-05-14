@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'food',
     'getinvolved',
     'glossary',
+    'organize',
     'schools',
     'tray',
 )

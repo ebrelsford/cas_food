@@ -1,17 +1,19 @@
 import geojson
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.core.urlresolvers import reverse
 from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
-from django.views.generic import ListView
+from django.views.generic import CreateView, ListView
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
 from feedback.forms import FeedbackResponseForm
 from forms import SchoolSearchForm
 from models import School
+from organize.forms import AddOrganizerForm
 
 def index(request):
     return render_to_response("schools/map.html", {
@@ -159,5 +161,26 @@ class MealListView(ListView):
         context['school'] = self.school
         context['has_next'] = False
         context['has_previous'] = False
-        print context
         return context
+
+class AddOrganizerView(CreateView):
+    form_class = AddOrganizerForm
+    template_name = 'schools/organizer_add.html'
+    
+    def get_form_kwargs(self):
+        """Add school to form kwargs."""
+        self.school = get_object_or_404(School, slug=self.kwargs['school_slug'])
+        kwargs = super(AddOrganizerView, self).get_form_kwargs()
+        kwargs['object'] = self.school
+        kwargs['initial']['added_by'] = self.request.user
+        return kwargs
+
+    def get_context_data(self, **kwargs):
+        context = super(AddOrganizerView, self).get_context_data(**kwargs)
+        context['school'] = self.school
+        return context
+
+    def get_success_url(self):
+        return reverse('schools.views.details', kwargs={
+            'school_slug': self.school.slug,
+        })

@@ -79,7 +79,8 @@ em {
 .content .video,
 .content .note,
 .content .petition,
-.content .news {
+.content .news,
+.content .organizer {
     margin-bottom: 5px;
     padding: 10px;
 }
@@ -135,6 +136,10 @@ em {
 
 .content .entry {
     padding: 10px;
+}
+
+.organizer .description {
+    padding: 10px 0;
 }
 
 .section {
