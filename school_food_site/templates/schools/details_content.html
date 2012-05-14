@@ -35,10 +35,20 @@
         {% if school.organizers %}
         <div>
             There are {{ school.organizers.count }} organizers at this school: 
-            {% if is_following %}
+            {% if user.is_superuser or is_following or is_organizing %}
             <ul class="content">
                 {% for organizer in school.organizers.all %}
                 <li class="organizer {% cycle "odd" "even" %}">
+                    {% if organizer.added_by == user %}
+                    <div class="edit" style="float: right;">
+                        <a href="{% url schools_edit_organizer school_slug=school.slug pk=organizer.pk %}">
+                            edit
+                        </a>
+                        <a href="{% url schools_delete_organizer school_slug=school.slug pk=organizer.pk %}">
+                            delete
+                        </a>
+                    </div>
+                    {% endif %}
                     <h3 class="name">{{ organizer.name }}</h3>
                     <div class="description">{{ organizer.description }}</div>
                     {% if organizer.phone %}

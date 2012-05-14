@@ -6,14 +6,17 @@ from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic.edit import FormMixin
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
 from feedback.forms import FeedbackResponseForm
 from forms import SchoolSearchForm
+from generic.views import LoginRequiredMixin, PermissionRequiredMixin
 from models import School
-from organize.forms import AddOrganizerForm
+from organize.forms import AddOrganizerForm, EditOrganizerForm
+from organize.models import Organizer
 
 def index(request):
     return render_to_response("schools/map.html", {
@@ -28,6 +31,11 @@ def map(request):
 def _is_following(school, user):
     if user.is_authenticated():
         return UserProfile.objects.filter(schools_following=school, user=user).count() > 0
+    return False
+
+def _is_organizing(school, user):
+    if user.is_authenticated():
+        return school.organizers.filter(added_by=user).count() > 0
     return False
 
 def _get_meals(school, index=0, count=3, user_id=None):
@@ -58,6 +66,7 @@ def details(request, school_slug=None):
         'meals_count': school.tray_set.count(),
         'principals': school.contact_set.filter(type='principal'),
         'is_following': _is_following(school, request.user),
+        'is_organizing': _is_organizing(school, request.user),
         'quiz_form': FeedbackResponseForm(initial={
             'added_by': request.user,
             'school': school,
@@ -163,24 +172,53 @@ class MealListView(ListView):
         context['has_previous'] = False
         return context
 
-class AddOrganizerView(CreateView):
-    form_class = AddOrganizerForm
-    template_name = 'schools/organizer_add.html'
-    
-    def get_form_kwargs(self):
-        """Add school to form kwargs."""
-        self.school = get_object_or_404(School, slug=self.kwargs['school_slug'])
-        kwargs = super(AddOrganizerView, self).get_form_kwargs()
-        kwargs['object'] = self.school
-        kwargs['initial']['added_by'] = self.request.user
-        return kwargs
+class SchoolOrganizerMixin(LoginRequiredMixin, FormMixin):
+    model = Organizer
+
+    def _get_school(self):
+        """Get the school associated with this view."""
+        try:
+            return self.school
+        except:
+            self.school = get_object_or_404(School, slug=self.kwargs['school_slug'])
+            return self.school
 
     def get_context_data(self, **kwargs):
-        context = super(AddOrganizerView, self).get_context_data(**kwargs)
-        context['school'] = self.school
+        context = super(SchoolOrganizerMixin, self).get_context_data(**kwargs)
+        context['school'] = self._get_school()
         return context
 
     def get_success_url(self):
         return reverse('schools.views.details', kwargs={
-            'school_slug': self.school.slug,
+            'school_slug': self._get_school().slug,
         })
+
+class AddOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, CreateView):
+    form_class = AddOrganizerForm
+    permission = 'schools.add_organizer'
+    template_name = 'schools/organizer_add.html'
+    
+    def get_form_kwargs(self):
+        """Add school to form kwargs."""
+        kwargs = super(AddOrganizerView, self).get_form_kwargs()
+        kwargs['object'] = self._get_school()
+        kwargs['initial']['added_by'] = self.request.user
+        return kwargs
+
+class EditOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, UpdateView):
+    form_class = EditOrganizerForm
+    model = Organizer
+    permission = 'schools.change_organizer'
+    template_name = 'schools/organizer_edit.html'
+    
+    def get_form_kwargs(self):
+        """Add school to form kwargs."""
+        kwargs = super(EditOrganizerView, self).get_form_kwargs()
+        kwargs['object'] = self._get_school()
+        kwargs['initial']['updated_by'] = self.request.user
+        return kwargs
+
+class DeleteOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, DeleteView):
+    model = Organizer
+    permission = 'schools.delete_organizer'
+    template_name = 'schools/organizer_confirm_delete.html'
