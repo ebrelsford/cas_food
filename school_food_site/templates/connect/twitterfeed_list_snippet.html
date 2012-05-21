@@ -1,0 +1,10 @@
+<ul class="content twitterfeeds">
+    {% for twitterfeed in twitterfeeds %}
+    <li class="twitterfeed {% cycle 'odd' 'even' %}">
+        <div class="title">
+            <a href="http://twitter.com/#!/{{ twitterfeed.handle }}">@{{ twitterfeed.handle }}</a>
+        </div>
+        <div class="text">{{ twitterfeed.text }}</div>
+    </li>
+    {% endfor %}
+</ul>

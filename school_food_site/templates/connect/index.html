@@ -1,0 +1,25 @@
+{% extends "connect/base.html" %}
+
+{% block title %}Lunch Line Playlist{% endblock %}
+
+{% block header_title %}Lunch Line Playlist{% endblock %}
+
+{% block content %}
+<h2>Lunch Line Playlist</h2>
+
+<div class="video section">
+    <h3>Videos</h3>
+    <div>
+        <a href="{% url connect_video_list %}">view all</a>
+    </div>
+    {% include "connect/video_list_snippet.html" %}
+</div>
+
+<div class="twitter section">
+    <h3>Twitter Feeds</h3>
+    <div>
+        <a href="{% url connect_twitterfeed_list %}">view all</a>
+    </div>
+    {% include "connect/twitterfeed_list_snippet.html" %}
+</div>
+{% endblock %}

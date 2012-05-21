@@ -1,0 +1,11 @@
+<ul class="content videos">
+    {% for video in videos %}
+    <li class="video {% cycle 'odd' 'even' %}">
+        {% if video.url %}<a href="{{ video.url }}">{% endif %}
+        <div class="title">{{ video.title }}</div>
+        {% if video.url %}</a>{% endif %}
+        <div class="text">{{ video.text }}</div>
+        <div class="embed">{{ video.embed_code|safe }}</div>
+    </li>
+    {% endfor %}
+</ul>

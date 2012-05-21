@@ -85,7 +85,7 @@
                             <li><a href="/good-food-alternatives/"><img src="{{ MEDIA_URL }}images/good_food_alternatives.png" /></a></li>
                             <li><a href="{% url schools.views.map %}"><img src="{{ MEDIA_URL }}images/find_your_school.png" /></a></li>
                             <li><a href="{% url glossary_list %}"><img src="{{ MEDIA_URL }}images/glossary.png" /></a></li>
-                            <li><a href="/"><img src="{{ MEDIA_URL }}images/lunch_line_playlist.png" /></a></li>
+                            <li><a href="{% url connect_index %}"><img src="{{ MEDIA_URL }}images/lunch_line_playlist.png" /></a></li>
                             <li><a href="{% url getinvolved_post_list %}"><img src="{{ MEDIA_URL }}images/take_action.png" /></a></li>
                         </ul>
                         <div class="clear"></div>
@@ -103,13 +103,13 @@
                 <div class="footer">
                     <ul class="connect">
                         <li>
-                            <a href="http://twitter.com/"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>
+                            <a href="{% url connect_twitterfeed_list %}"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>
                         </li>
                         <li>
                             <a href="http://facebook.com/"><img src="{{ MEDIA_URL }}/images/facebook-pencil48.png" /></a>
                         </li>
                         <li>
-                            <a href="http://youtube.com/"><img src="{{ MEDIA_URL }}/images/youtube-pencil48.png" /></a>
+                            <a href="{% url connect_video_list %}"><img src="{{ MEDIA_URL }}/images/youtube-pencil48.png" /></a>
                         </li>
                     </ul>
                 </div>

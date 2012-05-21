@@ -60,6 +60,7 @@ INSTALLED_APPS = (
 
     'accounts',
     'audit',
+    'connect',
     'content',
     'feedback',
     'flatpages',

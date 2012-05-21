@@ -1,0 +1,14 @@
+{% extends "connect/base.html" %}
+
+{% block title %}Videos{% endblock %}
+
+{% block header_title %}Videos{% endblock %}
+
+{% block content %}
+<h2>Videos</h2>
+<div>
+    {% with videos=object_list %}
+    {% include "connect/video_list_snippet.html" %}
+    {% endwith %}
+</div>
+{% endblock %}

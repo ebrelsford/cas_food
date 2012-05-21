@@ -21,8 +21,7 @@
         </div>
         <img src="{{ MEDIA_URL }}images/lunches.gif" />
         <div class="video">
-            <iframe width="100%" src="http://www.youtube.com/embed/8n2HO81RtiA" 
-                frameborder="0" allowfullscreen></iframe>
+            {{ video.embed_code|safe }}
         </div>
     </div>
 </div>

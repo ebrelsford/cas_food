@@ -80,7 +80,8 @@ em {
 .content .note,
 .content .petition,
 .content .news,
-.content .organizer {
+.content .organizer, 
+.content .twitterfeed {
     margin-bottom: 5px;
     padding: 10px;
 }
@@ -328,4 +329,9 @@ table.month .school-type {
 }
 .flatpage li {
     padding: 5px 0;
+}
+
+.home .video iframe {
+    height: 175px;
+    width: 100%;
 }

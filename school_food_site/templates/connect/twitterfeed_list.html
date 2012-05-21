@@ -1,0 +1,15 @@
+{% extends "connect/base.html" %}
+
+{% block title %}Twitter Feeds{% endblock %}
+
+{% block header_title %}Twitter Feeds{% endblock %}
+
+{% block content %}
+<h2>Twitter Feeds</h2>
+<div>
+    Here are some twitter feeds we think are worth following.
+    {% with twitterfeeds=object_list %}
+    {% include "connect/twitterfeed_list_snippet.html" %}
+    {% endwith %}
+</div>
+{% endblock %}
