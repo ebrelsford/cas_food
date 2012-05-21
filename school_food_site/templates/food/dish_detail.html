@@ -48,14 +48,27 @@
 
 <div class="nutrition section">
     <table>
-        <tr><th colspan="2">Nutrition Facts</th></tr>
+        <tr><th colspan="3">Nutrition Facts</th></tr>
+        <tr class="labels">
+            <td></td>
+            <td>amount</td>
+            <td>% daily value</td>
+        </tr>
         {% for nutritionfact in object.nutritionfact_set.all %}
         <tr class="nutrition-fact">
             <td class="nutrient">{{ nutritionfact.nutrient.name }}</td>
-            <td class="amount">{{ nutritionfact.amount }}</td>
+            <td class="amount number">
+                {{ nutritionfact.amount }}
+                {% if nutritionfact.amount_unit and nutritionfact.nutrient.name != "calories" %}
+                {{ nutritionfact.amount_unit }}
+                {% endif %}
+            </td>
+            <td class="percent-daily-value number">
+                {{ nutritionfact.percent_daily_value }}%
+            </td>
         </tr>
         {% empty %}
-        <tr><td colspan="2">We don't know yet.</td></tr>
+        <tr><td colspan="3">We don't know yet.</td></tr>
         {% endfor %}
     </table>
 </div>

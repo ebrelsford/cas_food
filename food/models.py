@@ -73,18 +73,38 @@ class NutritionFact(models.Model):
     # TODO auditing
     dish = models.ForeignKey(Dish, help_text='The dish this fact belongs to')
     nutrient = models.ForeignKey(Nutrient, help_text='The nutrient for this fact')
+
     amount = models.IntegerField(
-        blank=True, null=True,
-        help_text='The amount of this nutrient (in milligrams or calories) in one serving of this dish') # only in milligrams or calories, depending on nutrient
+        blank=True,
+        null=True,
+        help_text='The amount of this nutrient in one serving of this dish'
+    )
+
+    AMOUNT_UNIT_CHOICES = (
+        ('calories', 'calories'),
+        ('g', 'g'),
+        ('mg', 'mg'),
+    )
+    amount_unit = models.CharField(
+        max_length=32,
+        choices=AMOUNT_UNIT_CHOICES,
+        blank=True,
+        null=True,
+        help_text='The unit that the amount of this nutrient is measured in',
+    )
+
     percent_daily_value = models.DecimalField(
-        max_digits=4, decimal_places=1, blank=True, null=True,
-        help_text='The percent daily value of this nutrient in one serving of this dish')
+        max_digits=4,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        help_text='The percent daily value of this nutrient in one serving of this dish',
+    )
 
     def __unicode__(self):
         return self.dish.name + ': ' + self.nutrient.name
 
 class Meal(models.Model):
-    # TODO auditing
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
         ('wits', 'Wellness in the Schools'),

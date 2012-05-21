@@ -150,7 +150,7 @@ em {
 .nutrition table {
     background-color: white;
     border: 2px solid black;
-    width: 200px;
+    width: 250px;
 }
 .nutrition table th,
 .nutrition table td {
@@ -163,8 +163,11 @@ em {
 .nutrition table th {
     font-weight: bold;
 }
-.nutrition .amount {
+.nutrition .number {
     text-align: right;
+}
+.nutrition table tr.labels {
+    font-size: 12px;
 }
 
 table.month {
