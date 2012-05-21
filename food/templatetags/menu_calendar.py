@@ -9,7 +9,7 @@ register = template.Library()
 
 def do_menu_calendar(parser, token):
     """
-    The template tag's syntax is {% menu_calendar year month meal_list [show_details] %}
+    The template tag's syntax is {% menu_calendar year month meal_list [show_details] [show_school_type_labels] %}
     """
     tokens = token.split_contents()
     if len(tokens) < 4:
@@ -19,19 +19,26 @@ def do_menu_calendar(parser, token):
         show_details = (tokens[4] == 'True')
     except:
         show_details = True
-    return MenuCalendarNode(year, month, meal_list, show_details=show_details)
+    try:
+        show_school_type_labels = (tokens[5] == 'True')
+    except:
+        show_school_type_labels = False
+    return MenuCalendarNode(year, month, meal_list, show_details=show_details,
+                            show_school_type_labels=show_school_type_labels)
 
 
 class MenuCalendarNode(template.Node):
     """
     Process a particular node in the template. Fail silently.
     """
-    def __init__(self, year, month, meal_list, show_details=True):
+    def __init__(self, year, month, meal_list, show_details=True, 
+                 show_school_type_labels=False):
         try:
             self.year = template.Variable(year)
             self.month = template.Variable(month)
             self.meal_list = template.Variable(meal_list)
             self.show_details = show_details
+            self.show_school_type_labels = show_school_type_labels
         except ValueError:
             raise template.TemplateSyntaxError
 
@@ -40,7 +47,8 @@ class MenuCalendarNode(template.Node):
             my_meal_list = self.meal_list.resolve(context)
             my_year = self.year.resolve(context)
             my_month = self.month.resolve(context)
-            cal = MenuCalendar(my_meal_list, self.show_details)
+            cal = MenuCalendar(my_meal_list, self.show_details,
+                               self.show_school_type_labels)
             return cal.formatmonth(int(my_year), int(my_month))
         except ValueError:
             return ''
@@ -53,10 +61,11 @@ class MenuCalendar(calendar.HTMLCalendar):
     each day's table cell.
     """
 
-    def __init__(self, meals, show_details):
+    def __init__(self, meals, show_details, show_school_type_labels):
         super(MenuCalendar, self).__init__()
         self.meals = self.group_by_day(meals)
         self.show_details = show_details
+        self.show_school_type_labels = show_school_type_labels
 
     def formatweekday(self, day):
         if day in (5, 6):
@@ -89,12 +98,18 @@ class MenuCalendar(calendar.HTMLCalendar):
         body = []
         body.append('<ul class="dishes">')
         for meal in objects:
+            body.append('<li class="school-type">')
+            if self.show_school_type_labels:
+                body.append('<span>%s</span>' % meal.get_school_type_display())
+            body.append('<ul>')
             for dish in meal.dishes.all():
                 body.append('<li>')
                 body.append('<a href="%s">' % dish.get_absolute_url())
                 body.append(esc(dish.name))
                 body.append('</a>')
                 body.append('</li>')
+            body.append('</ul>')
+            body.append('</li>')
         body.append('</ul>')
         return body
 

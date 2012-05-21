@@ -87,6 +87,7 @@ class Meal(models.Model):
     # TODO auditing
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
+        ('wits', 'Wellness in the Schools'),
     )
 
     date = models.DateField(help_text='The date this meal is served')
@@ -95,7 +96,7 @@ class Meal(models.Model):
                                    default='elementary')
 
     def __unicode__(self):
-        return str(self.date)
+        return '%s, %s' % (self.school_type, str(self.date))
 
     @models.permalink
     def get_absolute_url(self):

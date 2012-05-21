@@ -1,8 +1,11 @@
 <h1>{{ school_type }} school menu for {{ day }}</h1>
-<div>
+<div class="menu-day">
     <ul>
         {% for meal in object_list %}
-        <li>
+        <li class="school-type">
+            {% if has_multiple_school_types %}
+            <span>{{ meal.get_school_type_display }}</span>
+            {% endif %}
             <ul>
                 {% for dish in meal.dishes.all %}
                 <li>

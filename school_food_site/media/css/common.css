@@ -185,11 +185,19 @@ table.month .day-number {
     display: block;
     width: 100%;
 }
+table.month .school-type {
+    padding: 5px 0;
+}
+
 .calendar-head .next {
     float: right;
 }
 .calendar-head .previous {
     float: left;
+}
+
+.menu-day .school-type {
+    padding: 10px 0;
 }
 
 .olPopupContent h2 {

@@ -1,7 +1,15 @@
 {% load menu_calendar %}
 
-<h1>{{ school_type }} school menu</h1>
+<h1>
+    menu for {{ school_types_display }} schools
+</h1>
 <div>
+    <div class="filters">
+        <input type="checkbox" id="wits" name="wits" 
+            {% if "wits" in school_type %}checked="checked"{% endif %}
+        />
+        <label for="wits">show Wellness in the Schools menu, too</label>
+    </div>
     <div class="calendar-head">
         <a class="previous" href="{% url food_menu_month school_type=school_type year=previous_month|date:"Y" month=previous_month|date:"m" %}">previous</a>
         <a class="next" href="{% url food_menu_month school_type=school_type year=next_month|date:"Y" month=next_month|date:"m" %}">next</a>
@@ -9,9 +17,13 @@
     </div>
     {% with y=month|date:"Y" m=month|date:"m" %}
     {% if not is_mobile %}
-    {% menu_calendar y m meal_list %}
+        {% if not has_multiple_school_types %}
+        {% menu_calendar y m meal_list %}
+        {% else %}
+        {% menu_calendar y m meal_list True True %}
+        {% endif %}
     {% else %}
-    {% menu_calendar y m meal_list False %}
+        {% menu_calendar y m meal_list False %}
     {% endif %}
     {% endwith %}
 </div>

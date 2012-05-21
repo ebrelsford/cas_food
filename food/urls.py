@@ -7,12 +7,12 @@ from views import DayMenuView, DishUpdateView, MonthMenuView, DishAddPictureView
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
 
-    url(r'^(?P<school_type>\w+)/$', 'food.views.menu'),
+    url(r'^(?P<school_type>[\w,]+)/$', 'food.views.menu'),
 
-    url(r'^(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$',
+    url(r'^(?P<school_type>[\w,]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$',
         MonthMenuView.as_view(), name='food_menu_month'),
 
-    url(r'^(?P<school_type>\w+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$',
+    url(r'^(?P<school_type>[\w,]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$',
         DayMenuView.as_view(), name='food_menu_day'),
 
     url(r'^dish/(?P<slug>[^/]*)/$', 

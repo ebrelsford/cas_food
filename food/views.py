@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
 
 from content.forms import PictureForm
@@ -44,11 +45,16 @@ def add_or_get_nutrient(request, name=None):
         }
     return HttpResponse(json.dumps(result), mimetype='application/json')
 
-def menu(request):
+def menu(request, school_type='elementary'):
     today = date.today()
-    return MonthMenuView.as_view()(request, year=str(today.year),
-                                   month=str(today.month),
-                                   school_type='elementary').render()
+    #return MonthMenuView.as_view()(request, year=str(today.year),
+                                   #month=str(today.month),
+                                   #school_type=school_type).render()
+    return redirect('food_menu_month',
+        year=str(today.year),
+        month=str(today.month),
+        school_type=school_type
+    )
 
 class MonthMenuView(MonthArchiveView):
     allow_empty = True
@@ -57,12 +63,26 @@ class MonthMenuView(MonthArchiveView):
     month_format = '%m'
     template_name = 'food/meal_archive_month.html'
 
+    school_types_verbose = {
+        'elementary': 'elementary',
+        'wits': 'Wellness in the Schools',
+    }
+
     def get_queryset(self):
-        return Meal.objects.filter(school_type=self.kwargs['school_type'])
+        school_types = self.kwargs.get('school_type', '').split(',')
+        return Meal.objects.filter(school_type__in=school_types).order_by('date', 'school_type')
 
     def get_context_data(self, **kwargs):
         context = super(MonthMenuView, self).get_context_data(**kwargs)
         context['school_type'] = self.kwargs['school_type']
+
+        school_types = self.kwargs.get('school_type', '').split(',')
+        context['school_types'] = school_types
+
+        school_types_display = ', '.join(self.school_types_verbose[t] for t in school_types)
+        context['school_types_display'] = school_types_display
+
+        context['has_multiple_school_types'] = len(school_types) > 1
         return context
 
 class DayMenuView(DayArchiveView):
@@ -73,11 +93,13 @@ class DayMenuView(DayArchiveView):
     template_name = 'food/meal_archive_day.html'
 
     def get_queryset(self):
-        return Meal.objects.filter(school_type=self.kwargs['school_type'])
+        school_types = self.kwargs.get('school_type', '').split(',')
+        return Meal.objects.filter(school_type__in=school_types)
 
     def get_context_data(self, **kwargs):
         context = super(DayMenuView, self).get_context_data(**kwargs)
         context['school_type'] = self.kwargs['school_type']
+        context['has_multiple_school_types'] = ',' in self.kwargs['school_type']
         return context
 
 class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,
