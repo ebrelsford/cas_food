@@ -14,13 +14,13 @@ class IndexView(TemplateView):
         return context
 
     def _pick_twitterfeeds(self, count):
-        feeds = TwitterFeed.objects.all()
+        feeds = TwitterFeed.objects.all().order_by('handle')
         feed_count = feeds.count()
         indices = sorted(sample(xrange(feed_count), min(feed_count, count)))
         return [feeds[i] for i in indices]
 
     def _pick_videos(self, count):
-        videos = Video.objects.all()
+        videos = Video.objects.all().order_by('title')
         video_count = videos.count()
         indices = sorted(sample(xrange(video_count), min(video_count, count)))
         return [videos[i] for i in indices]
