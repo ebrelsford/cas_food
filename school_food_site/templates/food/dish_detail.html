@@ -117,7 +117,6 @@
 
 <div class="comments section">
     <h2><a name="comments">Comments</a></h2>
-    {% comment %}TODO login to comment...{% endcomment %}
     {% if user.is_authenticated %}
     {% render_comment_form for dish %}
     {% else %}
@@ -125,7 +124,7 @@
     {% endif %}
 
     {% get_comment_count for dish as comment_count %}
-    There are {{ comment_count }} comments on this dish:
+    There {% if comment_count == 1 %}is{% else %}are{% endif %} {{ comment_count }} comment{{ comment_count|pluralize }} on this dish.
     {% render_comment_list for dish %}
 </div>
 {% endblock %}
