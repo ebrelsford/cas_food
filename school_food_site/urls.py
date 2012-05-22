@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^geo/geocode', 'geo.views.geocode'),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 
     # auth
 

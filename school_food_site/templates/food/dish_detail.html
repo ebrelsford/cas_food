@@ -1,8 +1,8 @@
 {% extends "food/base.html" %}
-{% load thumbnail %}
+{% load comments thumbnail %}
 
-{% block title %}{{ object.name }}{% endblock %}
-{% block header_title %}{{ object.name }}{% endblock %}
+{% block title %}{{ dish.name }}{% endblock %}
+{% block header_title %}{{ dish.name }}{% endblock %}
 {% block page_id %}food-details-page{% endblock %}
 
 {% block head_scripts %}
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ object.name }}</h1>
+<h1>{{ dish.name }}</h1>
 <div>
     <a href="{% url food_dish_update slug=dish.slug %}">
         Edit this dish <img src="{{ MEDIA_URL }}images/doc_edit.png" />
@@ -41,7 +41,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <a href="{% url food_dish_add_picture slug=object.slug %}">
+    <a href="{% url food_dish_add_picture slug=dish.slug %}">
         Add a Picture <img src="{{ MEDIA_URL }}images/round_plus.png" />
     </a>
 </div>
@@ -54,7 +54,7 @@
             <td>amount</td>
             <td>% daily value</td>
         </tr>
-        {% for nutritionfact in object.nutritionfact_set.all %}
+        {% for nutritionfact in dish.nutritionfact_set.all %}
         <tr class="nutrition-fact">
             <td class="nutrient">{{ nutritionfact.nutrient.name }}</td>
             <td class="amount number">
@@ -73,10 +73,10 @@
     </table>
 </div>
 
-{% if object.callouts.count > 0 %}
+{% if dish.callouts.count > 0 %}
 <div class="callouts section">
     <ul>
-        {% for callout in object.callouts.all %}
+        {% for callout in dish.callouts.all %}
         <li>
         {% if callout.glossary_entry %}
         {% if is_mobile %}
@@ -103,7 +103,7 @@
 
 <div class="section">
     <h2>Ingredients</h2>
-    {% for di in object.get_dishingredients %}
+    {% for di in dish.get_dishingredients %}
     {{ di.ingredient }}{% if not forloop.last %}, {% endif %}
     {% empty %}
     We don't know yet.
@@ -112,6 +112,20 @@
 
 <div class="section">
     <h2>Production</h2>
-    <div>Where is {{ object.name }} made? How does it get to the school cafeteria?</div>
+    <div>Where is {{ dish.name }} made? How does it get to the school cafeteria?</div>
+</div>
+
+<div class="comments section">
+    <h2><a name="comments">Comments</a></h2>
+    {% comment %}TODO login to comment...{% endcomment %}
+    {% if user.is_authenticated %}
+    {% render_comment_form for dish %}
+    {% else %}
+    Please <a href="{% url django.contrib.auth.views.login %}?next={{ request.path }}">log in</a> to comment on this dish.
+    {% endif %}
+
+    {% get_comment_count for dish as comment_count %}
+    There are {{ comment_count }} comments on this dish:
+    {% render_comment_list for dish %}
 </div>
 {% endblock %}

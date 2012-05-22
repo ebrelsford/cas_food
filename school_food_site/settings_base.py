@@ -42,6 +42,7 @@ TEMPLATE_SCREEN_DIR = "screen"
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.flatpages',
     'django.contrib.gis',
