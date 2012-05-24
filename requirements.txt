@@ -1,15 +1,22 @@
+## The following requirements were added by pip --freeze:
 Django==1.4
 PIL==1.1.7
 South==0.7.3
+coverage==3.5.2
 django-appmedia==1.0.1
+-e git+https://github.com/eserge/django-ckeditor.git@9a55d7b8887df804caea046a0fcbbed01310ff3d#egg=django_ckeditor-dev
+django-jenkins==0.12.1
 django-registration==0.8
 django-selectable==0.4.1
 geojson==1.0.1
+ipython==0.12
+logilab-astng==0.23.1
+logilab-common==0.57.1
 psycopg2==2.4.4
+pylint==0.25.1
 pyproj==1.9.0
+readline==6.2.2
 simplejson==2.3.2
 sorl-thumbnail==11.12
+unittest2==0.5.1
 wsgiref==0.1.2
-
-# install a version of django-ckeditor with support for settings.CKEDITOR_CONFIGS
--e git+https://github.com/eserge/django-ckeditor.git@9a55d7b8887df804caea046a0fcbbed01310ff3d#egg=django_ckeditor-dev

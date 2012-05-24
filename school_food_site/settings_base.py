@@ -54,6 +54,7 @@ INSTALLED_APPS = (
 
     'appmedia',
     'ckeditor',
+    'django_jenkins',
     'registration',
     'selectable',
     'south',
@@ -109,3 +110,25 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Full',
     },
 }
+
+# apps to be tested by django-jenkins
+PROJECT_APPS = (
+    'accounts',
+    'audit',
+    'connect',
+    'content',
+    'feedback',
+    'flatpages',
+    'food',
+    'getinvolved',
+    'glossary',
+    'organize',
+    'schools',
+    'tray',
+)
+
+JENKINS_TASKS = (
+        'django_jenkins.tasks.with_coverage',
+        'django_jenkins.tasks.run_pylint',
+        'django_jenkins.tasks.django_tests',
+)
