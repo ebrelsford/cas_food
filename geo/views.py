@@ -2,9 +2,8 @@ import json
 from urllib import urlencode
 from urllib2 import urlopen
 
+from django.conf import settings
 from django.http import HttpResponse
-
-from school_food_site.settings import YAHOO_APP_ID
 
 BBOX = {
     'top': 40.922,
@@ -35,7 +34,7 @@ def _geocode_with_yahoo(location):
         'location': location,
         'flags': 'CJ',
         'count': 5,
-        'appid': YAHOO_APP_ID,
+        'appid': settings.YAHOO_APP_ID,
     }
     url = 'http://where.yahooapis.com/geocode?' + urlencode(query)
     best_result = None
