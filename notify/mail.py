@@ -1,6 +1,6 @@
 from django.core.mail.message import EmailMultiAlternatives
 
-from school_food_site import settings
+from django.conf import settings
 
 def mail_multiple(subject, message, email_addresses, fail_silently=False,
                   connection=None, html_message=None):

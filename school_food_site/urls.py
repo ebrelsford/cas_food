@@ -14,7 +14,7 @@ import schools.urls as school_urls
 import tray.urls as tray_urls
 from views import IndexView
 
-import settings
+from django.conf import settings
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view(), name='index'),
