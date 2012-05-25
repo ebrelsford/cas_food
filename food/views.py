@@ -47,9 +47,6 @@ def add_or_get_nutrient(request, name=None):
 
 def menu(request, school_type='elementary'):
     today = date.today()
-    #return MonthMenuView.as_view()(request, year=str(today.year),
-                                   #month=str(today.month),
-                                   #school_type=school_type).render()
     return redirect('food_menu_month',
         year=str(today.year),
         month=str(today.month),
