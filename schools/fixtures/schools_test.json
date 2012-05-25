@@ -1,0 +1,47 @@
+[
+    {
+        "pk": 1, 
+        "model": "schools.school",
+        "fields": {
+            "city": "Brooklyn",
+            "participates_in_garden_to_cafe": false, 
+            "name": "P.S. 1234", 
+            "point": "POINT (-73.9732931141647043 40.6322634364344637)", 
+            "admin_district": "22.000", 
+            "participates_in_wellness_in_the_schools": false, 
+            "grades": "PK,0K,01,02,03,04,05,SE", 
+            "has_content": false, 
+            "state": "NY", 
+            "address": "9 Test St", 
+            "geo_district": 22, 
+            "ats_code": "22K134", 
+            "borough": "Brooklyn", 
+            "type": "Elementary", 
+            "slug": "ps-1234", 
+            "zip_code": 11218
+        }
+    }, 
+
+    {
+        "pk": 2,
+        "model": "schools.school", 
+        "fields": {
+            "city": "Bronx",
+            "participates_in_garden_to_cafe": true,
+            "name": "P.S. 5678",
+            "point": "POINT (-73.9000768755587103 40.8288178839399976)", 
+            "admin_district": "12.000", 
+            "participates_in_wellness_in_the_schools": false, 
+            "grades": "04,05,SE", 
+            "has_content": false, 
+            "state": "NY", 
+            "address": "1180 Tinton Avenue", 
+            "geo_district": 12, 
+            "ats_code": "12X198", 
+            "borough": "Bronx", 
+            "type": "Elementary", 
+            "slug": "ps-198", 
+            "zip_code": 10456
+        }
+    }
+]
