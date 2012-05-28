@@ -1,0 +1,30 @@
+[
+    {"pk": 1, "model": "food.ingredient", "fields": {"name": "chicken parts"}}, 
+    {"pk": 2, "model": "food.ingredient", "fields": {"name": "water"}}, 
+    {"pk": 3, "model": "food.ingredient", "fields": {"name": "salt"}}, 
+
+    {"pk": 1, "model": "food.callout", "fields": {"icon": "", "name": "high protein", "glossary_entry": null}}, 
+
+    {"pk": 1, "model": "food.dish", "fields": {"callouts": [1], "name": "charbroiled beef burger deluxe with specialty sauce", "slug": "charbroiled-beef-burger-deluxe-with-specialty-sauce"}}, 
+    {"pk": 2, "model": "food.dish", "fields": {"callouts": [], "name": "honey mustard sauce", "slug": "honey-mustard-sauce"}}, 
+
+    {"pk": 51, "model": "food.dishingredient", "fields": {"dish": 1, "order": 1, "ingredient": 3}}, 
+    {"pk": 52, "model": "food.dishingredient", "fields": {"dish": 1, "order": 2, "ingredient": 2}}, 
+    {"pk": 53, "model": "food.dishingredient", "fields": {"dish": 2, "order": 1, "ingredient": 1}}, 
+
+    {"pk": 1, "model": "food.nutrient", "fields": {"daily_recommended_amount": null, "name": "calories"}}, 
+    {"pk": 2, "model": "food.nutrient", "fields": {"daily_recommended_amount": null, "name": "cholesterol"}},
+    {"pk": 3, "model": "food.nutrient", "fields": {"daily_recommended_amount": null, "name": "sodium"}}, 
+
+    {"pk": 1, "model": "food.nutritionfact", "fields": {"dish": 1, "nutrient": 1, "amount": 10, "amount_unit": null, "percent_daily_value": "1.0"}}, 
+    {"pk": 2, "model": "food.nutritionfact", "fields": {"dish": 1, "nutrient": 2, "amount": 8, "amount_unit": null, "percent_daily_value": "9.0"}}, 
+    {"pk": 3, "model": "food.nutritionfact", "fields": {"dish": 2, "nutrient": 3, "amount": 7, "amount_unit": null, "percent_daily_value": null}}, 
+    {"pk": 4, "model": "food.nutritionfact", "fields": {"dish": 2, "nutrient": 1, "amount": 8, "amount_unit": null, "percent_daily_value": "9.0"}}, 
+
+    {"pk": 1, "model": "food.meal", "fields": {"date": "2012-03-01", "school_type": "elementary", "dishes": [1, 2]}}, 
+    {"pk": 2, "model": "food.meal", "fields": {"date": "2012-05-21", "school_type": "wits", "dishes": [2]}}, 
+    {"pk": 3, "model": "food.meal", "fields": {"date": "2012-03-02", "school_type": "elementary", "dishes": [1]}}, 
+    {"pk": 4, "model": "food.meal", "fields": {"date": "2012-05-01", "school_type": "elementary", "dishes": [1, 2]}}, 
+    {"pk": 5, "model": "food.meal", "fields": {"date": "2012-06-27", "school_type": "elementary", "dishes": [2]}}
+
+]
