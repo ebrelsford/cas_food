@@ -1,0 +1,28 @@
+[
+    {
+        "pk": 1,
+        "model": "glossary.entry", 
+        "fields": {
+            "updated": "2012-03-28T11:37:26.316", 
+            "added": "2012-03-28T11:37:18.940", 
+            "updated_by": null, 
+            "title": "entry one", 
+            "text": "This is the text for entry one.", 
+            "slug": "entry-one", 
+            "added_by": null
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "glossary.entry", 
+        "fields": {
+            "updated": "2012-03-28T11:37:26.316", 
+            "added": "2012-03-28T11:37:18.940", 
+            "updated_by": null, 
+            "title": "entry two", 
+            "text": "This is the text for entry two.", 
+            "slug": "entry-two", 
+            "added_by": null
+        }
+    }
+]
