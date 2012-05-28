@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1, 
+        "model": "connect.video", 
+        "fields": {
+            "url": "http://www.youtube.com/watch?v=Gik1C-Z8ERw", 
+            "text": "test youtube video", 
+            "embed_code": "<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/Gik1C-Z8ERw\" frameborder=\"0\" allowfullscreen></iframe>",
+            "title": "Zoe Keating - The Path"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "connect.twitterfeed", 
+        "fields": {
+            "text": "Test twitter feed", 
+            "handle": "twitter"
+        }
+    }
+]
