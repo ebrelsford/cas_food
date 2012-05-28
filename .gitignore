@@ -2,6 +2,8 @@ settings.py
 *.pyc
 .*.sw*
 .svn
+
+reports
 school_food_site/media/cache
 school_food_site/media/cache/*
 school_food_site/media/pictures
