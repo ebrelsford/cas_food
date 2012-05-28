@@ -1,0 +1,35 @@
+[
+    {
+        "pk": 1,
+        "model": "getinvolved.posttype",
+        "fields": {
+            "name": "posttype one"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "getinvolved.post", 
+        "fields": {
+            "updated": "2012-04-09T12:03:20.182", 
+            "added": "2012-04-09T11:39:51.847", 
+            "updated_by": null, 
+            "title": "post one", 
+            "text": "<p>Text for post one</p>",
+            "type": 1, 
+            "added_by": null
+        }
+    }, 
+    {
+        "pk": 2,
+        "model": "getinvolved.post",
+        "fields": {
+            "updated": "2012-04-09T13:52:03.858", 
+            "added": "2012-04-09T13:52:03.858", 
+            "updated_by": null, 
+            "title": "post two", 
+            "text": "<p>Text for post two</p>",
+            "type": 1, 
+            "added_by": null
+        }
+    }
+]
