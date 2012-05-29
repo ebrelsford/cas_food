@@ -91,13 +91,13 @@ form.school-search .ui-autocomplete-input {
 }
 
 .ui-multiselect div.selected {
-    width: 300px !important;
+    width: 50% !important;
 }
 .ui-multiselect div.selected ul.selected {
     height: 200px !important;
 }
 .ui-multiselect div.available {
-    width: 300px !important;
+    width: 49% !important;
 }
 .ui-multiselect div.available ul.available {
     height: 200px !important;
