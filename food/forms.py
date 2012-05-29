@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import ModelChoiceIterator
-from django.forms.widgets import SelectMultiple
+from django.forms.widgets import SelectMultiple, CheckboxSelectMultiple
 
 from models import Callout, Dish, Ingredient, DishIngredient
 
@@ -41,10 +41,10 @@ class OrderedModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         return sorted(qs, key=lambda x:value.index(str(x.pk)))
 
 class DishForm(forms.ModelForm):
-    callouts = forms.ModelMultipleChoiceField(
-        queryset=Callout.objects.all().order_by('name'),
-        required=False,
-    )
+    #callouts = forms.ModelMultipleChoiceField(
+        #queryset=Callout.objects.all().order_by('name'),
+        #required=False,
+    #)
 
     class Meta:
         exclude = ('name', 'slug',)
@@ -55,13 +55,20 @@ class DishForm(forms.ModelForm):
         Override to make an iterator for the Dish instance.
         """
         super(DishForm, self).__init__(*args, **kwargs)
+
+        self.fields['callouts'].widget = CheckboxSelectMultiple()
+        self.fields['callouts'].queryset = Callout.objects.all()
+
         if 'instance' in kwargs and kwargs['instance'] is not None:
             self.fields['ingredients'] = OrderedModelMultipleChoiceField(
                 Ingredient.objects.all(),
                 required=False,
             )
             widget = SelectMultiple(
-                choices=OrderedDishIngredientChoiceIterator(self.fields['ingredients'], kwargs['instance'])
+                choices=OrderedDishIngredientChoiceIterator(
+                    self.fields['ingredients'], 
+                    kwargs['instance'],
+                )
             )
             self.fields['ingredients'].widget = widget
 
@@ -81,6 +88,10 @@ class DishForm(forms.ModelForm):
                 order=(index + 1) # save 0 for unordered ingredients
             )
             dish_ingredient.save()
+
+        dish.callouts.clear()
+        for callout in self.cleaned_data.get('callouts', []):
+            dish.callouts.add(callout)
 
         if commit:
             dish.save()

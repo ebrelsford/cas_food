@@ -79,11 +79,11 @@
         {% for callout in dish.callouts.all %}
         <li>
         {% if callout.glossary_entry %}
-        {% if is_mobile %}
-        <a href="{% url glossary_entry_detail slug=callout.glossary_entry.slug %}">
-        {% else %}
-        <a href="{% url glossary_list %}#{{ callout.glossary_entry.slug }}">
-        {% endif %}
+            {% if is_mobile %}
+            <a href="{% url glossary_entry_detail slug=callout.glossary_entry.slug %}">
+            {% else %}
+            <a href="{% url glossary_list %}#{{ callout.glossary_entry.slug }}">
+            {% endif %}
         {% endif %}
             {% if callout.icon %}
             {% thumbnail callout.icon "150x150" as thumb %}
