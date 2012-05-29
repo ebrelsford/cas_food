@@ -1,0 +1,30 @@
+[
+    {
+        "pk": 1, 
+        "model": "tray.tray", 
+        "fields": {
+            "picture": "pictures/6049629559_ba51535502_m_1.jpg", 
+            "updated": "2012-03-29T13:19:02.756", 
+            "added": "2012-03-29T13:19:02.756", 
+            "updated_by": null, 
+            "school": 1, 
+            "date": "2012-03-27", 
+            "added_by": 1, 
+            "description": "test tray one"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "tray.tray", 
+        "fields": {
+            "picture": "pictures/6050088558_0015aa5453_m_3.jpg", 
+            "updated": "2012-03-29T13:19:54.541", 
+            "added": "2012-03-29T13:19:54.540", 
+            "updated_by": null, 
+            "school": 1, 
+            "date": "2012-03-07", 
+            "added_by": 1, 
+            "description": "test tray two"
+        }
+    }
+]
