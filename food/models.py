@@ -32,9 +32,6 @@ class Dish(models.Model):
     callouts = models.ManyToManyField(Callout, null=True, blank=True,
                                       help_text='The callouts for this dish')
 
-    # notes TODO use contenttypes and use those in content.models
-    # aliases, other names the school uses for this dish
-
     def get_dishingredients(self):
         return self.dishingredient_set.all().order_by('order')
 
