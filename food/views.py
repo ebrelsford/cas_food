@@ -103,7 +103,7 @@ class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,
                          CreateView):
     form_class = PictureForm
     template_name = 'food/dish_add_picture_form.html'
-    permission = 'content.create_picture'
+    permission = 'content.add_picture'
     
     def get_initial(self):
         """add added_by"""

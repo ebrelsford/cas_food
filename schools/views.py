@@ -195,7 +195,7 @@ class SchoolOrganizerMixin(LoginRequiredMixin, FormMixin):
 
 class AddOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, CreateView):
     form_class = AddOrganizerForm
-    permission = 'schools.add_organizer'
+    permission = 'organize.add_organizer'
     template_name = 'schools/organizer_add.html'
     
     def get_form_kwargs(self):
@@ -208,7 +208,7 @@ class AddOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, CreateView
 class EditOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, UpdateView):
     form_class = EditOrganizerForm
     model = Organizer
-    permission = 'schools.change_organizer'
+    permission = 'organize.change_organizer'
     template_name = 'schools/organizer_edit.html'
     
     def get_form_kwargs(self):
@@ -220,5 +220,5 @@ class EditOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, UpdateVie
 
 class DeleteOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, DeleteView):
     model = Organizer
-    permission = 'schools.delete_organizer'
+    permission = 'organize.delete_organizer'
     template_name = 'schools/organizer_confirm_delete.html'

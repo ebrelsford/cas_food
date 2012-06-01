@@ -12,7 +12,7 @@ from forms import TrayForm
 from models import Tray, Rating
 
 @login_required
-@permission_required('tray.add_meal')
+@permission_required('tray.add_tray')
 def add(request, school_slug=None):
     initial = {
         'added_by': request.user,
@@ -60,7 +60,7 @@ def details(request, school_slug=None, tray_id=None):
     }, context_instance=RequestContext(request))
 
 @login_required
-@permission_required('tray.add_note')
+@permission_required('content.add_note')
 def add_comment(request, school_slug=None, tray_id=None):
     tray = get_object_or_404(Tray, school__slug=school_slug, id=tray_id)
     if request.method == "POST":

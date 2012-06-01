@@ -8,7 +8,7 @@ from forms import FeedbackResponseForm
 class FeedbackResponseCreateView(LoginRequiredMixin, PermissionRequiredMixin,
                                  CreateView):
     form_class = FeedbackResponseForm
-    permission = 'feedback.create_feedback_response'
+    permission = 'feedback.add_feedbackresponse'
     template_name = 'feedback/create_feedback_response.html'
 
     def get_initial(self):
