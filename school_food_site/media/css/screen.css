@@ -31,6 +31,10 @@ body {
     float: right;
 }
 
+.identity {
+    clear: both;
+}
+
 .nav {
     float: left;
     padding: 5px 0;
