@@ -52,7 +52,7 @@ em {
     float: left;
 }
 
-.footer .connect li {
+.connect li {
     float: left;
     margin-right: 10px;
     margin-top: 10px;
@@ -326,10 +326,10 @@ table.month .school-type {
     font-family: Georgia !important;
 }
 .flatpage ol {
-    list-style: decimal;
+    list-style: decimal inside none;
 }
 .flatpage ul {
-    list-style: disc;
+    list-style: disc inside none;
 }
 .flatpage li {
     padding: 5px 0;

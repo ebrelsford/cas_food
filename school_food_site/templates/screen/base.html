@@ -67,7 +67,6 @@
     <body>
         <div class="wrapper">
             <div class="top">
-                <a href="/"><div class="food-logo"></div></a>
                 <div class="header">
                     <div class="account">
                         {% if user.is_anonymous %}
@@ -77,16 +76,22 @@
                         logged in as {{ user }}  <a href="{% url django.contrib.auth.views.logout %}">logout</a>
                         {% endif %}
                     </div>
-                    <a href="/"><div class="logo"></div></a>
+                    <div class="identity">
+                        <a href="/"><div id="logo"></div></a>
+                        <div id="mission-statement">
+                            Lunch Line is a tool created by students to empower all in the quest for healthy school food!
+                        </div>
+                    </div>
                     <div class="nav">
                         <ul>
                             <li class="first"><a href="/about/"><img src="{{ MEDIA_URL }}images/about.png" /></a></li>
                             <li><a href="{% url food.views.menu %}"><img src="{{ MEDIA_URL }}images/whats_cooking.png" /></a></li>
                             <li><a href="/good-food-alternatives/"><img src="{{ MEDIA_URL }}images/good_food_alternatives.png" /></a></li>
+                            <li><a href="{% url getinvolved_post_list %}"><img src="{{ MEDIA_URL }}images/take_action.png" /></a></li>
                             <li><a href="{% url schools.views.map %}"><img src="{{ MEDIA_URL }}images/find_your_school.png" /></a></li>
                             <li><a href="{% url glossary_list %}"><img src="{{ MEDIA_URL }}images/glossary.png" /></a></li>
                             <li><a href="{% url connect_index %}"><img src="{{ MEDIA_URL }}images/lunch_line_playlist.png" /></a></li>
-                            <li><a href="{% url getinvolved_post_list %}"><img src="{{ MEDIA_URL }}images/take_action.png" /></a></li>
+                            <li><a href="/"><img src="{{ MEDIA_URL }}images/blog.png" /></a></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -101,19 +106,7 @@
 
             <div class="bottom">
                 <div class="footer">
-                    <ul class="connect">
-                        <li>
-                            <a href="{% url connect_twitterfeed_list %}"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>
-                        </li>
-                        <li>
-                            <a href="http://facebook.com/"><img src="{{ MEDIA_URL }}/images/facebook-pencil48.png" /></a>
-                        </li>
-                        <li>
-                            <a href="{% url connect_video_list %}"><img src="{{ MEDIA_URL }}/images/youtube-pencil48.png" /></a>
-                        </li>
-                    </ul>
                 </div>
-                <div class="clear"></div>
             </div>
         </div>
         <div id="log-in-dialog">

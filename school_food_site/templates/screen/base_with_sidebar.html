@@ -14,5 +14,17 @@
     </div>
     {% endif %}
     {% endblock %}
+    <ul class="connect">
+        <li>
+            <a href="{% url connect_twitterfeed_list %}"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>
+        </li>
+        <li>
+            <a href="http://facebook.com/"><img src="{{ MEDIA_URL }}/images/facebook-pencil48.png" /></a>
+        </li>
+        <li>
+            <a href="{% url connect_video_list %}"><img src="{{ MEDIA_URL }}/images/youtube-pencil48.png" /></a>
+        </li>
+    </ul>
+    <div class="clear"></div>
 </div>
 {% endblock %}
