@@ -102,7 +102,7 @@ class MenuCalendar(calendar.HTMLCalendar):
             if self.show_school_type_labels:
                 body.append('<span>%s</span>' % meal.get_school_type_display())
             body.append('<ul>')
-            for dish in meal.dishes.all():
+            for dish in meal.dishes.all().order_by('name'):
                 body.append('<li>')
                 body.append('<a href="%s">' % dish.get_absolute_url())
                 body.append(esc(dish.name))
