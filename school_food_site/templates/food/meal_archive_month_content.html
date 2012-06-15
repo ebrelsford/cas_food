@@ -5,10 +5,12 @@
 </h1>
 <div>
     <div class="filters">
+        {% if not is_mobile %}
         <input type="checkbox" id="wits" name="wits" 
             {% if "wits" in school_type %}checked="checked"{% endif %}
         />
         <label for="wits">show Wellness in the Schools menu, too</label>
+        {% endif %}
     </div>
     <div class="calendar-head">
         <a class="previous" href="{% url food_menu_month school_type=school_type year=previous_month|date:"Y" month=previous_month|date:"m" %}">previous</a>
