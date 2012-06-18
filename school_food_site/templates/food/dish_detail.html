@@ -58,13 +58,13 @@
         <tr class="nutrition-fact">
             <td class="nutrient">{{ nutritionfact.nutrient.name }}</td>
             <td class="amount number">
-                {{ nutritionfact.amount }}
+                {{ nutritionfact.amount|default:"" }}
                 {% if nutritionfact.amount_unit and nutritionfact.nutrient.name != "calories" %}
                 {{ nutritionfact.amount_unit }}
                 {% endif %}
             </td>
             <td class="percent-daily-value number">
-                {{ nutritionfact.percent_daily_value }}%
+                {{ nutritionfact.percent_daily_value|default:"" }}%
             </td>
         </tr>
         {% empty %}
