@@ -73,7 +73,8 @@
                         <a href="{% url django.contrib.auth.views.login %}?next={{ request.path }}">login</a> or
                         <a href="{% url registration_register %}">register</a>
                         {% else %}
-                        logged in as {{ user }}  <a href="{% url django.contrib.auth.views.logout %}">logout</a>
+                        logged in as {{ user }}  <a href="{% url django.contrib.auth.views.logout %}">logout</a><br />
+                        <a href="{% url accounts.views.user_schools %}">view your schools</a>
                         {% endif %}
                     </div>
                     <div class="identity">
