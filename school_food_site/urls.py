@@ -43,6 +43,7 @@ urlpatterns = patterns('',
     (r'^accounts/password/reset/$', 'accounts.views.password_reset'),
     (r'^accounts/password/reset/email=(?P<email>.*)$', 'accounts.views.password_reset'),
     (r'^accounts/', include('registration.backends.default.urls')),
+    (r'^user/', include('accounts.urls')),
 
     (r'^selectable/', include('selectable.urls')),
     (r'^ckeditor/', include('ckeditor.urls')),
@@ -50,6 +51,7 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns = patterns('',
+        (r'^admin/doc/', include('django.contrib.admindocs.urls')),
         (r'^' + settings.MEDIA_URL.lstrip('/'), include('appmedia.urls')),
     ) + urlpatterns
     urlpatterns += staticfiles_urlpatterns()

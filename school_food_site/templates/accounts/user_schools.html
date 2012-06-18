@@ -1,0 +1,23 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}Your Schools{% endblock %}
+
+{% block header_title %}Your Schools{% endblock %}
+
+{% block content %}
+<h2>Your Schools</h2>
+{% if schools %}
+<div>Below are the schools you are following or organizing at.</div>
+<div class="schools">
+    <ul data-role="listview">
+        {% for school in schools %}
+        <li>
+            <a href="{% url schools.views.details school_slug=school.slug %}">{{ school.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+You are not following or organizing any schools. <a href="{% url schools.views.map %}">Find yours now!</a>
+{% endif %}
+{% endblock %}

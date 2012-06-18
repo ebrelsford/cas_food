@@ -38,6 +38,15 @@
 <div id="logo"></div>
 <div class="nav">
     <ul data-role="listview" data-inset="true">
+        <li><a href="{% url food.views.todays_menu %}">Today's Menu</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url accounts.views.user_schools %}">Your Schools</a></li>
+        {% comment %}log out{% endcomment %}
+        {% else %}
+        {% comment %}log in{% endcomment %}
+        {% endif %}
+    </ul>
+    <ul data-role="listview" data-inset="true">
         <li><a href="/about/">About</a></li>
         <li><a href="{% url food.views.menu %}">What's Cooking?</a></li>
         <li><a href="/good-food-alternatives/">Good Food Alternatives</a></li>

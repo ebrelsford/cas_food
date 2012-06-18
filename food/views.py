@@ -53,6 +53,15 @@ def menu(request, school_type='elementary'):
         school_type=school_type
     )
 
+def todays_menu(request, school_type='elementary'):
+    today = date.today()
+    return redirect('food_menu_day',
+        year=str(today.year),
+        month=str(today.month),
+        day=str(today.day),
+        school_type=school_type
+    )
+
 class MonthMenuView(MonthArchiveView):
     allow_empty = True
     allow_future = True

@@ -7,6 +7,8 @@ from views import DayMenuView, DishUpdateView, MonthMenuView, DishAddPictureView
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
 
+    url(r'^today/$', 'food.views.todays_menu'),
+
     url(r'^(?P<school_type>[\w,]+)/$', 'food.views.menu'),
 
     url(r'^(?P<school_type>[\w,]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$',

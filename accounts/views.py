@@ -1,13 +1,15 @@
 import json
 
 from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
+from organize.models import Organizer
 from schools.models import School
 from forms import PasswordResetForm
 from models import UserProfile
@@ -72,3 +74,34 @@ def unfollow(request, school_slug):
 
     return HttpResponse(json.dumps({ 'status': status }),
                         mimetype='application/json')            
+
+@login_required
+def user_schools(request):
+    schools = _user_watched_schools(request.user) + _user_organized_schools(request.user)
+    schools = sorted(list(set(schools)), key=lambda s: s.name)
+
+    # if user following one school, redirect there
+    if len(schools) == 1:
+        return redirect('schools.views.details', school_slug=schools[0].slug)
+
+    # else, show all schools, let user choose
+    return render_to_response('accounts/user_schools.html', {
+        'schools': schools,
+    }, context_instance=RequestContext(request))
+
+def _user_organized_schools(user):
+    """
+    Schools the user has added an organizer for.
+    """
+    organizers = Organizer.objects.filter(
+        added_by=user,
+        content_type=ContentType.objects.get_for_model(School)
+    )
+    return [o.content_object for o in organizers]
+
+def _user_watched_schools(user):
+    """
+    Schools the user is watching.
+    """
+    user_profile, created = UserProfile.objects.get_or_create(user=user)
+    return list(user_profile.schools_following.all())
