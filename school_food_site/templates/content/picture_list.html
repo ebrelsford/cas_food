@@ -11,7 +11,7 @@
         href="{{ full.url }}"
         {% endif %}
         rel="external" 
-        title="{{ picture.description }}">
+        title="{{ picture.description|default:"" }}">
 
         {% thumbnail picture.picture "100x100" crop="center" as thumb %}
         <img 
