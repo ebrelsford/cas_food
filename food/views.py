@@ -4,7 +4,7 @@ import json
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
 
@@ -82,7 +82,11 @@ class MonthMenuView(MonthArchiveView):
         context = super(MonthMenuView, self).get_context_data(**kwargs)
         context['school_type'] = self.kwargs['school_type']
 
-        school_types = self.kwargs.get('school_type', '').split(',')
+        school_types = filter(lambda t: t in self.school_types_verbose.keys(),
+            self.kwargs.get('school_type', '').split(',')
+        )
+        if not school_types:
+            raise Http404
         context['school_types'] = school_types
 
         school_types_display = ', '.join(self.school_types_verbose[t] for t in school_types)
