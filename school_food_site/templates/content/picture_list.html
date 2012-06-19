@@ -2,16 +2,17 @@
 
 {% for picture in picture_list %}
 <li>
-    {% thumbnail picture.picture "600x600" as full %}
+    {% comment %}
+    Only let thumbnail link to something if it has a content_object. Could
+    lightbox the rest, but let's keep it simple.
+    {% endcomment %}
+    {% if picture.content_object %}
     <a 
         class="img-gallery"
-        {% if picture.content_object %}
         href="{{ picture.content_object.get_absolute_url }}" 
-        {% else %}
-        href="{{ full.url }}"
-        {% endif %}
         rel="external" 
         title="{{ picture.description|default:"" }}">
+    {% endif %}
 
         {% thumbnail picture.picture "100x100" crop="center" as thumb %}
         <img 
@@ -20,8 +21,9 @@
             height="{{ thumb.height }}" />
         {% endthumbnail %}
 
+    {% if picture.content_object %}
     </a>           
-    {% endthumbnail %}
+    {% endif %}
 </li>
 {% empty %}
 {% comment %}Intentionally blank.{% endcomment %}
