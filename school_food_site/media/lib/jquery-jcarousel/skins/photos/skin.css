@@ -55,10 +55,8 @@
 }
 
 .jcarousel-skin-photos .jcarousel-item-placeholder {
-    background: #fff;
+    background: url(/media/images/loading.gif) center center no-repeat;
     color: #000;
-    width: 100px;
-    height: 100px;
 }
 
 /**
@@ -71,22 +69,20 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(next-horizontal.png) no-repeat 0 0;
+    background: transparent url(/media/images/RightArrow.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-photos .jcarousel-direction-rtl .jcarousel-next-horizontal {
     left: 5px;
     right: auto;
-    background-image: url(prev-horizontal.png);
+    background-image: url(/media/images/RightArrow.png);
 }
 
 .jcarousel-skin-photos .jcarousel-next-horizontal:hover,
 .jcarousel-skin-photos .jcarousel-next-horizontal:focus {
-    background-position: -32px 0;
 }
 
 .jcarousel-skin-photos .jcarousel-next-horizontal:active {
-    background-position: -64px 0;
 }
 
 .jcarousel-skin-photos .jcarousel-next-disabled-horizontal,
@@ -94,7 +90,7 @@
 .jcarousel-skin-photos .jcarousel-next-disabled-horizontal:focus,
 .jcarousel-skin-photos .jcarousel-next-disabled-horizontal:active {
     cursor: default;
-    background-position: -96px 0;
+    background: transparent url(/media/images/RightArrow_disabled.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-photos .jcarousel-prev-horizontal {
@@ -104,22 +100,20 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: transparent url(prev-horizontal.png) no-repeat 0 0;
+    background: transparent url(/media/images/LeftArrow.png) no-repeat 0 0;
 }
 
 .jcarousel-skin-photos .jcarousel-direction-rtl .jcarousel-prev-horizontal {
     left: auto;
     right: 5px;
-    background-image: url(next-horizontal.png);
+    background-image: url(/media/images/LeftArrow.png);
 }
 
 .jcarousel-skin-photos .jcarousel-prev-horizontal:hover, 
 .jcarousel-skin-photos .jcarousel-prev-horizontal:focus {
-    background-position: -32px 0;
 }
 
 .jcarousel-skin-photos .jcarousel-prev-horizontal:active {
-    background-position: -64px 0;
 }
 
 .jcarousel-skin-photos .jcarousel-prev-disabled-horizontal,
@@ -127,7 +121,7 @@
 .jcarousel-skin-photos .jcarousel-prev-disabled-horizontal:focus,
 .jcarousel-skin-photos .jcarousel-prev-disabled-horizontal:active {
     cursor: default;
-    background-position: -96px 0;
+    background: transparent url(/media/images/LeftArrow_disabled.png) no-repeat 0 0;
 }
 
 /**

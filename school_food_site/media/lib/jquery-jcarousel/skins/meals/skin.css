@@ -54,7 +54,7 @@
 }
 
 .jcarousel-skin-meals .jcarousel-item-placeholder {
-    background: url('/media/images/loading.gif') center center no-repeat;
+    background: url(/media/images/loading.gif) center center no-repeat;
     color: #000;
 }
 
@@ -120,7 +120,6 @@
 .jcarousel-skin-meals .jcarousel-prev-disabled-horizontal:focus,
 .jcarousel-skin-meals .jcarousel-prev-disabled-horizontal:active {
     cursor: default;
-    /*background-position: -96px 0;*/
     background: transparent url(/media/images/LeftArrow_disabled.png) no-repeat 0 0;
 }
 
