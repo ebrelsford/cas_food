@@ -1,9 +1,47 @@
 {% extends is_mobile|yesno:"mobile/base.html,screen/base.html" %}
+{% load thumbnail %}
 
 {% block title %}Home{% endblock %}
 
 {% block header_title %}Lunch Line{% endblock %}
 {% block page_id %}home-page{% endblock %}
+
+{% block head_scripts %}
+{{ block.super }}
+{% if not is_mobile %}
+<script>
+    function loadPictures(carousel, state) {
+        for (var i = carousel.first; i <= carousel.last; i++) {
+            if (!carousel.has(i)) {
+                addPicture(carousel, i);
+            }
+        }
+    }
+
+    function addPicture(carousel, index) {
+        $.get('{% url content_pictures_list %}?',
+            {
+                count: 1,
+                index: index - 1, // jcarousel is 1-indexed
+            },
+            function(pictures) {
+                carousel.add(index, pictures);
+            }
+        );
+    }
+
+    $(document).ready(function() {
+        $('.photos-list').jcarousel({
+            itemFallbackDimension: 100,
+            itemLoadCallback: loadPictures,
+            scroll: 1,
+            size: {{ pictures_count }},
+            start: 0,
+        });
+    });
+</script>
+{% endif %}
+{% endblock %}
 
 {% block middle %}
 <div class="home">
@@ -14,10 +52,15 @@
         </a>
     </div>
     <div style="display: inline-block; vertical-align: top; width: 275px;">
-        <img src="{{ MEDIA_URL }}images/lunches.gif" />
+
+        <div class="photos" style="padding-bottom: 10px;">
+            <ul class="photos-list carousel jcarousel-skin-photos"></ul>
+        </div>
+
         <div class="video">
             {{ video.embed_code|safe }}
         </div>
+
         <ul class="connect">
             <li>
                 <a href="{% url connect_twitterfeed_list %}"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>

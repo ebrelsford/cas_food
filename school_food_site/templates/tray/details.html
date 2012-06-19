@@ -25,9 +25,9 @@
 <h2>{{ tray.date }}</h2>
 <div class="meal">
     <div class="image-wrapper">
-        {% thumbnail tray.picture "600x600" as full %}
+        {% thumbnail tray.pictures.all.0.picture "600x600" as full %}
         <a title="{{ tray.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
-            {% thumbnail tray.picture "300x300" as thumb %}
+            {% thumbnail tray.pictures.all.0.picture "300x300" as thumb %}
             <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
             {% endthumbnail %}
         </a>           

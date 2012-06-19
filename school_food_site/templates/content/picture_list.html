@@ -1,0 +1,28 @@
+{% load thumbnail %}
+
+{% for picture in picture_list %}
+<li>
+    {% thumbnail picture.picture "600x600" as full %}
+    <a 
+        class="img-gallery"
+        {% if picture.content_object %}
+        href="{{ picture.content_object.get_absolute_url }}" 
+        {% else %}
+        href="{{ full.url }}"
+        {% endif %}
+        rel="external" 
+        title="{{ picture.description }}">
+
+        {% thumbnail picture.picture "100x100" crop="center" as thumb %}
+        <img 
+            src="{{ thumb.url }}" 
+            width="{{ thumb.width }}" 
+            height="{{ thumb.height }}" />
+        {% endthumbnail %}
+
+    </a>           
+    {% endthumbnail %}
+</li>
+{% empty %}
+{% comment %}Intentionally blank.{% endcomment %}
+{% endfor %}

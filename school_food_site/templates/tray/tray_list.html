@@ -3,9 +3,9 @@
 {% for tray in tray_list %}
 <li class="meal {% cycle odd,even %}">
     <div class="image-wrapper">
-        {% thumbnail tray.picture "600x600" as full %}
+        {% thumbnail tray.pictures.all.0.picture "600x600" as full %}
         <a title="{{ tray.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
-            {% thumbnail tray.picture "150x150" as thumb %}
+            {% thumbnail tray.picture.all.0.picture "150x150" as thumb %}
             <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
             {% endthumbnail %}
         </a>           

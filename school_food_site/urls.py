@@ -4,6 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+import content.urls as content_urls
 import flatpages.urls as flatpages_urls
 import food.urls as food_urls
 import connect.urls as connect_urls
@@ -29,6 +30,7 @@ urlpatterns = patterns('',
     url(r'^menu/', include(food_urls)),
 
     url(r'^connect/', include(connect_urls)),
+    url(r'^content/', include(content_urls)),
     url(r'^glossary/', include(glossary_urls)),
     url(r'^take-action/', include(getinvolved_urls)),
     url(r'^flatpages/', include(flatpages_urls)),
