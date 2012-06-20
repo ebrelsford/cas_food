@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.forms import HiddenInput, IntegerField, ModelForm, ModelChoiceField
+from django.forms import HiddenInput, IntegerField, ModelForm, ModelChoiceField, CharField
 
-from models import Note, Picture, Video
+from ckeditor.widgets import CKEditorWidget
+
+from models import Note, Picture, Section, Video
  
 class ContentForm(ModelForm):
     content_type = ModelChoiceField(label='content_type',
@@ -47,3 +49,11 @@ class PictureForm(ContentForm):
 class VideoForm(ContentForm):
     class Meta:
         model = Video
+
+class SectionForm(ContentForm):
+    text = CharField(widget=CKEditorWidget())
+
+    class Meta:
+        model = Section
+        exclude = ('url', 'enable_comments', 'template_name',
+                   'registration_required', 'sites',)

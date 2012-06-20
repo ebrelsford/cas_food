@@ -56,6 +56,18 @@
                     imageBtnNext: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-btn-next.gif',   
                     imageBlank: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-blank.gif',   
                 });
+
+                {% if not is_mobile %}
+                $('.expanding-section .expandee').hide();
+                $('.expanding-section .unexpand-text').hide();
+                $('.expanding-section .expander').click(function() {
+                    $(this).parent().toggleClass('expanded');
+                    $(this).parent().find('.expandee').toggle('slow');
+                    $(this).find('.expand-text').toggle();
+                    $(this).find('.unexpand-text').toggle();
+                    return false;
+                });
+                {% endif %}
             });
         </script>
         {% endblock %}

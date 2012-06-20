@@ -4,13 +4,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
-import content.urls as content_urls
-import flatpages.urls as flatpages_urls
-import food.urls as food_urls
 import connect.urls as connect_urls
+import content.urls as content_urls
+import feedback.urls as feedback_urls
+import food.urls as food_urls
 import getinvolved.urls as getinvolved_urls
 import glossary.urls as glossary_urls
-import feedback.urls as feedback_urls
+import pages.urls as pages_urls
 import schools.urls as school_urls
 import tray.urls as tray_urls
 from views import IndexView
@@ -33,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^content/', include(content_urls)),
     url(r'^glossary/', include(glossary_urls)),
     url(r'^take-action/', include(getinvolved_urls)),
-    url(r'^flatpages/', include(flatpages_urls)),
+    url(r'^pages/', include(pages_urls)),
 
     url(r'^geo/geocode', 'geo.views.geocode'),
 

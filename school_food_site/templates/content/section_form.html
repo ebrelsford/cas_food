@@ -1,0 +1,18 @@
+{% extends "content/base.html" %}
+
+{% block title %}{{ section.title }} | Edit{% endblock %}
+{% block header_title %}{{ section.title }}{% endblock %}
+{% block page_id %}section-edit{% endblock %}
+
+{% block content %}
+<div>
+    <form action="" method="post">
+        <table>
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}

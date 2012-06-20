@@ -65,11 +65,11 @@ INSTALLED_APPS = (
     'connect',
     'content',
     'feedback',
-    'flatpages',
     'food',
     'getinvolved',
     'glossary',
     'organize',
+    'pages',
     'schools',
     'tray',
 )

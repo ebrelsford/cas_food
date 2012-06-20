@@ -9,6 +9,6 @@ urlpatterns = patterns('',
             model=FlatPage,
             form_class=FlatPageForm,
         ),
-        name='flatpages_flatpage_update'
+        name='pages_flatpage_update'
     ),
 )

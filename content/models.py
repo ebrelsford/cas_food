@@ -29,3 +29,17 @@ class Picture(BaseContent):
 
 class Note(BaseContent):
     text = models.TextField()
+
+class Section(BaseContent):
+    """A section of a page"""
+    title = models.CharField(max_length=256)
+    text = models.TextField()
+
+    weight = models.PositiveIntegerField(default=0)
+
+    def __unicode__(self):
+        return 'Section: ' + self.title   
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('content_section_detail', (self.id,))

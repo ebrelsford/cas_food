@@ -1,6 +1,7 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 
-from content.models import Picture
+from content.forms import SectionForm
+from content.models import Picture, Section
 
 class PictureListView(ListView):
     default_count = 3
@@ -17,3 +18,16 @@ class PictureListView(ListView):
         if count > pictures.count():
             return pictures
         return pictures[index:index + count]
+
+class SectionUpdateView(UpdateView):
+    model = Section
+    form_class = SectionForm
+
+    def get_form_kwargs(self):
+        kwargs = super(SectionUpdateView, self).get_form_kwargs()
+        # XXX will only work when editing an existing Section
+        kwargs['object'] = self.get_object().content_object
+        return kwargs
+
+    def get_success_url(self):
+        return self.get_object().content_object.get_absolute_url()

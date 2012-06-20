@@ -1,0 +1,15 @@
+{% extends "content/base.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block header_title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+<h2>
+    <a href="{{ section.content_object.get_absolute_url }}">{{ section.content_object.title }}</a>
+    : {{ section.title }}
+</h2>
+<div class="section">
+    <div class="text">{{ section.text|safe }}</div>
+</div>
+{% endblock %}
