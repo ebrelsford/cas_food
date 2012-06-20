@@ -15,9 +15,9 @@
         {% for section in flatpage.sectionedflatpage.get_sections %}
         <li class="expanding-section">
             {% if not is_mobile %}
-            <h3 class="expander">{{ section.title }} 
-                <span class="expand-text">(more)</span>
-                <span class="unexpand-text">(less)</span>
+            <h3 class="expander">
+                <span class="icon"></span>
+                {{ section.title }} 
             </h3>
             <div class="expandee">
                 {% if perms.flatpages.change_flat_page %}

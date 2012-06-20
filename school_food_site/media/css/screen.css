@@ -116,6 +116,25 @@ ul.sections {
     list-style: none;
 }
 
+.expanding-section {
+    border-bottom: 1px solid #B4DEC9;
+}
+
+.expanding-section .icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(/media/images/sq_plus.png) no-repeat;
+    padding-right: 5px;
+}
+.expanding-section.expanded .icon {
+    background: url(/media/images/sq_minus.png) no-repeat;
+}
+
 .expanding-section .expander {
     cursor: pointer;
+}
+
+.expanding-section .expandee {
+    display: none;
 }
