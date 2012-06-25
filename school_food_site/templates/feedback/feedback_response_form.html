@@ -13,6 +13,9 @@
     });
 </script>
 <h2>Lunch Quiz</h2>
+<div class="helptext" style="margin-bottom: 10px;">
+    Kids! How was your lunch today?
+</div>
 <div class="lunch-quiz">
     <form action="{% url feedback_feedback_response_create school_slug=school.slug %}" method="post">
         {% csrf_token %}

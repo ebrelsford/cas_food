@@ -1,9 +1,4 @@
 .jcarousel-skin-meals .jcarousel-container {
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: #F0F6F9;
-    border: 1px solid #346F97;
 }
 
 .jcarousel-skin-meals .jcarousel-direction-rtl {
@@ -11,8 +6,8 @@
 }
 
 .jcarousel-skin-meals .jcarousel-container-horizontal {
-    width: 530px;
-    padding: 20px 40px;
+    width: 536px;
+    padding: 20px 40px 20px 30px;
 }
 
 .jcarousel-skin-meals .jcarousel-container-vertical {
@@ -26,7 +21,7 @@
 }
 
 .jcarousel-skin-meals .jcarousel-clip-horizontal {
-    width: 530px;
+    width: 536px;
 }
 
 .jcarousel-skin-meals .jcarousel-clip-vertical {
@@ -55,7 +50,7 @@
 
 .jcarousel-skin-meals .jcarousel-item-placeholder {
     background: url(/media/images/loading.gif) center center no-repeat;
-    color: #000;
+    border: 1px solid #45BF82;
 }
 
 /**
@@ -95,7 +90,7 @@
 .jcarousel-skin-meals .jcarousel-prev-horizontal {
     position: absolute;
     top: 170px;
-    left: 5px;
+    left: -5px;
     width: 32px;
     height: 32px;
     cursor: pointer;

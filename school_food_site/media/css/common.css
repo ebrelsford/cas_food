@@ -35,7 +35,7 @@ em {
 }
 
 .helptext {
-    font-size: 10px;
+    font-size: 12px;
     font-style: italic;
 }
 
@@ -109,12 +109,14 @@ em {
 }
 
 .content .meal {
+    background: none;
     float: left;
     padding: 10px;
     width: 150px;
     height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
+    border: 1px solid #45BF82;
 }
 .content .meal .image-wrapper {
     height: 160px;
