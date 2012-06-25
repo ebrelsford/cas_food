@@ -14,6 +14,16 @@
     </div>
     {% endif %}
     {% endblock %}
+    <div class="getinvolved-promoted">
+        <h2>Get involved!</h2>
+        <ul>
+            {% for post in promoted_posts %}
+            <li>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     <ul class="connect">
         <li>
             <a href="{% url connect_twitterfeed_list %}"><img src="{{ MEDIA_URL }}/images/twitter-pencil48.png" /></a>

@@ -14,10 +14,14 @@ class Post(AuditedModel):
     title = models.CharField(max_length=128)
     text = models.TextField()
     type = models.ForeignKey(PostType, null=True)
-    
+    promoted = models.BooleanField(
+        default=False,
+        help_text="Show this post in the site's sidebar."
+    )
+ 
     def __unicode__(self):
         return self.title
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('getinvolved_post_detail', (), { 'pk': self.id })

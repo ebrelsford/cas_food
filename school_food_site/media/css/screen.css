@@ -68,7 +68,8 @@ body {
 .right .todays-menu {
     
 }
-.right .todays-menu h1 {
+.right h1,
+.right h2 {
     font-size: 20px;
 }
 

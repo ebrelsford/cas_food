@@ -22,7 +22,7 @@ class PostAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'text',),
+            'fields': ('title', 'text', 'promoted',),
         }),
         ('Audit', {
             'fields': (('added', 'added_by',), ('updated', 'updated_by',),),
