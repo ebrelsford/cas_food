@@ -6,7 +6,7 @@
             {% if has_multiple_school_types %}
             <span>{{ meal.get_school_type_display }}</span>
             {% endif %}
-            <ul>
+            <ul data-role="listview" data-inset="true">
                 {% for dish in meal.dishes.all %}
                 <li>
                     <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>

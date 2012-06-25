@@ -6,12 +6,7 @@
 
 {% block content %}
 <h2>{{ object.title }}</h2>
-<div class="glossary">
-    <ul class="content">
-        <li class="entry odd">
-            <div class="title">{{ object.title }}</div>
-            <div class="text">{{ object.text }}</div>
-        </li>
-    </ul>
+<div class="glossary content">
+    <div class="text">{{ object.text }}</div>
 </div>
 {% endblock %}

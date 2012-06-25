@@ -13,19 +13,25 @@
     {% endif %}
 </h2>
 <div class="glossary">
-    <ul class="content entries">
+    <ul class="content entries" data-role="listview">
         {% for object in object_list %}
         <li class="entry {% cycle 'odd' 'even' %}">
-            <a name="{{ object.slug }}">
+            <a name="{{ object.slug }}" 
+                {% if is_mobile %}
+                href="{{ object.get_absolute_url }}"
+                {% endif %}
+                >
                 <div class="title">{{ object.title }}
-                    {% if perms.glossary.change_entry %}
+                    {% if perms.glossary.change_entry and not is_mobile %}
                     <a href="{% url glossary_entry_update slug=object.slug %}">
                         <img src="{{ MEDIA_URL }}images/doc_edit.png" />
                     </a>
                     {% endif %}
                 </div>
             </a>
+            {% if not is_mobile %}
             <div class="text">{{ object.text }}</div>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

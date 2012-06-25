@@ -11,7 +11,7 @@
     {% endif %}
     {{ flatpage.content }}
 
-    <ul class="sections" data-role="listview" data-theme="a">
+    <ul class="sections" data-role="listview" data-inset="true">
         {% for section in flatpage.sectionedflatpage.get_sections %}
         <li class="expanding-section">
             {% if not is_mobile %}

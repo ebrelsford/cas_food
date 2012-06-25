@@ -33,3 +33,14 @@ table.month .day-number {
 .ui-listview.sections {
     margin-top: 0;
 }
+
+.content .title {
+    margin-bottom: 0;
+}
+.content .entry {
+    padding: 0;
+}
+
+.ui-content .ui-listview {
+    margin-top: 0;
+}

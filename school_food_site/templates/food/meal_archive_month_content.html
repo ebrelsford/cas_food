@@ -13,8 +13,8 @@
         {% endif %}
     </div>
     <div class="calendar-head">
-        <a class="previous" href="{% url food_menu_month school_type=school_type year=previous_month|date:"Y" month=previous_month|date:"m" %}">previous</a>
-        <a class="next" href="{% url food_menu_month school_type=school_type year=next_month|date:"Y" month=next_month|date:"m" %}">next</a>
+        <a class="previous" href="{% url food_menu_month school_type=school_type year=previous_month|date:"Y" month=previous_month|date:"m" %}" data-role="button" data-icon="arrow-l" data-mini="true">previous month</a>
+        <a class="next" href="{% url food_menu_month school_type=school_type year=next_month|date:"Y" month=next_month|date:"m" %}" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">next month</a>
         <div class="clear"></div>
     </div>
     {% with y=month|date:"Y" m=month|date:"m" %}

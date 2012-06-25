@@ -2,9 +2,11 @@
 {% include "schools/details_snippet.html" %}
 {% include "tray/meal_list.html" %}
 
+<div data-role="collapsible">
 {% with form=quiz_form %}
 {% include "feedback/feedback_response_form.html" %}
 {% endwith %}
+</div>
 
 {% include "content/note_list.html" %}
 
@@ -21,7 +23,7 @@
     });
 </script>
 
-<div>
+<div data-role="collapsible">
     <h2>Get Involved</h2>
     <div class="section">
         {% for principal in principals %}

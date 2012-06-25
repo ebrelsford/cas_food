@@ -138,3 +138,7 @@ ul.sections {
 .expanding-section .expandee {
     display: none;
 }
+
+#dish-detail .photos {
+    float: right;
+}
