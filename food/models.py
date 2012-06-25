@@ -33,7 +33,7 @@ class Dish(models.Model):
                                       help_text='The callouts for this dish')
 
     def get_dishingredients(self):
-        return self.dishingredient_set.all().order_by('order')
+        return self.dishingredient_set.all().select_related('ingredient').order_by('order')
 
     class Meta:
         verbose_name_plural = 'dishes'
