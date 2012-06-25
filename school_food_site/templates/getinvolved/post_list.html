@@ -12,21 +12,29 @@
     {% endif %}
 </h2>
 <div class="getinvolved">
-    <ul class="content entries">
+    <ul class="content entries" data-role="listview" data-inset="true">
         {% for post in object_list %}
-        <li class="entry action-post {% cycle 'odd' 'even' %}">
-            <h3 class="title">
-                {{ post.type.name|title }}: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        <li class="entry action-post {% cycle 'odd' 'even' %} expanding-section">
+            {% if not is_mobile %}
+            <h3 class="title expander">
+                <span class="icon"></span>
+                {{ post.title }}
+            </h3>
+            <div class="expandee">
                 {% if perms.getinvolved.change_post %}
                 <a href="{% url getinvolved_post_update pk=post.id %}">
+                    Edit this post
                     <img src="{{ MEDIA_URL }}images/doc_edit.png" />
                 </a>
                 {% endif %}
-            </h3>
-            <div class="text">{{ post.text|safe }}</div>
-            <div class="meta">
-                Posted by <span class="added-by">{{ post.added_by }}</span> on <span class="added-on">{{ post.added|date:"N j, Y \a\t P" }}</span>.
+                <div class="text">{{ post.text|safe }}</div>
+                <div class="meta">
+                    Posted by <span class="added-by">{{ post.added_by }}</span> on <span class="added-on">{{ post.added|date:"N j, Y \a\t P" }}</span>.
+                </div>
             </div>
+            {% else %}
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
