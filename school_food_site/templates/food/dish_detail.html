@@ -9,10 +9,14 @@
 {{ block.super }}
 <script>
     $(document).ready(function() {
+        {% if not is_mobile %}
         $('.photos-list').jcarousel({
             scroll: 1,
             itemFallbackDimension: 170,
         });
+        {% else %}
+        window.mySwipe = new Swipe($('.photos').get(0));
+        {% endif %}
     });
 </script>
 {% endblock %}
@@ -31,13 +35,19 @@
     <ul class="photos-list jcarousel-skin-photos">
         {% for picture in dish.pictures.all %}
         <li>
-            {% thumbnail picture.picture "600x600" as full %}
-            <a title="{{ picture.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
-                {% thumbnail picture.picture "100x100" crop="center" as thumb %}
+            {% if not is_mobile %}
+                {% thumbnail picture.picture "600x600" as full %}
+                <a title="{{ picture.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+                    {% thumbnail picture.picture "100x100" crop="center" as thumb %}
+                    <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                    {% endthumbnail %}
+                </a>           
+                {% endthumbnail %}
+            {% else %}
+                {% thumbnail picture.picture "200x200" crop="center" upscale="False" as thumb %}
                 <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
                 {% endthumbnail %}
-            </a>           
-            {% endthumbnail %}
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

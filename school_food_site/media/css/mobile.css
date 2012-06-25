@@ -44,3 +44,9 @@ table.month .day-number {
 .ui-content .ui-listview {
     margin-top: 0;
 }
+
+#dish-detail .photos {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
