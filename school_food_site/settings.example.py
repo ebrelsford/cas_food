@@ -51,10 +51,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'django_cache',
+        'BACKEND': 'johnny.backends.memcached.MemcachedCache',
+        'LOCATION': ['unix:/tmp/memcached.sock'],
+        'JOHNNY_CACHE': True,
     }
 }
+JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_cas_food'
 
 # enter your app id here
 YAHOO_APP_ID = 'ENTER-YAHOO-APP-ID-HERE'
