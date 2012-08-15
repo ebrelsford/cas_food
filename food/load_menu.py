@@ -86,7 +86,7 @@ def load_menu(filename, school_type):
             dish_name = dish_name.lower()
 
             # add the dish if we have to, update our current meal
-            dish, created = Dish.objects.get_or_create(name=dish_name)
+            dish, created = Dish.objects.get_or_create(name=dish_name, school_type=school_type)
             dish.save() # call save() explicitly to ensure slug is created
             current_meal.dishes.add(dish)
             current_meal.save()

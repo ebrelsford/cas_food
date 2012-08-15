@@ -7,8 +7,9 @@ class CalloutAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 class DishAdmin(admin.ModelAdmin):
+    list_display = ('name', 'school_type',)
+    list_filter = ('school_type',)
     search_fields = ('name',)
-    list_display = ('name',)
 
 class DishIngredientAdmin(admin.ModelAdmin):
     search_fields = ('dish', 'ingredient',)

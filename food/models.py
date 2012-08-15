@@ -32,6 +32,19 @@ class Dish(models.Model):
     callouts = models.ManyToManyField(Callout, null=True, blank=True,
                                       help_text='The callouts for this dish')
 
+    # TODO type of school!
+    SCHOOL_TYPE_CHOICES = (
+        ('elementary', 'elementary'),
+        ('wits', 'Wellness in the Schools'),
+    )
+    school_type = models.CharField(
+        blank=True,
+        choices=SCHOOL_TYPE_CHOICES,
+        default='elementary',
+        max_length=32,
+        null=True,
+    )
+
     def get_dishingredients(self):
         return self.dishingredient_set.all().select_related('ingredient').order_by('order')
 
