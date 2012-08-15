@@ -3,7 +3,6 @@
 {% include "tray/meal_list.html" %}
 
 <div data-role="collapsible">
-    <a href="{% url feedback_results_school school_slug=school.slug %}">view results</a>
     {% with form=quiz_form %}
     {% include "feedback/feedback_response_form.html" %}
     {% endwith %}
