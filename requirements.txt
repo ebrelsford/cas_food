@@ -17,6 +17,7 @@ python-memcached==1.48
 psycopg2==2.4.4
 pylint==0.25.1
 pyproj==1.9.0
+python-dateutil==2.1
 readline==6.2.2
 simplejson==2.6.1
 sorl-thumbnail==11.12

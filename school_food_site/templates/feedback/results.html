@@ -1,0 +1,168 @@
+{% extends "feedback/base.html" %}
+{% comment %}
+TODO schools/base if school results
+{% endcomment %}
+
+{% block title %}Lunch Quiz Results{% endblock %}
+{% block header_title %}Lunch Quiz Results{% endblock %}
+
+{% block content %}
+<script>
+    $(document).ready(function() {
+        // simple pie chart settings that will be reused for most charts
+        var pie_chart_options = {
+            chart: {
+                renderTo: '',
+                type: 'pie',
+                backgroundColor: '#FEFDE4',
+            },
+            title: {
+                text: "",
+            },
+            subtitle: {
+                text: "",
+            },
+            series: [{
+                type: 'pie',
+                data: [],
+            }],
+            credits: {
+                enabled: false,
+            },
+            tooltip: {
+                formatter: function() {
+                    return this.point.name + ': ' + this.point.y + ' (' +
+                        this.percentage.toFixed(1) + '%)';
+                },
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            return '<b>' + this.point.name + '</b>: ' + 
+                                this.point.y + ' (' + 
+                                this.percentage.toFixed(1) + '%)';
+                        },
+                    },
+                },
+            },
+        };
+
+        function get_pie_chart_options(renderTo, title, subtitle, data) {
+            o = jQuery.extend(true, {}, pie_chart_options);
+            o.chart.renderTo = renderTo;
+            o.title.text = title;
+            o.subtitle.text = subtitle;
+            o.series[0].data = data;
+            return o;
+        }
+
+        {% ifnotequal responses_count 0 %}
+        var texture_chart = new Highcharts.Chart(get_pie_chart_options(
+            'texture',
+            "{{ texture.title }}",
+            "{{ texture.subtitle }}",
+            {{ texture.data|safe }}
+        ));
+
+        var colors_chart = new Highcharts.Chart(get_pie_chart_options(
+            'colors',
+            "{{ colors.title }}",
+            "{{ colors.subtitle }}",
+            {{ colors.data|safe }}
+        ));
+
+        var finish_chart = new Highcharts.Chart(get_pie_chart_options(
+            'finish',
+            "{{ finish.title }}",
+            "{{ finish.subtitle }}",
+            {{ finish.data|safe }}
+        ));
+
+        var vegetables_chart = new Highcharts.Chart(get_pie_chart_options(
+            'vegetables',
+            "{{ vegetables.title }}",
+            "{{ vegetables.subtitle }}",
+            {{ vegetables.data|safe }}
+        ));
+
+        var energy_chart = new Highcharts.Chart(get_pie_chart_options(
+            'energy',
+            "{{ energy.title }}",
+            "{{ energy.subtitle }}",
+            {{ energy.data|safe }}
+        ));
+        {% endifnotequal %}
+
+    });
+
+    {% if not is_mobile %}
+    $(document).ready(function() {
+        $('#place-choices, #time-choices').buttonset();
+
+        $('#place-choices,#time-choices').find(':input').change(function() {
+            var place_id = $('#place-choices :input:checked').attr('id');
+            var time_id = $('#time-choices :input:checked').attr('id');
+
+            if (time_id === 'month-radio') {
+                if (place_id === 'school-radio') {
+                    {% if school %}
+                    window.location = '{% url feedback_results_school_month school_slug=school.slug %}';
+                    {% endif %}
+                }
+                else if (place_id === 'citywide-radio') {
+                    window.location = '{% url feedback_results_month %}';
+                }
+                else {
+                    window.location = '{% url feedback_results_month %}';
+                }
+            }
+            else if (time_id === 'alltime-radio') {
+                if (place_id === 'school-radio') {
+                    {% if school %}
+                    window.location = '{% url feedback_results_school school_slug=school.slug %}';
+                    {% endif %}
+                }
+                else if (place_id === 'citywide-radio') {
+                    window.location = '{% url feedback_results %}';
+                }
+                else {
+                    window.location = '{% url feedback_results %}';
+                }
+            }
+        });
+    });
+    {% endif %}
+</script>
+
+<h1>Lunch Quiz Results</h1>
+
+{% if school %}
+{% comment %}
+TODO hold on to previous school for comparison?
+{% endcomment %}
+<div id="place-choices">
+    <input type="radio" id="school-radio" name="place-radio" {% if place_this_school %}checked="checked"{% endif %} />
+    <label for="school-radio">{{ school.name }}</label>
+    <input type="radio" id="citywide-radio" name="place-radio" {% if place_all_schools %}checked="checked"{% endif %} />
+    <label for="citywide-radio">All Brooklyn and Manhattan schools</label>
+</div>
+{% endif %}
+<div id="time-choices">
+    <input type="radio" id="month-radio" name="time-radio" {% if time_month %}checked="checked"{% endif %} />
+    <label for="month-radio">this month</label>
+    <input type="radio" id="alltime-radio" name="time-radio" {% if time_all_time %}checked="checked"{% endif %} />
+    <label for="alltime-radio">all-time</label>
+</div>
+
+{{ responses_count }} total responses
+
+{% ifnotequal responses_count 0 %}
+<div id="texture"></div>
+<div id="colors"></div>
+<div id="finish"></div>
+<div id="vegetables"></div>
+<div id="energy"></div>
+{% endifnotequal %}
+{% endblock %}

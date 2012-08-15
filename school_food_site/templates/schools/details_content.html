@@ -3,9 +3,10 @@
 {% include "tray/meal_list.html" %}
 
 <div data-role="collapsible">
-{% with form=quiz_form %}
-{% include "feedback/feedback_response_form.html" %}
-{% endwith %}
+    <a href="{% url feedback_results_school school_slug=school.slug %}">view results</a>
+    {% with form=quiz_form %}
+    {% include "feedback/feedback_response_form.html" %}
+    {% endwith %}
 </div>
 
 {% include "content/note_list.html" %}

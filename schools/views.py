@@ -11,6 +11,7 @@ from django.views.generic.edit import FormMixin
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
+from feedback import charts
 from feedback.forms import FeedbackResponseForm
 from forms import SchoolSearchForm
 from generic.views import LoginRequiredMixin, PermissionRequiredMixin

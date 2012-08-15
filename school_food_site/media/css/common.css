@@ -341,3 +341,9 @@ table.month .school-type {
     height: 175px;
     width: 100%;
 }
+
+#place-choices .ui-button-text,
+#time-choices .ui-button-text {
+    font-size: 16px;
+    padding: 0.2em 0.5em;
+}
