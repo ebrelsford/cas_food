@@ -121,7 +121,11 @@
 
 <div class="section" data-role="collapsible">
     <h2>Ingredients</h2>
+    {% if not is_mobile %}
     {{ dish|ingredient_list }}
+    {% else %}
+    {{ dish|ingredient_list:"direct" }}
+    {% endif %}
 </div>
 
 <div class="comments section" data-role="collapsible">
