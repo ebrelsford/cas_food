@@ -30,6 +30,16 @@
     </a>
 </div>
 
+<div>
+    This dish is served in 
+    {% if dish.school_type == 'elementary' %}
+    public elementary schools,
+    {% elif dish.school_type == 'wits' %}
+    public elementary schools that work with Wellness in the Schools,
+    {% endif %}
+    and it appears in <span style="font-weight: bold;">{{ dish.meal_set.all|length }}</span> out of the <span style="font-weight: bold;">{{ meal_count }}</span> meals on record.
+</div>
+
 <div class="photos">
     {% if dish.pictures.count > 0 %}
     <ul class="photos-list jcarousel-skin-photos">

@@ -2,7 +2,8 @@ from django.conf.urls.defaults import patterns, url
 from django.views.generic import DetailView
 
 from models import Dish
-from views import DayMenuView, DishUpdateView, MonthMenuView, DishAddPictureView
+from views import DayMenuView, DishDetailView, DishUpdateView, MonthMenuView,\
+        DishAddPictureView
 
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
@@ -18,9 +19,7 @@ urlpatterns = patterns('',
         DayMenuView.as_view(), name='food_menu_day'),
 
     url(r'^dish/(?P<slug>[^/]*)/$', 
-        DetailView.as_view(
-            model=Dish,
-        ), 
+        DishDetailView.as_view(), 
         name='food_dish_detail'
     ),
 

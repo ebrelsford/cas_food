@@ -6,7 +6,9 @@ from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
-from django.views.generic import CreateView, UpdateView, MonthArchiveView, DayArchiveView
+from django.views.generic import CreateView, DayArchiveView, DetailView,\
+        MonthArchiveView, UpdateView
+        
 
 from content.forms import PictureForm
 from forms import DishForm
@@ -110,6 +112,16 @@ class DayMenuView(DayArchiveView):
         context = super(DayMenuView, self).get_context_data(**kwargs)
         context['school_type'] = self.kwargs['school_type']
         context['has_multiple_school_types'] = ',' in self.kwargs['school_type']
+        return context
+
+class DishDetailView(DetailView):
+    model = Dish
+
+    def get_context_data(self, **kwargs):
+        context = super(DishDetailView, self).get_context_data(**kwargs)
+        context['meal_count'] = Meal.objects.filter(
+            school_type=self.object.school_type,
+        ).count()
         return context
 
 class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,
