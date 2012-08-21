@@ -8,13 +8,7 @@ urlpatterns = patterns('',
         name='feedback_feedback_response_create',
     ),
 
-    url(r'^results/schools/(?P<school_slug>[^/]+)/(?:(?P<who>[^/]+)/)?(?:(?P<when>[^/]+)/)?$',
-        FeedbackResultsView.as_view(),
-        name='feedback_results',
-    ),
-
-    # TODO keep supporting school-less results...
-    url(r'^results/$',
+    url(r'^results/(?:schools/(?P<school_slug>[^/]+)/)?(?:(?P<who>[^/]+)/)?(?:(?P<when>[^/]+)/)?$',
         FeedbackResultsView.as_view(),
         name='feedback_results',
     ),

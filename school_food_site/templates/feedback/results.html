@@ -108,21 +108,41 @@ TODO schools/base if school results
 
             if (name === 'who') {
                 if (id === 'user') {
+                    {% if school %}
                     window.location = '{% url "feedback_results" school_slug=school.slug who="user" when=when %}';
+                    {% else %}
+                    window.location = '{% url "feedback_results" who="user" when=when %}';
+                    {% endif %}
                 }
                 else if (id === 'school') {
+                    {% if school %}
                     window.location = '{% url "feedback_results" school_slug=school.slug who="school" when=when %}';
+                    {% else %}
+                    window.location = '{% url "feedback_results" who="school" when=when %}';
+                    {% endif %}
                 }
                 else {
+                    {% if school %}
                     window.location = '{% url "feedback_results" school_slug=school.slug who="everywhere" when=when %}';
+                    {% else %}
+                    window.location = '{% url "feedback_results" who="everywhere" when=when %}';
+                    {% endif %}
                 }
             }
             else if (name === 'when') {
                 if (id === 'month') {
+                    {% if school %}
                     window.location = '{% url "feedback_results" school_slug=school.slug who=who when="month" %}';
+                    {% else %}
+                    window.location = '{% url "feedback_results" who=who when="month" %}';
+                    {% endif %}
                 }
                 else {
+                    {% if school %}
                     window.location = '{% url "feedback_results" school_slug=school.slug who=who when="alltime" %}';
+                    {% else %}
+                    window.location = '{% url "feedback_results" who=who when="alltime" %}';
+                    {% endif %}
                 }
             }
         });
