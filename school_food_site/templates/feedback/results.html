@@ -1,4 +1,5 @@
 {% extends "feedback/base.html" %}
+{% load url from future %}
 {% comment %}
 TODO schools/base if school results
 {% endcomment %}
@@ -99,36 +100,29 @@ TODO schools/base if school results
 
     {% if not is_mobile %}
     $(document).ready(function() {
-        $('#place-choices, #time-choices').buttonset();
+        $('#who-choices, #when-choices').buttonset();
 
-        $('#place-choices,#time-choices').find(':input').change(function() {
-            var place_id = $('#place-choices :input:checked').attr('id');
-            var time_id = $('#time-choices :input:checked').attr('id');
+        $('#who-choices, #when-choices').find(':input').change(function() {
+            var id = $(this).attr('id');
+            var name = $(this).attr('name');
 
-            if (time_id === 'month-radio') {
-                if (place_id === 'school-radio') {
-                    {% if school %}
-                    window.location = '{% url feedback_results_school_month school_slug=school.slug %}';
-                    {% endif %}
+            if (name === 'who') {
+                if (id === 'user') {
+                    window.location = '{% url "feedback_results" school_slug=school.slug who="user" when=when %}';
                 }
-                else if (place_id === 'citywide-radio') {
-                    window.location = '{% url feedback_results_month %}';
+                else if (id === 'school') {
+                    window.location = '{% url "feedback_results" school_slug=school.slug who="school" when=when %}';
                 }
                 else {
-                    window.location = '{% url feedback_results_month %}';
+                    window.location = '{% url "feedback_results" school_slug=school.slug who="everywhere" when=when %}';
                 }
             }
-            else if (time_id === 'alltime-radio') {
-                if (place_id === 'school-radio') {
-                    {% if school %}
-                    window.location = '{% url feedback_results_school school_slug=school.slug %}';
-                    {% endif %}
-                }
-                else if (place_id === 'citywide-radio') {
-                    window.location = '{% url feedback_results %}';
+            else if (name === 'when') {
+                if (id === 'month') {
+                    window.location = '{% url "feedback_results" school_slug=school.slug who=who when="month" %}';
                 }
                 else {
-                    window.location = '{% url feedback_results %}';
+                    window.location = '{% url "feedback_results" school_slug=school.slug who=who when="alltime" %}';
                 }
             }
         });
@@ -138,22 +132,30 @@ TODO schools/base if school results
 
 <h1>Lunch Quiz Results</h1>
 
-{% if school %}
-{% comment %}
-TODO hold on to previous school for comparison?
-{% endcomment %}
-<div id="place-choices">
-    <input type="radio" id="school-radio" name="place-radio" {% if place_this_school %}checked="checked"{% endif %} />
-    <label for="school-radio">{{ school.name }}</label>
-    <input type="radio" id="citywide-radio" name="place-radio" {% if place_all_schools %}checked="checked"{% endif %} />
-    <label for="citywide-radio">All Brooklyn and Manhattan schools</label>
+<div id="who-choices" style="margin: 5px 0;">
+
+    {% if user.is_authenticated %}
+    <input type="radio" id="user" name="who" {% ifequal who "user" %}checked="checked"{% endifequal %} />
+    <label for="user">You</label>
+    {% endif %}
+
+    {% if school %}
+    <input type="radio" id="school" name="who" {% ifequal who "school" %}checked="checked"{% endifequal %} />
+    <label for="school">{{ school.name }}</label>
+    {% endif %}
+
+    <input type="radio" id="everywhere" name="who" {% ifequal who "everywhere" %}checked="checked"{% endifequal %} />
+    <label for="everywhere">All Brooklyn and Manhattan schools</label>
+
 </div>
-{% endif %}
-<div id="time-choices">
-    <input type="radio" id="month-radio" name="time-radio" {% if time_month %}checked="checked"{% endif %} />
-    <label for="month-radio">this month</label>
-    <input type="radio" id="alltime-radio" name="time-radio" {% if time_all_time %}checked="checked"{% endif %} />
-    <label for="alltime-radio">all-time</label>
+<div id="when-choices">
+
+    <input type="radio" id="month" name="when" {% ifequal when "month" %}checked="checked"{% endifequal %} />
+    <label for="month">this month</label>
+
+    <input type="radio" id="alltime" name="when" {% ifequal when "alltime" %}checked="checked"{% endifequal %} />
+    <label for="alltime">all-time</label>
+
 </div>
 
 {{ responses_count }} total responses

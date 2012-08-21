@@ -2,8 +2,10 @@ from django.db.models import Count
 
 from feedback.models import FeedbackResponse
 
-def _get_responses(school=None, time_start=None, time_end=None):
+def _get_responses(added_by=None, school=None, time_start=None, time_end=None):
     responses = FeedbackResponse.objects.all()
+    if added_by:
+        responses = responses.filter(added_by=added_by)
     if school:
         responses = responses.filter(school=school)
     if time_start:

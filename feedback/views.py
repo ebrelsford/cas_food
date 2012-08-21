@@ -34,59 +34,71 @@ class FeedbackResponseCreateView(LoginRequiredMixin, PermissionRequiredMixin,
 class FeedbackResultsView(TemplateView):
     template_name = 'feedback/results.html'
     school = None
-    timespan = None
 
     def get_context_data(self, **kwargs):
+        who, when = kwargs['who'], kwargs['when']
+
         try:
             school = School.objects.get(slug=kwargs['school_slug'])
         except Exception:
             school = None
 
-        if self.timespan is 'month':
+        try:
+            user = self.request.user
+            if not user.is_authenticated():
+                user = None
+        except Exception:
+            user = None
+
+        chart_query_kwargs = {}
+
+        if who == 'user' and user:
+            chart_query_kwargs['added_by'] = user
+        elif who == 'school' and school:
+            chart_query_kwargs['school'] = school
+        else:
+            # don't restrict by user or school
+            who = 'everywhere'
+
+        if when == 'month':
             today = datetime.today()
             time_start = datetime(today.year, today.month, 1)
-            time_end = time_start + relativedelta(months=1)
-        else:
-            time_start = None
-            time_end = None
 
-        response_kwargs = dict(
-            school=school,
-            time_start=time_start,
-            time_end=time_end
-        )
+            chart_query_kwargs.update({
+                'time_start': time_start,
+                'time_end': time_start + relativedelta(months=1),
+            })
+        else:
+            when = 'alltime'
 
         context = super(FeedbackResultsView, self).get_context_data(**kwargs)
         context.update({
             'school': school,
 
-            'place_this_school': school is not None,
-            'place_all_schools': school is None,
+            'who': who,
+            'when': when,
 
-            'time_month': self.timespan is 'month',
-            'time_all_time': self.timespan is None,
-
-            'responses_count': charts._get_responses(**response_kwargs).count(),
+            'responses_count': charts._get_responses(**chart_query_kwargs).count(),
 
             'texture': {
-                'data': json.dumps(charts.texture_data(**response_kwargs).items()),
+                'data': json.dumps(charts.texture_data(**chart_query_kwargs).items()),
                 'title': "What was the texture of the food today?",
             },
             'colors': {
-                'data': json.dumps(charts.colors_data(**response_kwargs).items()),
+                'data': json.dumps(charts.colors_data(**chart_query_kwargs).items()),
                 'title': "How many colors were on your tray today?",
             },
             'finish': {
-                'data': json.dumps(charts.finish_data(**response_kwargs).items()),
+                'data': json.dumps(charts.finish_data(**chart_query_kwargs).items()),
                 'title': "How much of your lunch did you finish today?",
                 'subtitle': 'On a scale of 0 - 10',
             },
             'vegetables': {
-                'data': json.dumps(charts.vegetables_data(**response_kwargs).items()),
+                'data': json.dumps(charts.vegetables_data(**chart_query_kwargs).items()),
                 'title': "How many vegetables were on your tray today?",
             },
             'energy': {
-                'data': json.dumps(charts.energy_data(**response_kwargs).items()),
+                'data': json.dumps(charts.energy_data(**chart_query_kwargs).items()),
                 'title': "Were you sleepy or energetic after your meal?",
             },
         })
