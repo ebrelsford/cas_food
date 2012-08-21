@@ -40,7 +40,12 @@
         });
     });
 </script>
+
+{% else %}
+<script type="text/javascript" src="{{ MEDIA_URL }}lib/mobile-bookmark-bubble/bookmark_bubble.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/mobile/mobile-bookmark-bubble.js"></script>
 {% endif %}
+
 {% endblock %}
 
 {% block middle %}
