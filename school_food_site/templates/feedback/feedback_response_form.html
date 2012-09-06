@@ -1,4 +1,5 @@
 <script>
+    {% if not is_mobile %}
     $(document).ready(function() {
         $('#finish-display').text($('input[name=finish]').val());
         $('.finish-slider').slider({
@@ -11,6 +12,7 @@
             value: 0,
         });
     });
+    {% endif %}
 </script>
 <h2>Lunch Quiz</h2>
 <p>
@@ -31,39 +33,53 @@
             <li>
                 <div class="question">What was the texture of the food today?</div>
                 <div>
+                    <fieldset data-role="controlgroup">
                     {{ form.texture.errors }}
                     {{ form.texture }}
+                    </fieldset>
                 </div>
             </li>
             <li>
                 <div class="question">How many colors were on your tray today?</div>
                 <div>
+                    <fieldset data-role="controlgroup">
                     {{ form.colors.errors }}
                     {{ form.colors }}
+                    </fieldset>
                 </div>
             </li>
             <li>
                 <div class="question">
                     From 0 to 10, how much of your meal did you finish?
+                    {% if not is_mobile %}
                     <span id="finish-display" style="font-weight: bold;"></span>
+                    {% endif %}
                 </div>
                 <div>
                     {{ form.finish.errors }}
+                    {% if not is_mobile %}
                     {{ form.finish }} <div class="finish-slider" style="width: 50%;"></div>
+                    {% else %}
+                    <input name="{{ form.finish.html_name }}" id="id_{{ form.finish.html_name }}" type="range" value="5" min="0" max="10" />
+                    {% endif %}
                 </div>
             </li>
             <li>
                 <div class="question">How many vegetables were on your tray today?</div>
                 <div>
+                    <fieldset data-role="controlgroup">
                     {{ form.vegetables.errors }}
                     {{ form.vegetables }}
+                    </fieldset>
                 </div>
             </li>
             <li>
                 <div class="question">Were you sleepy or energetic after your meal?</div>
                 <div>
+                    <fieldset data-role="controlgroup">
                     {{ form.energy.errors }}
                     {{ form.energy }}
+                    </fieldset>
                 </div>
             </li>
         </ul>

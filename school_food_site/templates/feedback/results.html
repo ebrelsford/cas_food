@@ -13,9 +13,9 @@ TODO schools/base if school results
         // simple pie chart settings that will be reused for most charts
         var pie_chart_options = {
             chart: {
+                backgroundColor: '#FEFDE4',
                 renderTo: '',
                 type: 'pie',
-                backgroundColor: '#FEFDE4',
             },
             title: {
                 text: "",
@@ -101,10 +101,18 @@ TODO schools/base if school results
     {% if not is_mobile %}
     $(document).ready(function() {
         $('#who-choices, #when-choices').buttonset();
+    });
+    {% endif %}
 
+    $(document).ready(function() {
+        $(':radio').change(function() {
+            console.log('click.');
+        });
         $('#who-choices, #when-choices').find(':input').change(function() {
             var id = $(this).attr('id');
             var name = $(this).attr('name');
+
+            console.log(id);
 
             if (name === 'who') {
                 if (id === 'user') {
@@ -147,35 +155,38 @@ TODO schools/base if school results
             }
         });
     });
-    {% endif %}
 </script>
 
 <h1>Lunch Quiz Results</h1>
 
 <div id="who-choices" style="margin: 5px 0;">
+    <fieldset data-role="controlgroup">
 
-    {% if user.is_authenticated %}
-    <input type="radio" id="user" name="who" {% ifequal who "user" %}checked="checked"{% endifequal %} />
-    <label for="user">You</label>
-    {% endif %}
+        {% if user.is_authenticated %}
+        <input type="radio" id="user" name="who" value="user" {% ifequal who "user" %}checked="checked"{% endifequal %} />
+        <label for="user">You</label>
+        {% endif %}
 
-    {% if school %}
-    <input type="radio" id="school" name="who" {% ifequal who "school" %}checked="checked"{% endifequal %} />
-    <label for="school">{{ school.name }}</label>
-    {% endif %}
+        {% if school %}
+        <input type="radio" id="school" name="who" value="school" {% ifequal who "school" %}checked="checked"{% endifequal %} />
+        <label for="school">{{ school.name }}</label>
+        {% endif %}
 
-    <input type="radio" id="everywhere" name="who" {% ifequal who "everywhere" %}checked="checked"{% endifequal %} />
-    <label for="everywhere">All Brooklyn and Manhattan schools</label>
+        <input type="radio" id="everywhere" name="who" value="everywhere" {% ifequal who "everywhere" %}checked="checked"{% endifequal %} />
+        <label for="everywhere">All Brooklyn and Manhattan schools</label>
 
+    </fieldset>
 </div>
 <div id="when-choices">
+    <fieldset data-role="controlgroup">
 
-    <input type="radio" id="month" name="when" {% ifequal when "month" %}checked="checked"{% endifequal %} />
-    <label for="month">this month</label>
+        <input type="radio" id="month" name="when" {% ifequal when "month" %}checked="checked"{% endifequal %} />
+        <label for="month">this month</label>
 
-    <input type="radio" id="alltime" name="when" {% ifequal when "alltime" %}checked="checked"{% endifequal %} />
-    <label for="alltime">all-time</label>
+        <input type="radio" id="alltime" name="when" {% ifequal when "alltime" %}checked="checked"{% endifequal %} />
+        <label for="alltime">all-time</label>
 
+    </fieldset>
 </div>
 
 {{ responses_count }} total responses

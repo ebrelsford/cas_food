@@ -50,3 +50,7 @@ table.month .day-number {
     margin-left: auto;
     margin-right: auto;
 }
+
+.ui-controlgroup li {
+    margin: 0;
+}
