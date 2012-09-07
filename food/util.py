@@ -14,7 +14,7 @@ def consolidate_dish(dish, duplicates):
     """
     for duplicate_dish in duplicates:
         add_alias(dish, duplicate_dish.name)
-        for meal in dish.meal_set.all():
+        for meal in duplicate_dish.meal_set.all():
             meal.dishes.remove(duplicate_dish)
             meal.dishes.add(dish)
             meal.save()
