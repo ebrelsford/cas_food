@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
 
+    'alias',
     'accounts',
     'audit',
     'connect',

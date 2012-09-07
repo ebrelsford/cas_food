@@ -3,6 +3,7 @@ from django.db import models
 
 from sorl.thumbnail import ImageField
 
+from alias.models import AliasManager
 from content.models import Picture
 from glossary.models import Entry
 from utils import slugify
@@ -22,6 +23,8 @@ class Callout(models.Model):
         return self.name
 
 class Dish(models.Model):
+    objects = AliasManager('name')
+
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True,
