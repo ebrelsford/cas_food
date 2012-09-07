@@ -13,6 +13,9 @@ class Alias(models.Model):
     class Meta:
         verbose_name_plural = 'aliases'
 
+    def __unicode__(self):
+        return self.text
+
 class AliasManager(models.Manager):
 
     def __init__(self, aliased_field_name=None):
