@@ -41,13 +41,8 @@ class OrderedModelMultipleChoiceField(forms.ModelMultipleChoiceField):
         return sorted(qs, key=lambda x:value.index(str(x.pk)))
 
 class DishForm(forms.ModelForm):
-    #callouts = forms.ModelMultipleChoiceField(
-        #queryset=Callout.objects.all().order_by('name'),
-        #required=False,
-    #)
-
     class Meta:
-        exclude = ('name', 'slug',)
+        exclude = ('slug',)
         model = Dish
 
     def __init__(self, *args, **kwargs):

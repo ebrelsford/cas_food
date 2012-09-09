@@ -108,6 +108,16 @@
         {{ nutrition_formset.management_form }}
         {% csrf_token %}
         <div class="section">
+            <div>
+                {{ form.name.errors }}
+                {{ form.name.label }}: {{ form.name }}
+            </div>
+            <div>
+                {{ form.school_type.errors }}
+                {{ form.school_type.label }}: {{ form.school_type }}
+            </div>
+        </div>
+        <div class="section">
             <h2>Ingredients</h2>
             {{ form.ingredients.errors }}
             {{ form.ingredients }}
