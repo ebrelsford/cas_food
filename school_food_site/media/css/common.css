@@ -306,13 +306,13 @@ table.month .school-type {
 
 .flatpage {
     font-size: 12pt !important;
-    font-family: Georgia !important;
+    font-family: 'Mate', 'Georgia', serif !important;
 }
 .flatpage div,
 .flatpage span,
 .flatpage p {
     font-size: 12pt !important;
-    font-family: Georgia !important;
+    font-family: 'Mate', 'Georgia' !important;
 }
 .flatpage ol {
     list-style: decimal inside none;
