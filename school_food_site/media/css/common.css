@@ -229,10 +229,12 @@ table.month .school-type {
     left: 10px !important;
 }
 .olControlAttribution {
-    bottom: 2px !important;
-    left: 2px !important;
-    padding: 3px;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    padding: 2px;
     background: lightGray;
+    font-size: 10px;
 }
 
 .rate-wrapper {
