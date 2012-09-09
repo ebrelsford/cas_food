@@ -10,3 +10,9 @@ $(document).on('pageshow', '#map-page', function(event) {
         mobile: true,
     });
 });
+
+$(document).on('pageinit', function() {
+    $('form textarea, form :input[type="text"]')
+        .removeClass('ui-body-a')
+        .addClass('ui-body-b');
+});
