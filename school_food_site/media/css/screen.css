@@ -147,6 +147,7 @@ ul.sections {
     display: none;
 }
 
-#dish-detail .photos {
+#dish-detail .callouts {
     float: right;
+    margin-top: 0;
 }
