@@ -177,3 +177,26 @@ ul.sections {
 #school-page > div:last-child {
     border-bottom: none;
 }
+
+.content .video,
+.content .note,
+.content .comment,
+.content .entry,
+.content .petition,
+.content .news,
+.content .organizer, 
+.content .twitterfeed {
+    margin-bottom: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #45BF82;
+}
+.content .video:last-child,
+.content .note:last-child,
+.content .comment:last-child,
+.content .entry:last-child,
+.content .petition:last-child,
+.content .news:last-child,
+.content .organizer:last-child,
+.content .twitterfeed:last-child {
+    border-bottom: none;
+}
