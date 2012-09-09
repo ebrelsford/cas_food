@@ -72,6 +72,7 @@ em {
 .details td {
     padding: 10px;
 }
+
 .content {
     margin: 20px 0;
 }
@@ -82,20 +83,29 @@ em {
 .content .video,
 .content .note,
 .content .comment,
+.content .entry,
 .content .petition,
 .content .news,
 .content .organizer, 
 .content .twitterfeed {
     margin-bottom: 5px;
     padding: 10px;
+    border-bottom: 1px solid #45BF82;
+}
+.content .video:last-child,
+.content .note:last-child,
+.content .comment:last-child,
+.content .entry:last-child,
+.content .petition:last-child,
+.content .news:last-child,
+.content .organizer:last-child,
+.content .twitterfeed:last-child {
+    border-bottom: none;
 }
 .content .odd {
-    background: beige;
 }
 .content .even {
-    background-color: #B1DAFB;
 }
-
 .content .title,
 .content .text,
 .content .video .embed {
@@ -105,7 +115,6 @@ em {
 .content .video .embed {
     font-size: 10px;
 }
-
 .content .meta .added-by,
 .content .meta .added-on {
     font-weight: bold;
@@ -139,10 +148,6 @@ em {
     padding-bottom: 5px;
 }
 .content .meal .rate-wrapper {
-}
-
-.content .entry {
-    padding: 10px;
 }
 
 .organizer .description {
