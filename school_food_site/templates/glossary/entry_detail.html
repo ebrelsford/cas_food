@@ -7,6 +7,6 @@
 {% block content %}
 <h2>{{ object.title }}</h2>
 <div class="glossary content">
-    <div class="text">{{ object.text }}</div>
+    <div class="text">{{ object.text|linebreaks|urlize }}</div>
 </div>
 {% endblock %}

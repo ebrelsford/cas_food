@@ -30,7 +30,7 @@
                 </div>
             </a>
             {% if not is_mobile %}
-            <div class="text">{{ object.text }}</div>
+            <div class="text">{{ object.text|urlize|linebreaks }}</div>
             {% endif %}
         </li>
         {% endfor %}
