@@ -7,14 +7,21 @@
 <div class="right">
     {% block sidebar %}
     {% if todays_menu %}
-    <div class="todays-menu">
-        {% with object_list=todays_menu school_type="elementary" day="today" has_multiple_school_types=False %}
-        {% include "food/meal_archive_day_content.html" %}
-        {% endwith %}
+    <div class="todays-menu sidebar-section">
+        {% if school and school.participates_in_wellness_in_the_schools %}
+            {% with object_list=todays_menu_wits school_type="Wellness in the Schools" day="" has_multiple_school_types=False %}
+            {% include "food/meal_archive_day_content.html" %}
+            {% endwith %}
+        {% else %}
+            {% with object_list=todays_menu school_type="Elementary" day="" has_multiple_school_types=False %}
+            {% include "food/meal_archive_day_content.html" %}
+            {% endwith %}
+        {% endif %}
     </div>
     {% endif %}
     {% endblock %}
-    <div class="getinvolved-promoted">
+
+    <div class="getinvolved-promoted sidebar-section">
         <h2>Get involved!</h2>
         <ul>
             {% for post in promoted_posts %}

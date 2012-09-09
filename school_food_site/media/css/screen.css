@@ -72,12 +72,21 @@ body {
     padding: 10px;
     width: 300px;
 }
-.right .todays-menu {
-    
-}
 .right h1,
 .right h2 {
     font-size: 20px;
+}
+
+.right .sidebar-section {
+    padding: 10px 0;
+    border-bottom: 1px solid #45BF82;
+}
+.right .sidebar-section.last {
+    border: none;
+}
+
+.right .todays-menu .school-type {
+    padding: 0;
 }
 
 .bottom {
