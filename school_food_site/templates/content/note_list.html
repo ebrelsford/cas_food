@@ -1,10 +1,10 @@
 <div class="content notes" data-role="collapsible">
     <h2>Comments
-        <a href="{% url schools.views.add_note school_slug=school.slug %}">
-            <img src="{{ MEDIA_URL }}images/round_plus.png" />
-        </a>
     </h2>
     <ul>
+        <p>
+            <a href="{% url schools.views.add_note school_slug=school.slug %}" data-role="button" data-icon="plus">add a comment</a>
+        </p>
         {% for note in notes %}
         <li class="note {% cycle odd,even %}">
         {% include "content/note_single.html" %}

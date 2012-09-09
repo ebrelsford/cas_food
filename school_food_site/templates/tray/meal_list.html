@@ -45,17 +45,13 @@
 </script>
 {% endif %}
 <div class="content" data-role="collapsible">
-    <h2>What I had for lunch
-        <a href="{% url tray.views.add school_slug=school.slug %}">
-            {% comment %}
-            TODO move to CSS to make more easily configured
-            {% endcomment %}
-            <img src="{{ MEDIA_URL }}images/Add.png" style="vertical-align: text-bottom" />
-        </a>
-    </h2>
+    <h2>What I had for lunch</h2>
     <div class="helptext">
         Post the meal you had today for others to comment on and rate.
     </div>
+    <p>
+        <a href="{% url tray.views.add school_slug=school.slug %}" data-role="button" data-icon="plus">add a meal</a>
+    </p>
     {% if meals_count > 0 %}
     <div class="meals">
         <ul class="meals-list carousel jcarousel-skin-meals"></ul>

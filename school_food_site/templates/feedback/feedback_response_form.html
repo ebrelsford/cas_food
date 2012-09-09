@@ -15,12 +15,12 @@
     {% endif %}
 </script>
 <h2>Lunch Quiz</h2>
-<p>
-    <a href="{% url feedback_results school_slug=school.slug %}">view results</a>
-</p>
 <div class="helptext" style="margin-bottom: 10px;">
     Kids! How was your lunch today?
 </div>
+<p>
+    <a href="{% url feedback_results school_slug=school.slug %}" data-role="button">view results</a>
+</p>
 <div class="lunch-quiz">
     <form action="{% url feedback_feedback_response_create school_slug=school.slug %}" method="post">
         {% csrf_token %}
