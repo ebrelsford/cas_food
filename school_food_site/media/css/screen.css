@@ -160,3 +160,20 @@ ul.sections {
     float: right;
     margin-top: 0;
 }
+
+.add-link img {
+    vertical-align: bottom;
+}
+.add-link .text {
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+#school-page > div {
+    border-bottom: 1px solid #45BF82;
+    margin-bottom: 5px;
+    padding-bottom: 15px;
+}
+#school-page > div:last-child {
+    border-bottom: none;
+}

@@ -50,7 +50,9 @@
         Post the meal you had today for others to comment on and rate.
     </div>
     <p>
-        <a href="{% url tray.views.add school_slug=school.slug %}" data-role="button" data-icon="plus">add a meal</a>
+        <a href="{% url tray.views.add school_slug=school.slug %}" class="add-link" data-role="button" data-icon="plus">
+            {% if not is_mobile %}<img src="{{ MEDIA_URL }}images/Add.png" />{% endif %}<span class="text">add a meal</span>
+        </a>
     </p>
     {% if meals_count > 0 %}
     <div class="meals">
