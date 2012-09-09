@@ -1,5 +1,7 @@
-<h1>{{ school_type }} school menu for {{ day }}</h1>
+<h1>{{ day }}</h1>
+<h2>{{ school_type }} school menu</h2>
 <div class="menu-day">
+    {% if object_list %}
     <ul>
         {% for meal in object_list %}
         <li class="school-type">
@@ -16,4 +18,7 @@
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+    We couldn't find a menu for this day. If it's not a holiday or weekend, this means we are missing data. Please let us know by emailing <a href="mailto:admin@lunchlinenyc.org">admin@lunchlinenyc.org</a>.
+    {% endif %}
 </div>
