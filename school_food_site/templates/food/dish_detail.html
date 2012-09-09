@@ -15,6 +15,7 @@
             itemFallbackDimension: 170,
         });
         {% else %}
+        {% comment %} pageinit? {% endcomment %}
         window.mySwipe = new Swipe($('.photos').get(0));
         {% endif %}
     });
