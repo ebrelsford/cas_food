@@ -20,11 +20,13 @@
 {% block content %}
 <div id="dish-detail">
 <h1>{{ dish.name }}</h1>
+{% if not is_mobile %}
 <div>
     <a href="{% url food_dish_update slug=dish.slug %}" data-role="button">
         Edit this dish <img src="{{ MEDIA_URL }}images/doc_edit.png" />
     </a>
 </div>
+{% endif %}
 
 <div>
     This dish is served in 
@@ -121,7 +123,7 @@
     </ul>
     {% endif %}
     <p>
-        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<img src="{{ MEDIA_URL }}images/Add.png" />{% endif %}<span class="text">add a picture of this dish</span></a>
+        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<img src="{{ MEDIA_URL }}images/Add.png" />{% endif %}<span class="text">add a picture</span></a>
     </p>
 </div>
 
