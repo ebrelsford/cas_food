@@ -9,15 +9,10 @@
 {{ block.super }}
 <script>
     $(document).ready(function() {
-        {% if not is_mobile %}
         $('.photos-list').jcarousel({
             scroll: 1,
             itemFallbackDimension: 170,
         });
-        {% else %}
-        {% comment %} pageinit? {% endcomment %}
-        window.mySwipe = new Swipe($('.photos').get(0));
-        {% endif %}
     });
 </script>
 {% endblock %}

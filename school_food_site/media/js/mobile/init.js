@@ -15,4 +15,6 @@ $(document).on('pageinit', function() {
     $('form').find('textarea, :input[type="text"], .ui-input-search')
         .removeClass('ui-body-a')
         .addClass('ui-body-b');
+
+    window.mySwipe = new Swipe($('.photos').get(-1));
 });
