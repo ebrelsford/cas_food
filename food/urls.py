@@ -1,9 +1,7 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import DetailView
 
-from models import Dish
 from views import DayMenuView, DishDetailView, DishUpdateView, MonthMenuView,\
-        DishAddPictureView
+        DishAddPictureView, MealListView
 
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
@@ -17,6 +15,11 @@ urlpatterns = patterns('',
 
     url(r'^(?P<school_type>[\w,]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<day>\d{1,2})/$',
         DayMenuView.as_view(), name='food_menu_day'),
+
+    url(r'^by-dish/(?P<dish_slug>[^/]+)/$',
+        MealListView.as_view(),
+        name='food_meals_list',
+    ),
 
     url(r'^dish/(?P<slug>[^/]*)/$', 
         DishDetailView.as_view(), 

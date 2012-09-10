@@ -35,7 +35,7 @@
     {% elif dish.school_type == 'wits' %}
     public elementary schools that work with Wellness in the Schools,
     {% endif %}
-    and it appears in <span style="font-weight: bold;">{{ dish.meal_set.all|length }}</span> out of the <span style="font-weight: bold;">{{ meal_count }}</span> meals on record.
+    and it appears in <span style="font-weight: bold;">{{ dish.meal_set.all|length }}</span> out of the <span style="font-weight: bold;">{{ meal_count }}</span> meals on record. <a href="{% url food_meals_list dish_slug=dish.slug %}">View these meals.</a>
 </div>
 
 <div class="section" data-role="collapsible">

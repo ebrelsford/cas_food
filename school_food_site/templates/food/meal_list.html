@@ -1,0 +1,19 @@
+{% extends "food/base.html" %}
+
+{% block title %}Meals containing {{ dish.name }}{% endblock %}
+{% block header_title %}{{ dish.name }}{% endblock %}
+{% block page_id %}meal-list-page{% endblock %}
+
+{% block content %}
+{% if not is_mobile %}
+<h2>Meals containing {{ dish.name }}</h2>
+{% endif %}
+
+<div>
+    <ul data-role="listview">
+    {% for meal in meal_list %}
+        <li><a href="{% url food_menu_day school_type=meal.school_type year=meal.date.year month=meal.date.month day=meal.date.day %}">{{ meal.date }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

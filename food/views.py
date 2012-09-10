@@ -7,8 +7,7 @@ from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import CreateView, DayArchiveView, DetailView,\
-        MonthArchiveView, UpdateView
-        
+        ListView, MonthArchiveView, UpdateView
 
 from content.forms import PictureForm
 from forms import DishForm
@@ -96,6 +95,26 @@ class MonthMenuView(MonthArchiveView):
 
         context['has_multiple_school_types'] = len(school_types) > 1
         return context
+
+class MealListView(ListView):
+    model = Meal
+
+    def get_context_data(self, **kwargs):
+        context = super(MealListView, self).get_context_data(**kwargs)
+        context['dish'] = self.dish
+        return context
+
+    def get_queryset(self):
+        meals = super(MealListView, self).get_queryset()
+
+        try:
+            dish_slug = self.kwargs.get('dish_slug', None)
+            self.dish = Dish.objects.get(slug=dish_slug)
+            meals = meals.filter(dishes__pk=self.dish.pk)
+        except:
+            self.dish = None
+
+        return meals.order_by('date')
 
 class DayMenuView(DayArchiveView):
     allow_empty = True
