@@ -5,7 +5,7 @@
 
 {% block content %}
 <h2>{{ post.title }}
-    {% if perms.getinvolved.change_post %}
+    {% if not is_mobile and perms.getinvolved.change_post %}
     <a href="{% url getinvolved_post_update pk=post.id %}">
         <img src="{{ MEDIA_URL }}images/doc_edit.png" />
     </a>

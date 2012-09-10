@@ -5,7 +5,7 @@
 
 {% block content %}
 <h2>Take Action
-    {% if perms.getinvolved.add_post %}
+    {% if not is_mobile and perms.getinvolved.add_post %}
     <a href="{% url getinvolved_post_create %}">
         <img src="{{ MEDIA_URL }}images/round_plus.png" />
     </a>
@@ -21,7 +21,7 @@
                 {{ post.title }}
             </h3>
             <div class="expandee">
-                {% if perms.getinvolved.change_post %}
+                {% if not is_mobile and perms.getinvolved.change_post %}
                 <a href="{% url getinvolved_post_update pk=post.id %}">
                     Edit this post
                     <img src="{{ MEDIA_URL }}images/doc_edit.png" />
