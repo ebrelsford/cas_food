@@ -291,6 +291,9 @@ table.month .school-type {
     height: 81px;
 }
 
+#map-legend {
+    padding-top: 10px;
+}
 #map-legend img {
     vertical-align: middle;
 }
