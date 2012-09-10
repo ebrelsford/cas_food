@@ -1,4 +1,5 @@
 {% extends "glossary/base.html" %}
+{% load glossary_tags %}
 
 {% block title %}Glossary{% endblock %}
 
@@ -30,7 +31,7 @@
                 </div>
             </a>
             {% if not is_mobile %}
-            <div class="text">{{ object.text|urlize|linebreaks }}</div>
+            <div class="text">{{ object.text|add_glossary_links|urlize|linebreaks }}</div>
             {% endif %}
         </li>
         {% endfor %}
