@@ -120,9 +120,9 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <a href="{% url food_dish_add_picture slug=dish.slug %}" data-role="button">
-        Add a Picture <img src="{{ MEDIA_URL }}images/round_plus.png" />
-    </a>
+    <p>
+        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<img src="{{ MEDIA_URL }}images/Add.png" />{% endif %}<span class="text">add a picture of this dish</span></a>
+    </p>
 </div>
 
 <div class="section" data-role="collapsible">

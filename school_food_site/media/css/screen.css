@@ -160,6 +160,12 @@ ul.sections {
     float: right;
     margin-top: 0;
 }
+#dish-detail .photos {
+    margin-top: 15px;
+}
+#dish-detail .photos .jcarousel-container {
+    border: none;
+}
 
 .add-link img {
     vertical-align: bottom;
