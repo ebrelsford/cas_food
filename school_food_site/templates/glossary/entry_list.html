@@ -13,7 +13,7 @@
     {% endif %}
 </h2>
 <div class="glossary">
-    <ul class="content entries" data-role="listview">
+    <ul class="content entries after-content" data-role="listview">
         {% for object in object_list %}
         <li class="entry {% cycle 'odd' 'even' %}">
             <a name="{{ object.slug }}" 

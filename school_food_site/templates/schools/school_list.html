@@ -1,0 +1,21 @@
+{% extends "schools/base.html" %}
+
+{% block title %}Find Your School{% endblock %}
+{% block header_title %}{% if borough %}{{ borough }}{% else %}Find Your School{% endif %}{% endblock %}
+
+{% block content %}
+{% if not is_mobile %}
+<h2>Find Your School</h2>
+{% endif %}
+<div>
+    <ul data-role="listview" data-filter="true">
+        {% for school in school_list %}
+        <li>
+            <a href="{% url schools.views.details school_slug=school.slug %}">{{ school.name }}</a>
+        </li>
+        {% empty %}
+        <li>No schools.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

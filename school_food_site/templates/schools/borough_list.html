@@ -1,0 +1,21 @@
+{% extends "schools/base.html" %}
+
+{% block title %}Find Your School{% endblock %}
+{% block header_title %}Find Your School{% endblock %}
+
+{% block content %}
+{% if not is_mobile %}
+<h2>Find Your School</h2>
+{% endif %}
+<div>
+    <ul data-role="listview">
+        {% for borough in boroughs %}
+        <li>
+            <a href="{% url schools_schools_list borough=borough %}">{{ borough }}</a>
+        </li>
+        {% empty %}
+        <li>No boroughs.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

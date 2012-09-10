@@ -27,7 +27,10 @@
         <div class="error-message"></div>
         <label for="id_school" class="ui-hidden-accessible">Search by address:</label>
         <input type="search" id="id_school" name="school" />
-        <input type="submit" value="search" />
+        <input type="submit" value="search by address" />
+        <a href="{% url schools_schools_byborough %}" data-role="button">
+            or browse by name
+        </a>
     </form>
 </div>
 <div id="map" style="height: 500px; width: 100%;"></div>

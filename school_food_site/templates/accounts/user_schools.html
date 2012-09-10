@@ -9,7 +9,7 @@
 {% if schools %}
 <div>Below are the schools you are following or organizing at.</div>
 <div class="schools">
-    <ul data-role="listview">
+    <ul data-role="listview" class="after-content">
         {% for school in schools %}
         <li>
             <a href="{% url schools.views.details school_slug=school.slug %}">{{ school.name }}</a>

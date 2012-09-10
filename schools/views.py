@@ -2,16 +2,17 @@ import geojson
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView,\
+        TemplateView
 from django.views.generic.edit import FormMixin
 
 from accounts.models import UserProfile
 from content.forms import NoteForm
-from feedback import charts
 from feedback.forms import FeedbackResponseForm
 from forms import SchoolSearchForm
 from generic.views import LoginRequiredMixin, PermissionRequiredMixin
@@ -140,6 +141,35 @@ def _add(request, school, form_class, type_text, is_multipart=False):
         'form': form,
         'is_multipart': is_multipart,
     }, context_instance=RequestContext(request))
+
+class FindSchoolByBoroughView(TemplateView):
+    template_name = 'schools/borough_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FindSchoolByBoroughView, self).get_context_data(**kwargs)
+        #boroughs = School.objects.all().values_list('borough', flat=True)
+        context['boroughs'] = settings.ACTIVE_BOROUGHS
+        return context
+
+class SchoolListView(ListView):
+    model = School
+
+    def get_context_data(self, **kwargs):
+        context = super(SchoolListView, self).get_context_data(**kwargs)
+        if self.borough:
+            context['borough'] = self.borough
+        return context
+
+    def get_queryset(self):
+        schools = super(SchoolListView, self).get_queryset()
+
+        schools = schools.filter(type__in=settings.ACTIVE_SCHOOL_TYPES)
+
+        self.borough = self.kwargs['borough']
+        if self.borough:
+            schools = schools.filter(borough__iexact=self.borough)
+
+        return schools.order_by('name')
 
 class SchoolNoteListView(ListView):
     template_name = 'schools/note_list.html'

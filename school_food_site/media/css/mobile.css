@@ -1,3 +1,7 @@
+h1.ui-title {
+    line-height: 20px;
+}
+
 .video .embed iframe {
     max-width: 250px;
 }
@@ -34,16 +38,15 @@ table.month .day-number {
 .ui-listview.sections {
     margin-top: 0;
 }
+.ui-listview.after-content {
+    margin-top: 15px;
+}
 
 .content .title {
     margin-bottom: 0;
 }
 .content .entry {
     padding: 0;
-}
-
-.ui-content .ui-listview {
-    margin-top: 10px;
 }
 
 #dish-detail .photos {
