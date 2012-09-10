@@ -2,6 +2,7 @@ from datetime import date
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponse
@@ -9,6 +10,7 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, DayArchiveView, DetailView,\
         ListView, MonthArchiveView, UpdateView
 
+from alias.models import Alias
 from content.forms import PictureForm
 from forms import DishForm
 from generic.views import LoginRequiredMixin, PermissionRequiredMixin
@@ -141,6 +143,10 @@ class DishDetailView(DetailView):
         context['meal_count'] = Meal.objects.filter(
             school_type=self.object.school_type,
         ).count()
+        context['aliases'] = Alias.objects.filter(
+            aliased_type=ContentType.objects.get_for_model(Dish),
+            aliased_object_id=self.object.pk,
+        ).order_by('text')
         return context
 
 class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,

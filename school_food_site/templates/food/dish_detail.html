@@ -154,5 +154,19 @@
     There {% if comment_count == 1 %}is{% else %}are{% endif %} {{ comment_count }} comment{{ comment_count|pluralize }} on this dish.
     {% render_comment_list for dish %}
 </div>
+
+{% if aliases %}
+<div class="section" data-role="collapsible">
+    <h2>Aliases</h2>
+    <p>This dish also shows up on menus as:
+        <ul>
+            {% for alias in aliases %}
+            <li>{{ alias.text }}</li>
+            {% endfor %}
+        </ul>
+    </p>
+</div>
+{% endif %}
+
 </div>
 {% endblock %}
