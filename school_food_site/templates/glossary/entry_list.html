@@ -6,7 +6,7 @@
 
 {% block content %}
 <h2>Glossary
-    {% if perms.glossary.add_entry %}
+    {% if perms.glossary.add_entry and not is_mobile %}
     <a href="{% url glossary_entry_create %}">
         <img src="{{ MEDIA_URL }}images/round_plus.png" />
     </a>
