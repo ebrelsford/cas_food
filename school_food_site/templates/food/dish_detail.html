@@ -1,5 +1,5 @@
 {% extends "food/base.html" %}
-{% load comments ingredients thumbnail %}
+{% load comments glossary_tags ingredients thumbnail %}
 
 {% block title %}{{ dish.name }}{% endblock %}
 {% block header_title %}{{ dish.name }}{% endblock %}
@@ -130,9 +130,9 @@
 <div class="section" data-role="collapsible">
     <h2>Ingredients</h2>
     {% if not is_mobile %}
-    {{ dish|ingredient_list }}
+    {{ dish|ingredient_list|add_glossary_links }}
     {% else %}
-    {{ dish|ingredient_list:"direct" }}
+    {{ dish|ingredient_list|add_glossary_links:"direct" }}
     {% endif %}
 </div>
 
