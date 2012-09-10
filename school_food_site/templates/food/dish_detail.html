@@ -140,7 +140,13 @@
 </div>
 
 <div class="comments section" data-role="collapsible">
-    <h2><a name="comments">Comments</a></h2>
+    <h2>
+        {% if not is_mobile %}
+        <a name="comments">Comments</a>
+        {% else %}
+        Comments
+        {% endif %}
+    </h2>
     {% if user.is_authenticated %}
     {% render_comment_form for dish %}
     {% else %}
