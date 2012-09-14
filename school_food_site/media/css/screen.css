@@ -137,6 +137,9 @@ ul.sections {
 .expanding-section {
     border-bottom: 1px solid #B4DEC9;
 }
+.expanding-section:last-child {
+    border-bottom: none;
+}
 
 .expanding-section .icon {
     display: inline-block;
