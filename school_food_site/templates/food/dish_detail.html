@@ -56,7 +56,7 @@
                 {% endif %}
             {% endif %}
                 {% if callout.icon %}
-                {% thumbnail callout.icon "150x150" as thumb %}
+                {% thumbnail callout.icon "150x150" format="PNG" as thumb %}
                 <img src="{{ thumb.url }}" alt="{{ callout.name }}" title="{{ callout.name}}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
                 {% endthumbnail %}
                 {% else %}
