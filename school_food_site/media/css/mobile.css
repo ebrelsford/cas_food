@@ -1,5 +1,11 @@
 h1.ui-title {
     line-height: 20px;
+    font-family: Helvetica;
+}
+
+.ui-footer .ui-btn-active {
+    background: black;
+    border: 1px solid black;
 }
 
 .video .embed iframe {
