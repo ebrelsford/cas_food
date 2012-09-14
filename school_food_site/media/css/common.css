@@ -172,6 +172,7 @@ table.month tr {
 table.month td {
     border: 1px solid black;
     font-size: 12px;
+    padding: 5px;
 }
 table.month td.today {
     background-color: lightGray;
@@ -182,6 +183,9 @@ table.month .day-number {
 }
 table.month .school-type {
     padding: 5px 0;
+}
+table.month .school-type > span {
+    font-weight: bold;
 }
 
 .calendar-head .next {

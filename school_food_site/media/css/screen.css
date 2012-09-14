@@ -3,6 +3,13 @@ body {
     background-color: #FCCAA8;
 }
 
+a:link {
+    color: #4659DE;
+}
+a:visited {
+    color: #938495;
+}
+
 .wrapper {
     background-color: #FCCAA8;
     margin-left: auto;
