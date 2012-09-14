@@ -39,6 +39,7 @@ body {
 .identity {
     height: 200px;
     position: absolute;
+    width: 810px;
 }
 
 .nav {
