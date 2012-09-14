@@ -96,6 +96,9 @@ em {
 .content .meta .added-on {
     font-weight: bold;
 }
+.content .expander.title {
+    margin-bottom: 0;
+}
 
 .content .meal {
     background: none;
