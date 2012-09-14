@@ -61,6 +61,15 @@ table.month .day-number {
     margin-right: auto;
 }
 
+#dish-detail .callouts {
+    float: none;
+    margin-top: 15px;
+}
+
+#dish-detail .nutrition {
+    float: none;
+}
+
 .ui-controlgroup li {
     margin: 0;
 }
