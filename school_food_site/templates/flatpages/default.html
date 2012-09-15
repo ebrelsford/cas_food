@@ -7,7 +7,9 @@
 {% block content %}
 <div class="flatpage">
     {% if perms.flatpages.change_flat_page %}
-    <a href="{% url pages_flatpage_update pk=flatpage.pk %}">Edit this page</a>
+    <a href="{% url pages_flatpage_update pk=flatpage.pk %}" class="edit-link">
+        <span class="icon"></span><span class="text">edit this page</span>
+    </a>
     {% endif %}
     {{ flatpage.content }}
 
@@ -21,7 +23,9 @@
             </h3>
             <div class="expandee">
                 {% if perms.flatpages.change_flat_page %}
-                <a href="{% url content_section_update pk=section.pk %}">Edit this section</a>
+                <a href="{% url content_section_update pk=section.pk %}" class="edit-link">
+                    <span class="icon"></span><span class="text">edit this section</span>
+                </a>
                 {% endif %}
                 {{ section.text|safe }}
             </div>

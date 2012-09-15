@@ -9,9 +9,14 @@
 <h2>{{ object.title }}</h2>
 <div class="glossary content">
     {% if not is_mobile %}
-    <div class="text">{{ object.text|add_glossary_links|linebreaks|urlize }}</div>
+        {% if perms.glossary.change_entry %}
+        <a href="{% url glossary_entry_update slug=object.slug %}" class="edit-link">
+            <span class="icon"></span><span class="text">edit this entry</span>
+        </a>
+        {% endif %}
+        <div class="text">{{ object.text|add_glossary_links|linebreaks|urlize }}</div>
     {% else %}
-    <div class="text">{{ object.text|add_glossary_links:"direct"|linebreaks|urlize }}</div>
+        <div class="text">{{ object.text|add_glossary_links:"direct"|linebreaks|urlize }}</div>
     {% endif %}
 </div>
 {% endblock %}

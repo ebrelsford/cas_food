@@ -148,14 +148,14 @@ ul.sections {
     border-bottom: none;
 }
 
-.expanding-section .icon {
+.expanding-section .expander .icon {
     display: inline-block;
     width: 16px;
     height: 16px;
     background: url(/media/images/plus.png) no-repeat;
     padding-right: 5px;
 }
-.expanding-section.expanded .icon {
+.expanding-section.expanded .expander .icon {
     background: url(/media/images/minus.png) no-repeat;
 }
 
@@ -178,13 +178,21 @@ ul.sections {
     border: none;
 }
 
-.add-link .icon {
+.add-link .icon,
+.edit-link .icon {
     display: inline-block;
-    width: 16px;
     height: 16px;
+    width: 16px;
+}
+.add-link .icon {
     background: url(/media/images/plus.png) no-repeat;
 }
-.add-link .text {
+.edit-link .icon {
+    background: url(/media/images/doc_edit.png) no-repeat;
+}
+
+.add-link .text,
+.edit-link .text {
     margin-left: 5px;
 }
 

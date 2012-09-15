@@ -6,13 +6,14 @@
 {% block header_title %}Glossary{% endblock %}
 
 {% block content %}
-<h2>Glossary
-    {% if perms.glossary.add_entry and not is_mobile %}
-    <a href="{% url glossary_entry_create %}">
-        <img src="{{ MEDIA_URL }}images/round_plus.png" />
-    </a>
-    {% endif %}
-</h2>
+<h2>Glossary</h2>
+
+{% if perms.glossary.add_entry and not is_mobile %}
+<a href="{% url glossary_entry_create %}" class="add-link">
+    <span class="icon"></span><span class="text">add a glossary entry</span>
+</a>
+{% endif %}
+
 <div class="glossary">
     <ul class="content entries after-content" data-role="listview">
         {% for object in object_list %}
@@ -22,16 +23,16 @@
                 href="{{ object.get_absolute_url }}"
                 {% endif %}
                 >
-                <div class="title">{{ object.title }}
-                    {% if perms.glossary.change_entry and not is_mobile %}
-                    <a href="{% url glossary_entry_update slug=object.slug %}">
-                        <img src="{{ MEDIA_URL }}images/doc_edit.png" />
-                    </a>
-                    {% endif %}
-                </div>
+                <div class="title">{{ object.title }}</div>
             </a>
             {% if not is_mobile %}
-            <div class="text">{{ object.text|add_glossary_links|urlize|linebreaks }}</div>
+                {% if perms.glossary.change_entry %}
+                <a href="{% url glossary_entry_update slug=object.slug %}" class="edit-link">
+                    <span class="icon"></span><span class="text">edit this entry</span>
+                </a>
+                {% endif %}
+
+                <div class="text">{{ object.text|add_glossary_links|urlize|linebreaks }}</div>
             {% endif %}
         </li>
         {% endfor %}

@@ -4,13 +4,14 @@
 {% block header_title %}Take Action{% endblock %}
 
 {% block content %}
-<h2>Take Action
-    {% if not is_mobile and perms.getinvolved.add_post %}
-    <a href="{% url getinvolved_post_create %}">
-        <img src="{{ MEDIA_URL }}images/round_plus.png" />
-    </a>
-    {% endif %}
-</h2>
+<h2>Take Action</h2>
+
+{% if perms.getinvolved.add_post and not is_mobile %}
+<a href="{% url getinvolved_post_create %}" class="add-link">
+    <span class="icon"></span><span class="text">add a post</span>
+</a>
+{% endif %}
+
 <div class="getinvolved">
     <ul class="content entries" data-role="listview" data-inset="true">
         {% for post in object_list %}
@@ -22,9 +23,8 @@
             </h3>
             <div class="expandee">
                 {% if not is_mobile and perms.getinvolved.change_post %}
-                <a href="{% url getinvolved_post_update pk=post.id %}">
-                    Edit this post
-                    <img src="{{ MEDIA_URL }}images/doc_edit.png" />
+                <a href="{% url getinvolved_post_update pk=post.id %}" class="edit-link">
+                    <span class="icon"></span><span class="text">edit this post</span>
                 </a>
                 {% endif %}
                 <div class="text">{{ post.text|safe }}</div>
