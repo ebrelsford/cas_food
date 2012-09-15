@@ -126,7 +126,7 @@
     </ul>
     {% endif %}
     <p>
-        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<img src="{{ MEDIA_URL }}images/Add.png" />{% endif %}<span class="text">add a picture</span></a>
+        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<span class="icon"></span>{% endif %}<span class="text">add a picture</span></a>
     </p>
 </div>
 
