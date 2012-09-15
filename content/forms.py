@@ -4,7 +4,7 @@ from django.forms import HiddenInput, IntegerField, ModelForm, ModelChoiceField,
 
 from ckeditor.widgets import CKEditorWidget
 
-from models import Note, Picture, Section, Video
+from models import Note, Picture, Section
  
 class ContentForm(ModelForm):
     content_type = ModelChoiceField(label='content_type',
@@ -45,10 +45,6 @@ class NoteForm(ContentForm):
 class PictureForm(ContentForm):
     class Meta:
         model = Picture
-
-class VideoForm(ContentForm):
-    class Meta:
-        model = Video
 
 class SectionForm(ContentForm):
     text = CharField(widget=CKEditorWidget())

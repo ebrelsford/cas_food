@@ -17,11 +17,6 @@ class BaseContent(models.Model):
     class Meta:
         abstract = True
 
-class Video(BaseContent):
-    url = models.TextField()
-    title = models.CharField(max_length=256)
-    description = models.TextField(null=True, blank=True)
-
 class Picture(BaseContent):
     picture = ImageField(upload_to='pictures')
     title = models.CharField(max_length=256)
