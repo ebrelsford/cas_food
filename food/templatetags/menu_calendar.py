@@ -104,7 +104,7 @@ class MenuCalendar(calendar.HTMLCalendar):
             body.append('<ul>')
             for dish in meal.dishes.all().order_by('name'):
                 body.append('<li>')
-                body.append('<a href="%s">' % dish.get_absolute_url())
+                body.append('<a href="%s?date=%s">' % (dish.get_absolute_url(), meal.date))
                 body.append(esc(dish.name))
                 body.append('</a>')
                 body.append('</li>')

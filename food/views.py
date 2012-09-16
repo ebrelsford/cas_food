@@ -12,9 +12,9 @@ from django.views.generic import CreateView, DayArchiveView, DetailView,\
 
 from alias.models import Alias
 from content.forms import PictureForm
+from food.models import Dish, Ingredient, Meal, MealDish, Nutrient, NutritionFact
 from forms import DishForm
 from generic.views import LoginRequiredMixin, PermissionRequiredMixin
-from models import Dish, Ingredient, Meal, Nutrient, NutritionFact
 
 @login_required
 @permission_required('food.change_dish')
@@ -147,6 +147,16 @@ class DishDetailView(DetailView):
             aliased_type=ContentType.objects.get_for_model(Dish),
             aliased_object_id=self.object.pk,
         ).order_by('text')
+
+        try:
+            date = self.request.GET.get('date')
+            context['meal_dish'] = MealDish.objects.get(
+                dish=self.object,
+                meal__date=date, 
+            )
+        except Exception:
+            pass
+
         return context
 
 class DishAddPictureView(LoginRequiredMixin, PermissionRequiredMixin,

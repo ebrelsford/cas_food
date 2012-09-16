@@ -5,7 +5,7 @@ from datetime import date, datetime
 from itertools import tee, izip
 import re
 
-from food.models import Meal, Dish
+from food.models import Dish, Meal, MealDish
 
 date_pattern = re.compile(r'^(.*) (\d{4})$')
 day_of_month_pattern = re.compile(r'^(\d+)$')
@@ -85,14 +85,27 @@ def load_menu(filename, school_type):
                 dish_name = ' '.join((dish_name, next_line,))
             dish_name = dish_name.lower()
 
+            alias = None
             try:
                 # attempt to find dish, including possible aliases
                 dish = Dish.objects.with_alias(dish_name).get(school_type=school_type)
-            except:
+
+                # get the alias used, if any, to refer to later
+                try:
+                    alias = dish.aliases.get(text=dish_name)
+                except Exception:
+                    pass
+            except Exception:
                 # add the dish
                 dish = Dish(name=dish_name, school_type=school_type)
                 dish.save()
 
-            current_meal.dishes.add(dish)
+            mealdish = MealDish(
+                dish=dish,
+                meal=current_meal,
+                alias=alias,
+            )
+            mealdish.save()
+
             current_meal.save()
             print 'dish name (%s as %s)' % (dish_name, dish.name)

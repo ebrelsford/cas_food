@@ -3,7 +3,7 @@ from django.db import models
 
 from sorl.thumbnail import ImageField
 
-from alias.models import AliasManager
+from alias.models import Alias, AliasManager
 from content.models import Picture
 from glossary.models import Entry
 from utils import slugify
@@ -25,6 +25,10 @@ class Callout(models.Model):
 class Dish(models.Model):
     objects = AliasManager('name')
 
+    aliases = generic.GenericRelation(Alias,
+        content_type_field='aliased_type',
+        object_id_field='aliased_object_id',
+    )
     name = models.CharField(max_length=128)
     slug = models.SlugField(max_length=132)
     ingredients = models.ManyToManyField(Ingredient, blank=True, null=True,
@@ -35,7 +39,6 @@ class Dish(models.Model):
     callouts = models.ManyToManyField(Callout, null=True, blank=True,
                                       help_text='The callouts for this dish')
 
-    # TODO type of school!
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
         ('wits', 'Wellness in the Schools'),
@@ -117,6 +120,17 @@ class NutritionFact(models.Model):
     def __unicode__(self):
         return self.dish.name + ': ' + self.nutrient.name
 
+class MealDish(models.Model):
+    """
+    A Dish as included in a Meal.
+    """
+    dish = models.ForeignKey('Dish')
+    meal = models.ForeignKey('Meal')
+    alias = models.ForeignKey(Alias, blank=True, null=True)
+    
+    def __unicode__(self):
+        return '%s: %s' % (self.meal, self.dish)
+
 class Meal(models.Model):
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
@@ -124,7 +138,11 @@ class Meal(models.Model):
     )
 
     date = models.DateField(help_text='The date this meal is served')
-    dishes = models.ManyToManyField(Dish, help_text='The dishes in this meal')
+
+    dishes = models.ManyToManyField(Dish, 
+        help_text='The dishes in this meal',
+        through=MealDish,
+    )
     school_type = models.CharField(max_length=32, choices=SCHOOL_TYPE_CHOICES,
                                    default='elementary')
 

@@ -348,3 +348,11 @@ table.month .school-type > span {
     font-size: 16px;
     padding: 0.2em 0.5em;
 }
+
+ul.aliases {
+    list-style: disc;
+    margin-left: 40px;
+}
+.aliases .alias-used {
+    font-weight: bold;
+}

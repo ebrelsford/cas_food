@@ -11,7 +11,9 @@
             <ul data-role="listview" data-inset="true">
                 {% for dish in meal.dishes.all %}
                 <li>
-                    <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+                    <a href="{{ dish.get_absolute_url }}?date={{ meal.date|date:"Y-m-d" }}">
+                        {{ dish.name }}
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
