@@ -60,8 +60,8 @@ def details(request, school_slug=None):
     school = get_object_or_404(School, slug=school_slug)
     notes = school.notes.order_by('added').all()
     notes_to_display = 10
-
-    return render_to_response("schools/details.html", {
+    
+    context = {
         'school': school,
         'notes': notes[:notes_to_display],
         'more_notes': notes.count() > notes_to_display,
@@ -73,7 +73,15 @@ def details(request, school_slug=None):
             'added_by': request.user,
             'school': school,
         }),
-    }, context_instance=RequestContext(request))
+    }
+
+    if request.META.get('IS_MOBILE', False):
+        context['trays'] = school.tray_set.all().order_by('-date')
+
+    return render_to_response("schools/details.html",
+        context,
+        context_instance=RequestContext(request),
+    )
 
 def as_geojson(request):
     schools = _filter_schools(request).distinct()

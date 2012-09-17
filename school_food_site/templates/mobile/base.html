@@ -18,7 +18,13 @@
 
         <!-- /jQuery [Mobile] -->
 
+        <script src="{{ MEDIA_URL }}js/common/state.js"></script>
+        <script>
+            casfood_state.authenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
+            casfood_state.mobile = true;
+        </script>
         <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
+        <script src="{{ MEDIA_URL }}js/common/jquery.ratings.js"></script>
 
         <!-- maps -->
         <script src="{{ MEDIA_URL }}lib/OpenLayers/OpenLayers.js"></script>
@@ -29,6 +35,7 @@
         <script src="{{ MEDIA_URL }}lib/highcharts/highcharts.js"></script>
         <script src="{{ MEDIA_URL }}lib/highcharts-touch-tooltip-fix/touch-tooltip-fix.js"></script>
         <script src="{{ MEDIA_URL }}lib/swipe.min.js"></script>
+        <script src="{{ MEDIA_URL }}js/common/init.js"></script>
         <script src="{{ MEDIA_URL }}js/common/map.js"></script>
         <script src="{{ MEDIA_URL }}js/common/jquery.school-search.js"></script>
         <script src="{{ MEDIA_URL }}js/mobile/init.js"></script>
@@ -66,4 +73,3 @@
         </div>
     </body>
 </html>
-

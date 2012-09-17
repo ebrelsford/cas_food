@@ -55,7 +55,7 @@ table.month .day-number {
     padding: 0;
 }
 
-#dish-detail .photos {
+.photos {
     width: 200px;
     margin-left: auto;
     margin-right: auto;

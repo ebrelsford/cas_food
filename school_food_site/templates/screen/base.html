@@ -7,6 +7,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/themes/base/jquery-ui.css" type="text/css" />
         <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-ui/css/cas-food/jquery-ui-1.8.22.cas-food.css" type="text/css" />
+        <script src="{{ MEDIA_URL }}js/common/state.js"></script>
+        <script>
+            casfood_state.authenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
+            casfood_state.mobile = false;
+        </script>
         <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
         <script src="{{ MEDIA_URL }}js/common/jquery.ratings.js"></script>
         <script src="{{ MEDIA_URL }}js/common/jquery.school-search.js"></script>
@@ -43,10 +48,6 @@
                 });
                 $(':input.date').datepicker();
                 $(':input.date.no-future').datepicker('option', 'maxDate', '+0');
-                $('.rate').rate({
-                    loggedIn: {% if request.user.is_authenticated %}true{% else %}false{% endif %},
-                    $logInDialog: $('#log-in-dialog'),
-                });
                 $('a.img-gallery').lightBox({
                     imageLoading: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-ico-loading.gif',   
                     imageBtnClose: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-btn-close.gif',   

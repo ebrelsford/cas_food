@@ -1,4 +1,5 @@
 {% load thumbnail %}
+
 {% if not is_mobile %}
 <script>
     function loadTrays(carousel, state) {
@@ -44,6 +45,7 @@
     });
 </script>
 {% endif %}
+
 <div class="content" data-role="collapsible">
     <h2>What I had for lunch</h2>
     <div class="helptext">
@@ -55,9 +57,27 @@
         </a>
     </p>
     {% if meals_count > 0 %}
-    <div class="meals">
-        <ul class="meals-list carousel jcarousel-skin-meals"></ul>
-    </div>
+        {% if not is_mobile %}
+        <div class="meals">
+            <ul class="meals-list carousel jcarousel-skin-meals"></ul>
+        </div>
+        {% else %}
+        <div class="photos">
+            <ul class="photos-list jcarousel-skin-photos">
+                {% for tray in trays %}
+                {% if tray.pictures.count > 0 %}
+                <li>
+                    <a href="{{ tray.get_absolute_url }}">
+                        {% thumbnail tray.pictures.all.0.picture "200x200" crop="center" upscale="False" as thumb %}
+                        <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                        {% endthumbnail %}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     {% else %}
     No meals have been added yet&mdash;<a href="{% url tray.views.add school_slug=school.slug %}">be the first</a>!
     {% endif %}
