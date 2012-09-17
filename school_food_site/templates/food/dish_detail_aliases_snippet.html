@@ -1,0 +1,19 @@
+{% if aliases %}
+<div class="section" data-role="collapsible">
+    <h2>Aliases</h2>
+    
+    <p>This dish also shows up on menus as:
+        <ul class="aliases">
+            {% for alias in aliases %}
+            {% ifequal meal_dish.alias.text alias.text %}
+            <li class="alias-used">
+                {{ alias.text }} (on the day you're viewing, {{ meal_dish.meal.date }})
+            </li>
+            {% else %}
+            <li>{{ alias.text }}</li>
+            {% endifequal %}
+            {% endfor %}
+        </ul>
+    </p>
+</div>
+{% endif %}

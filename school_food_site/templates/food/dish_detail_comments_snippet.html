@@ -1,0 +1,20 @@
+{% load comments %}
+
+<div class="comments section" data-role="collapsible">
+    <h2>
+        {% if not is_mobile %}
+        <a name="comments">Comments</a>
+        {% else %}
+        Comments
+        {% endif %}
+    </h2>
+    {% if user.is_authenticated %}
+    {% render_comment_form for dish %}
+    {% else %}
+    Please <a href="{% url django.contrib.auth.views.login %}?next={{ request.path }}">log in</a> to comment on this dish.
+    {% endif %}
+
+    {% get_comment_count for dish as comment_count %}
+    There {% if comment_count == 1 %}is{% else %}are{% endif %} {{ comment_count }} comment{{ comment_count|pluralize }} on this dish.
+    {% render_comment_list for dish %}
+</div>

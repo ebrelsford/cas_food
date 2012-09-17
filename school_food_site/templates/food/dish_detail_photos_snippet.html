@@ -1,0 +1,28 @@
+{% load thumbnail %}
+
+<div class="photos">
+    {% if dish.pictures.count > 0 %}
+    <ul class="photos-list jcarousel-skin-photos">
+        {% for picture in dish.pictures.all %}
+        <li>
+            {% if not is_mobile %}
+                {% thumbnail picture.picture "600x600" as full %}
+                <a title="{{ picture.description }}" href="{{ full.url }}" rel="external" class="img-gallery">
+                    {% thumbnail picture.picture "100x100" crop="center" as thumb %}
+                    <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                    {% endthumbnail %}
+                </a>           
+                {% endthumbnail %}
+            {% else %}
+                {% thumbnail picture.picture "200x200" crop="center" upscale="False" as thumb %}
+                <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                {% endthumbnail %}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>
+        <a href="{% url food_dish_add_picture slug=dish.slug %}" class="add-link" data-role="button" data-icon="plus">{% if not is_mobile %}<span class="icon"></span>{% endif %}<span class="text">add a picture</span></a>
+    </p>
+</div>
