@@ -56,7 +56,6 @@
                     imageBlank: '{{ MEDIA_URL }}lib/jquery-lightbox/images/lightbox-blank.gif',   
                 });
 
-                {% if not is_mobile %}
                 $('.expanding-section .expandee').hide();
                 $('.expanding-section .unexpand-text').hide();
                 $('.expanding-section .expander').click(function() {
@@ -66,7 +65,6 @@
                     $(this).find('.unexpand-text').toggle();
                     return false;
                 });
-                {% endif %}
             });
         </script>
         {% endblock %}
