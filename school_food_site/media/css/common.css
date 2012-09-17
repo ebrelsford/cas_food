@@ -236,7 +236,7 @@ table.month .school-type > span {
 }
 .rating-down {
     background: url('/media/images/ThumbsDown.png') no-repeat;
-    margin-top: 16px;
+    margin-top: 10px;
 }
 .ratings-results-wrapper {
     min-height: 15px;
