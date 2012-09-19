@@ -6,13 +6,12 @@ def todays_menu(request):
     """
     Add today's elementary meals to the context, for use in the sidebar.
     """
+    meals_today = Meal.objects.filter(date=date.today())
     return {
-        'todays_menu': Meal.objects.filter(
+        'todays_menu': meals_today.filter(
             school_type='elementary',
-            date=date.today()
         ),
-        'todays_menu_wits': Meal.objects.filter(
+        'todays_menu_wits': meals_today.filter(
             school_type='wits',
-            date=date.today()
         ),
     }

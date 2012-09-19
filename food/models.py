@@ -55,6 +55,7 @@ class Dish(models.Model):
         return self.dishingredient_set.all().select_related('ingredient').order_by('order')
 
     class Meta:
+        ordering = ('name',)
         verbose_name_plural = 'dishes'
 
     def __unicode__(self):
