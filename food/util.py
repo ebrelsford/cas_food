@@ -9,12 +9,15 @@ def add_alias(dish, alias_text):
     alias.save()
     return alias
 
-def consolidate_dish(dish, duplicates):
+def consolidate_dish(dish, duplicates, create_alias=True):
     """
     Remove duplicate dishes, add aliases to the dish we're consolidating on.
     """
     for duplicate_dish in duplicates:
-        alias = add_alias(dish, duplicate_dish.name)
+        alias = None
+        if create_alias:
+            alias = add_alias(dish, duplicate_dish.name)
+
         for meal in duplicate_dish.meal_set.all():
             # delete duplicate dish
             MealDish.objects.filter(
@@ -32,5 +35,3 @@ def consolidate_dish(dish, duplicates):
 
         # NB: assumes we can safely delete DishIngredients on duplicate
         duplicate_dish.delete()
-
-# TODO consolidate dish without creating an Alias
