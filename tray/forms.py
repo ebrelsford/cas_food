@@ -5,9 +5,18 @@ from content.models import Picture
 from schools.models import School
 from models import Tray
 
+class NativeDateInput(DateInput):
+    """
+    Override type attribute.
+    """
+    input_type = 'date'
+
 class TrayForm(ModelForm):
-    date = DateTimeField(label='Date',
-                         widget=DateInput(attrs={'class': 'date no-future'}))
+    date = DateTimeField(
+        label='Date',
+        widget=NativeDateInput(attrs={
+            'class': 'date no-future',
+        }))
     added_by = ModelChoiceField(label='added_by', queryset=User.objects.all(),
                                 widget=HiddenInput())
     school = ModelChoiceField(label='school', queryset=School.objects.all(),

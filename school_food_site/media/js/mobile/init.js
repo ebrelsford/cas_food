@@ -12,9 +12,13 @@ $(document).on('pageshow', '#map-page', function(event) {
 });
 
 $(document).on('pageinit', function() {
-    $('form').find('textarea, :input[type="text"], :input[type="password"], .ui-input-search')
+    $('form').find('textarea, :input[type="date"], :input[type="password"], :input[type="text"], .ui-input-search')
         .removeClass('ui-body-a')
         .addClass('ui-body-b');
 
     window.mySwipe = new Swipe($('.photos').get(-1));
 });
+
+$(document).bind("mobileinit", function() {
+    $.mobile.page.prototype.options.degradeInputs.date = true;
+}); 

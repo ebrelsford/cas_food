@@ -3,6 +3,8 @@ function every_page_load() {
         loggedIn: casfood_state.authenticated,
         $logInDialog: $('#log-in-dialog'),
     });
+
+    $(':input.date.no-future').datepicker('option', 'maxDate', '+0');
 }
 
 if (!casfood_state.mobile) {
