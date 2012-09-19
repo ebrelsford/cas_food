@@ -113,13 +113,15 @@ def _filter_schools(request):
     if 'id' in request.GET:
         return schools.filter(id=request.GET['id'], point__isnull=False)
 
+    school_types = settings.ACTIVE_SCHOOL_TYPES
     if 'types' in request.GET:
         school_types = request.GET['types'].split(',')
-        schools = schools.filter(type__in=school_types)
+    schools = schools.filter(type__in=school_types)
 
+    boroughs = settings.ACTIVE_BOROUGHS
     if 'boroughs' in request.GET:
         boroughs = request.GET['boroughs'].split(',')
-        schools = schools.filter(borough__in=boroughs)
+    schools = schools.filter(borough__in=boroughs)
 
     return schools
 

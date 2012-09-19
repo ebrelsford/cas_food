@@ -9,11 +9,7 @@
 {% if not is_mobile %}
 <script>
     $(document).ready(function() {
-        $('#map').schoolmap({
-            boroughs: 'Brooklyn,Manhattan',   
-            types: 'Elementary',
-        });
-
+        $('#map').schoolmap();
         $('form.school-search').schoolsearch();
     });
 </script>

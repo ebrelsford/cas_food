@@ -180,4 +180,8 @@ LOGGING = {
 
 DEFAULT_GROUP = 'standard users'
 ACTIVE_BOROUGHS = ('Brooklyn', 'Manhattan',)
-ACTIVE_SCHOOL_TYPES = ('Elementary',)
+ACTIVE_SCHOOL_TYPES = (
+    'Early Childhood',
+    'Elementary',
+    'K-8',
+)
