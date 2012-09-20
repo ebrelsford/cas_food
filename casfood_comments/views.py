@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.comments.models import Comment
 from django.http import Http404
 from django.views.generic import DeleteView
@@ -17,6 +18,7 @@ class CommentDeleteView(DeleteView, LoginRequiredMixin, PermissionRequiredMixin)
 
     def delete(self, request, *args, **kwargs):
         self.commented_object = self.get_object().content_object
+        messages.info(request, 'Comment deleted.')
         return super(CommentDeleteView, self).delete(request, *args, **kwargs)
 
     def get_success_url(self):

@@ -102,6 +102,11 @@ a:visited {
     padding-top: 5px;
 }
 
+.messages {
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
 table.month td {
     width: 75px;
     height: 100px;
