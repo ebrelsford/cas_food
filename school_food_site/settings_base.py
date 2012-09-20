@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'alias',
     'accounts',
     'audit',
+    'casfood_comments',
     'connect',
     'content',
     'feedback',

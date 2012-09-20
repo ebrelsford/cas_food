@@ -179,7 +179,8 @@ ul.sections {
 }
 
 .add-link .icon,
-.edit-link .icon {
+.edit-link .icon,
+.delete-link .icon {
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -189,6 +190,9 @@ ul.sections {
 }
 .edit-link .icon {
     background: url(/media/images/doc_edit.png) no-repeat;
+}
+.delete-link .icon {
+    background: url(/media/images/doc_delete.png) no-repeat;
 }
 
 .add-link .text,

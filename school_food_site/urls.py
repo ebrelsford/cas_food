@@ -4,6 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+import casfood_comments.urls as casfood_comments_urls
 import connect.urls as connect_urls
 import content.urls as content_urls
 import feedback.urls as feedback_urls
@@ -38,6 +39,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^comments/', include('django.contrib.comments.urls')),
+    url(r'^comments/', include(casfood_comments_urls)),
 
     # auth
 
