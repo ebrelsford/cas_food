@@ -44,17 +44,19 @@ TEMPLATE_MOBILE_DIR = "mobile"
 TEMPLATE_SCREEN_DIR = "screen"
 
 INSTALLED_APPS = (
+    # contrib
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.flatpages',
     'django.contrib.gis',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    'django.contrib.sites',
 
+    # 3rd-party
     'appmedia',
     'ckeditor',
     'django_jenkins',
@@ -63,6 +65,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
 
+    # internal
     'alias',
     'accounts',
     'audit',
