@@ -4,6 +4,7 @@ settings.py
 .svn
 
 reports
+logs
 school_food_site/media/cache
 school_food_site/media/cache/*
 school_food_site/media/pictures
