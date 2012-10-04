@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 
 from views import DayMenuView, DishDetailView, DishUpdateView, MonthMenuView,\
-        DishAddPictureView, MealListView
+        DishAddPictureView, MealListView, MenuChooseSchoolTypeView
 
 urlpatterns = patterns('',
     url(r'^$', 'food.views.menu'),
@@ -9,6 +9,9 @@ urlpatterns = patterns('',
     url(r'^today/$', 'food.views.todays_menu'),
 
     url(r'^(?P<school_type>[\w,]+)/$', 'food.views.menu'),
+
+    url(r'^pick-school-type/(?P<year>\d{4})/(?P<month>\d{1,2})/(?:(?P<day>\d{1,2})/)?$',
+        MenuChooseSchoolTypeView.as_view(), name='food_menu_month_pick_school_type'),
 
     url(r'^(?P<school_type>[\w,]+)/(?P<year>\d{4})/(?P<month>\d{1,2})/$',
         MonthMenuView.as_view(), name='food_menu_month'),

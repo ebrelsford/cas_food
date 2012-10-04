@@ -8,7 +8,7 @@ from django.forms.models import inlineformset_factory
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import CreateView, DayArchiveView, DetailView,\
-        ListView, MonthArchiveView, UpdateView
+        ListView, MonthArchiveView, TemplateView, UpdateView
 
 from alias.models import Alias
 from content.forms import PictureForm
@@ -65,17 +65,28 @@ def todays_menu(request, school_type='elementary'):
         school_type=school_type
     )
 
-class MonthMenuView(MonthArchiveView):
+class MultipleSchoolTypeMixin(object):
+    SCHOOL_TYPES_VERBOSE = {
+        'elementary': 'elementary',
+        'wits': 'Wellness in the Schools',
+    }
+
+    def get_school_types(self, school_type_str):
+        school_types = filter(lambda t: t in self.SCHOOL_TYPES_VERBOSE.keys(),
+            school_type_str.split(',')
+        )
+        return school_types
+
+    def get_school_types_display(self, school_types):
+        school_types_display = ', '.join(self.SCHOOL_TYPES_VERBOSE[t] for t in school_types)
+        return school_types_display
+
+class MonthMenuView(MultipleSchoolTypeMixin, MonthArchiveView):
     allow_empty = True
     allow_future = True
     date_field = 'date'
     month_format = '%m'
     template_name = 'food/meal_archive_month.html'
-
-    school_types_verbose = {
-        'elementary': 'elementary',
-        'wits': 'Wellness in the Schools',
-    }
 
     def get_queryset(self):
         school_types = self.kwargs.get('school_type', '').split(',')
@@ -83,18 +94,14 @@ class MonthMenuView(MonthArchiveView):
 
     def get_context_data(self, **kwargs):
         context = super(MonthMenuView, self).get_context_data(**kwargs)
-        context['school_type'] = self.kwargs['school_type']
 
-        school_types = filter(lambda t: t in self.school_types_verbose.keys(),
-            self.kwargs.get('school_type', '').split(',')
-        )
+        school_types = self.get_school_types(self.kwargs.get('school_type', ''))
         if not school_types:
             raise Http404
+
+        context['school_type'] = self.kwargs['school_type']
         context['school_types'] = school_types
-
-        school_types_display = ', '.join(self.school_types_verbose[t] for t in school_types)
-        context['school_types_display'] = school_types_display
-
+        context['school_types_display'] = self.get_school_types_display(school_types)
         context['has_multiple_school_types'] = len(school_types) > 1
         return context
 
@@ -118,7 +125,7 @@ class MealListView(ListView):
 
         return meals.order_by('date')
 
-class DayMenuView(DayArchiveView):
+class DayMenuView(MultipleSchoolTypeMixin, DayArchiveView):
     allow_empty = True
     allow_future = True
     date_field = 'date'
@@ -131,8 +138,25 @@ class DayMenuView(DayArchiveView):
 
     def get_context_data(self, **kwargs):
         context = super(DayMenuView, self).get_context_data(**kwargs)
+
+        school_types = self.get_school_types(self.kwargs.get('school_type', ''))
+        if not school_types:
+            raise Http404
+
         context['school_type'] = self.kwargs['school_type']
-        context['has_multiple_school_types'] = ',' in self.kwargs['school_type']
+        context['school_types'] = school_types
+        context['school_types_display'] = self.get_school_types_display(school_types)
+        context['has_multiple_school_types'] = len(school_types) > 1
+        return context
+
+class MenuChooseSchoolTypeView(TemplateView):
+    template_name = 'food/menu_choose_school_type.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuChooseSchoolTypeView, self).get_context_data(**kwargs)
+        context['day'] = kwargs.get('day', None)
+        context['month'] = kwargs.get('month', None)
+        context['year'] = kwargs.get('year', None)
         return context
 
 class DishDetailView(DetailView):
