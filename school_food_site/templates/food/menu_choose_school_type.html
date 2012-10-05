@@ -1,0 +1,14 @@
+{% extends "mobile/base.html" %}
+
+{% block header_title %}Pick a School Type{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div>
+    {% if not day %}
+    <a href="{% url food_menu_month school_type="elementary" year=year month=month %}" data-role="button">Elementary</a>
+    <a href="{% url food_menu_month school_type="wits" year=year month=month %}" data-role="button">Wellness in the Schools</a>
+    {% else %}
+    {% endif %}
+</div>
+{% endblock %}
