@@ -3,6 +3,7 @@ import os
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+COMPRESS_ROOT = MEDIA_ROOT
 
 TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
@@ -14,6 +15,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 TEMPLATE_LOADERS = (
@@ -59,6 +61,7 @@ INSTALLED_APPS = (
     # 3rd-party
     'appmedia',
     'ckeditor',
+    'compressor',
     'django_jenkins',
     'registration',
     'selectable',

@@ -1,3 +1,5 @@
+{% load compress %}
+
 <!doctype html>
 <html>
     <head>
@@ -10,31 +12,36 @@
         <link href='http://fonts.googleapis.com/css?family=Mate:400,400italic' rel='stylesheet' type='text/css'>
 
         <!-- jQuery [Mobile] -->
-        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/themes/lunchline.min.css" />
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile.structure-1.1.1.min.css" /> 
+        <!-- /jQuery [Mobile] -->
+
+        {% compress css %}
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery.mobile/themes/lunchline.min.css" />
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-mobile-datepicker/jquery.ui.datepicker.mobile.css" /> 
+        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
+
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/common.css" />
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/mobile.css" />
+        {% endcompress %}
 
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
 
-        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/jquery-mobile-datepicker/jquery.ui.datepicker.mobile.css" /> 
+        {% compress js %}
+        <!-- jQuery [Mobile] -->
         <!-- NB: hardcoded not to allow future dates -->
         <script src="{{ MEDIA_URL }}lib/jquery-mobile-datepicker/jquery.ui.datepicker.js"></script>
         <script src="{{ MEDIA_URL }}lib/jquery-mobile-datepicker/jquery.ui.datepicker.mobile.js"></script>
-
         <!-- /jQuery [Mobile] -->
 
         <script src="{{ MEDIA_URL }}js/common/state.js"></script>
-        <script>
-            casfood_state.authenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
-            casfood_state.mobile = true;
-        </script>
         <script src="{{ MEDIA_URL }}js/common/jquery-util.js"></script>
         <script src="{{ MEDIA_URL }}js/common/jquery.ratings.js"></script>
 
         <!-- maps -->
         <script src="{{ MEDIA_URL }}lib/OpenLayers/OpenLayers.js"></script>
         <script src="{{ MEDIA_URL }}lib/cloudmade.js"></script>
-        <link rel="stylesheet" href="{{ MEDIA_URL }}lib/OpenLayers/theme/default/style.css" />
         <!-- /maps -->
 
         <script src="{{ MEDIA_URL }}lib/highcharts/highcharts.js"></script>
@@ -44,12 +51,20 @@
         <script src="{{ MEDIA_URL }}js/common/map.js"></script>
         <script src="{{ MEDIA_URL }}js/common/jquery.school-search.js"></script>
         <script src="{{ MEDIA_URL }}js/mobile/init.js"></script>
-        <link rel="stylesheet" href="{{ MEDIA_URL }}css/reset.css" />
-        <link rel="stylesheet" href="{{ MEDIA_URL }}css/common.css" />
-        <link rel="stylesheet" href="{{ MEDIA_URL }}css/mobile.css" />
+        {% endcompress %}
+
+        <!-- Intentionally not compressed. -->
+        <script>
+            casfood_state.authenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
+            casfood_state.mobile = true;
+        </script>
 
         {% block head_includes %}{% endblock %}
+
+        {% compress js %}
         {% block head_scripts %}{% endblock %}
+        {% endcompress %}
+
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
