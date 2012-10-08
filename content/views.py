@@ -1,7 +1,9 @@
+from django.http import Http404
 from django.views.generic import ListView, UpdateView
 
 from content.forms import SectionForm
 from content.models import Picture, Section
+from generic.views import LoginRequiredMixin, PermissionRequiredMixin
 
 class PictureListView(ListView):
     default_count = 3
@@ -19,14 +21,17 @@ class PictureListView(ListView):
             return pictures
         return pictures[index:index + count]
 
-class SectionUpdateView(UpdateView):
-    model = Section
+class SectionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     form_class = SectionForm
+    model = Section
+    permission = 'content.change_section'
 
     def get_form_kwargs(self):
         kwargs = super(SectionUpdateView, self).get_form_kwargs()
-        # XXX will only work when editing an existing Section
-        kwargs['object'] = self.get_object().content_object
+        try:
+            kwargs['object'] = self.get_object().content_object
+        except Exception:
+            raise Http404
         return kwargs
 
     def get_success_url(self):
