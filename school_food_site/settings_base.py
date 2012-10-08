@@ -85,6 +85,28 @@ INSTALLED_APPS = (
     'tray',
 )
 
+TEST_RUNNER="ignoretests.DjangoIgnoreTestSuiteRunner"
+IGNORE_TESTS = (
+    'django.contrib.auth',
+    'django.contrib.admin',
+    'django.contrib.comments',
+    'django.contrib.contenttypes',
+    'django.contrib.flatpages',
+    'django.contrib.gis',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'appmedia',
+    'ckeditor',
+    'compressor',
+    'django_jenkins',
+    'registration',
+    'selectable',
+    'south',
+    'sorl.thumbnail',
+)
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.i18n',

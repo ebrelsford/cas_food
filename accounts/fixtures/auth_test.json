@@ -1,5 +1,4 @@
 [
-
     {
         "pk": 1, 
         "model": "auth.user",
@@ -8,10 +7,28 @@
             "first_name": "test", 
             "last_name": "test", 
             "email": "test@test.com", 
-            "password": "pbkdf2_sha256$10000$n16KsjhgWASg$9mUJlIFQKgzN9rKUDl4lgr2fUEuYXe1AWOZsTV39T8w=", 
+            "password": "pbkdf2_sha256$10000$7Bci6ZbgqotA$vInl8UrFcsVgqBOfP1Vd1SlzjB/Gin3Aof8DfV5xLQw=", 
             "is_staff": false, 
             "is_active": true, 
             "is_superuser": false, 
+            "date_joined": "2012-01-01T00:00:00.000", 
+            "last_login": "2012-01-01T00:00:00.001", 
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "auth.user",
+        "fields": {
+            "username": "superuser", 
+            "first_name": "superuser", 
+            "last_name": "superuser", 
+            "email": "superuser@test.com", 
+            "password": "pbkdf2_sha256$10000$7Bci6ZbgqotA$vInl8UrFcsVgqBOfP1Vd1SlzjB/Gin3Aof8DfV5xLQw=", 
+            "is_staff": false, 
+            "is_active": true, 
+            "is_superuser": true, 
             "date_joined": "2012-01-01T00:00:00.000", 
             "last_login": "2012-01-01T00:00:00.001", 
             "groups": [],

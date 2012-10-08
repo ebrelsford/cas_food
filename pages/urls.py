@@ -1,14 +1,9 @@
 from django.conf.urls.defaults import patterns, url
-from django.contrib.flatpages.models import FlatPage
-from django.views.generic import UpdateView
 
-from forms import FlatPageForm
+from pages.views import PageUpdateView
 
 urlpatterns = patterns('',
-    url(r'(?P<pk>\d+)/edit/$', UpdateView.as_view(
-            model=FlatPage,
-            form_class=FlatPageForm,
-        ),
+    url(r'(?P<pk>\d+)/edit/$', PageUpdateView.as_view(),
         name='pages_flatpage_update'
     ),
 )

@@ -21,10 +21,38 @@
     {"pk": 3, "model": "food.nutritionfact", "fields": {"dish": 2, "nutrient": 3, "amount": 7, "amount_unit": null, "percent_daily_value": null}}, 
     {"pk": 4, "model": "food.nutritionfact", "fields": {"dish": 2, "nutrient": 1, "amount": 8, "amount_unit": null, "percent_daily_value": "9.0"}}, 
 
-    {"pk": 1, "model": "food.meal", "fields": {"date": "2012-03-01", "school_type": "elementary", "dishes": [1, 2]}}, 
-    {"pk": 2, "model": "food.meal", "fields": {"date": "2012-05-21", "school_type": "wits", "dishes": [2]}}, 
-    {"pk": 3, "model": "food.meal", "fields": {"date": "2012-03-02", "school_type": "elementary", "dishes": [1]}}, 
-    {"pk": 4, "model": "food.meal", "fields": {"date": "2012-05-01", "school_type": "elementary", "dishes": [1, 2]}}, 
-    {"pk": 5, "model": "food.meal", "fields": {"date": "2012-06-27", "school_type": "elementary", "dishes": [2]}}
+    {"pk": 1, "model": "food.meal", "fields": {"date": "2012-03-01", "school_type": "elementary"}}, 
+    {"pk": 2, "model": "food.meal", "fields": {"date": "2012-05-21", "school_type": "wits"}}, 
+    {"pk": 3, "model": "food.meal", "fields": {"date": "2012-03-02", "school_type": "elementary"}}, 
+    {"pk": 4, "model": "food.meal", "fields": {"date": "2012-05-01", "school_type": "elementary"}}, 
+    {"pk": 5, "model": "food.meal", "fields": {"date": "2012-06-27", "school_type": "elementary"}},
+
+    {
+        "pk": 1,
+        "model": "food.mealdish",
+        "fields": {
+            "dish": 1,
+            "alias": null,
+            "meal": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "food.mealdish",
+        "fields": {
+            "dish": 1,
+            "alias": null,
+            "meal": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "food.mealdish",
+        "fields": {
+            "dish": 2,
+            "alias": null,
+            "meal": 3
+        }
+    }
 
 ]
