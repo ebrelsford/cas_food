@@ -1,5 +1,6 @@
 import geojson
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -259,7 +260,15 @@ class EditOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, UpdateVie
         kwargs['initial']['updated_by'] = self.request.user
         return kwargs
 
+    def post(self, request, *args, **kwargs):
+        messages.info(request, 'Organizer "%s" edited.' % self.get_object().name)
+        return super(EditOrganizerView, self).post(request, *args, **kwargs)
+
 class DeleteOrganizerView(SchoolOrganizerMixin, PermissionRequiredMixin, DeleteView):
     model = Organizer
     permission = 'organize.delete_organizer'
     template_name = 'schools/organizer_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        messages.info(request, 'Organizer "%s" deleted.' % self.get_object().name)
+        return super(DeleteOrganizerView, self).delete(request, *args, **kwargs)
