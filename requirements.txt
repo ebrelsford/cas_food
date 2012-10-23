@@ -6,6 +6,7 @@ coverage==3.5.2
 django-appmedia==1.0.1
 -e git+https://github.com/eserge/django-ckeditor.git@9a55d7b8887df804caea046a0fcbbed01310ff3d#egg=django_ckeditor-dev
 django-compressor==1.2
+django-google-analytics==1
 django-jenkins==0.12.1
 django-registration==0.8
 django-selectable==0.4.1

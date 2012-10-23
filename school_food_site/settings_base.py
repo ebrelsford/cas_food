@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'compressor',
     'django_jenkins',
+    'google_analytics',
     'registration',
     'selectable',
     'south',
@@ -214,3 +215,5 @@ ACTIVE_SCHOOL_TYPES = (
     'Elementary',
     'K-8',
 )
+
+GOOGLE_ANALYTICS_MODEL = True

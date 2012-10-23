@@ -1,4 +1,4 @@
-{% load compress %}
+{% load googleanalytics compress %}
 
 <!doctype html>
 <html>
@@ -133,5 +133,6 @@
         <div id="log-in-dialog">
             You must log in before doing this.
         </div>
+        {% google_analytics %}
     </body>
 </html>
