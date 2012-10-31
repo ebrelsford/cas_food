@@ -24,7 +24,7 @@
             {% include "food/meal_archive_day_content.html" %}
             {% endwith %}
         {% else %}
-            {% with object_list=todays_menu school_type="Elementary" day="" has_multiple_school_types=False %}
+            {% with object_list=todays_menu school_type="Elementary" school_types_display="elementary" day="" has_multiple_school_types=False %}
             {% include "food/meal_archive_day_content.html" %}
             {% endwith %}
         {% endif %}
