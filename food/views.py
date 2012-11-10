@@ -68,6 +68,7 @@ def todays_menu(request, school_type='elementary'):
 class MultipleSchoolTypeMixin(object):
     SCHOOL_TYPES_VERBOSE = {
         'elementary': 'elementary',
+        'elementary_alternative': 'alternative elementary menu',
         'wits': 'Wellness in the Schools',
     }
 
@@ -99,6 +100,7 @@ class MonthMenuView(MultipleSchoolTypeMixin, MonthArchiveView):
         if not school_types:
             raise Http404
 
+        print '** school_types:', school_types
         context['school_type'] = self.kwargs['school_type']
         context['school_types'] = school_types
         context['school_types_display'] = self.get_school_types_display(school_types)

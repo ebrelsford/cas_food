@@ -12,6 +12,8 @@ def do_menu_calendar(parser, token):
     The template tag's syntax is {% menu_calendar year month meal_list [show_details] [show_school_type_labels] %}
     """
     tokens = token.split_contents()
+    print tokens
+
     if len(tokens) < 4:
         raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
     year, month, meal_list = tokens[1:4]
@@ -23,6 +25,7 @@ def do_menu_calendar(parser, token):
         show_school_type_labels = (tokens[5] == 'True')
     except:
         show_school_type_labels = False
+    print 'show_school_type_labels:', show_school_type_labels
     return MenuCalendarNode(year, month, meal_list, show_details=show_details,
                             show_school_type_labels=show_school_type_labels)
 
@@ -43,6 +46,7 @@ class MenuCalendarNode(template.Node):
             raise template.TemplateSyntaxError
 
     def render(self, context):
+        print 'rendering:', self.show_school_type_labels
         try:
             my_meal_list = self.meal_list.resolve(context)
             my_year = self.year.resolve(context)
