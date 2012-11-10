@@ -17,10 +17,10 @@
 </div>
 <div class="right">
     {% block sidebar %}
-    {% if todays_menu %}
+    {% if todays_menu or todays_menu_elementary_alternative %}
     <div class="todays-menu sidebar-section">
         {% if school and school.participates_in_wellness_in_the_schools %}
-            {% with object_list=todays_menu_wits school_type="Wellness in the Schools" day="" has_multiple_school_types=False %}
+            {% with object_list=todays_menu_elementary_alternative school_types_display="alternative elementary" day="" has_multiple_school_types=False %}
             {% include "food/meal_archive_day_content.html" %}
             {% endwith %}
         {% else %}

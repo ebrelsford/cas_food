@@ -7,7 +7,7 @@
 <div>
     {% if not day %}
     <a href="{% url food_menu_month school_type="elementary" year=year month=month %}" data-role="button">Elementary</a>
-    <a href="{% url food_menu_month school_type="wits" year=year month=month %}" data-role="button">Wellness in the Schools</a>
+    <a href="{% url food_menu_month school_type="elementary_alternative" year=year month=month %}" data-role="button">Elementary Alternative Lunch Menu</a>
     {% else %}
     {% endif %}
 </div>

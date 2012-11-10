@@ -6,10 +6,10 @@
 <div>
     <div class="filters">
         {% if not is_mobile %}
-        <input type="checkbox" id="wits" name="wits" 
-            {% if "wits" in school_type %}checked="checked"{% endif %}
+        <input type="checkbox" id="elementary_alternative" name="elementary_alternative" 
+            {% if "elementary_alternative" in school_type %}checked="checked"{% endif %}
         />
-        <label for="wits">show Wellness in the Schools menu, too</label>
+        <label for="elementary_alternative">show alternative elementary lunch menu, too</label>
         {% else %}
         <a href="{% url food_menu_month_pick_school_type year=month|date:"Y" month=month|date:"m" %}" data-rel="dialog" data-role="button">change school type</a>
         {% endif %}

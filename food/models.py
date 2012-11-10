@@ -41,6 +41,7 @@ class Dish(models.Model):
 
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
+        ('elementary_alternative', 'alternative elementary menu'),
         ('wits', 'Wellness in the Schools'),
     )
     school_type = models.CharField(
@@ -135,6 +136,7 @@ class MealDish(models.Model):
 class Meal(models.Model):
     SCHOOL_TYPE_CHOICES = (
         ('elementary', 'elementary'),
+        ('elementary_alternative', 'alternative elementary menu'),
         ('wits', 'Wellness in the Schools'),
     )
 

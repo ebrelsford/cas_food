@@ -11,7 +11,7 @@ def todays_menu(request):
         'todays_menu': meals_today.filter(
             school_type='elementary',
         ),
-        'todays_menu_wits': meals_today.filter(
-            school_type='wits',
+        'todays_menu_elementary_alternative': meals_today.filter(
+            school_type='elementary_alternative',
         ),
     }

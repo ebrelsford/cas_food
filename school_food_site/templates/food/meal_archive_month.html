@@ -15,15 +15,15 @@ Menu for {{ month|date:"N Y" }}
 {{ block.super }}
 <script>
 $(document).ready(function() {
-    $(':input[name="wits"]').change(function() {
+    $(':input[name="elementary_alternative"]').change(function() {
         var school_types = '{{ school_type }}';
         var original_school_types = school_types;
         var path = '{{ request.path }}';
         if ($(this).is(':checked')) {
-            school_types += ',wits';
+            school_types += ',elementary_alternative';
         }
         else {
-            school_types = school_types.replace(',wits', '');
+            school_types = school_types.replace(',elementary_alternative', '');
             //  or have a list of school types and just join them
         }
         window.location = path.replace(original_school_types, school_types);
